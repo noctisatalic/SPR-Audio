@@ -1386,7 +1386,7 @@ footer{
                     <div class="calc-trigger-info">
                         <label>2. Jarak Lokasi Acara (KM dari Basecamp)</label>
                     </div>
-                    <!-- UBAH BATAS MIN & MAX DI SINI (0 - 1500) -->
+                    <!-- BATAS MIN & MAX (0 - 1500) -->
                     <input type="number" id="jarakKM" value="5" min="0" max="1500" placeholder="Masukkan jarak (0 - 1500 KM)" oninput="hitungSewa()" style="margin-top: 8px;">
                 </div>
             </div>
@@ -1705,9 +1705,18 @@ footer{
                 <input type="text" name="name" id="nameInput" placeholder="Contoh: Budi Santoso" maxlength="60" required />
             </div>
 
+            <!-- PERBAIKAN: DIGANTI MENJADI NOMOR WHATSAPP/HP + PENOLAK HURUF AUTOMATIS -->
             <div class="form-group">
-                <label>Alamat Email</label>
-                <input type="email" name="email" id="emailInput" placeholder="budi@example.com" maxlength="80" required />
+                <label>Nomor WhatsApp / HP yang Dapat Dihubungi</label>
+                <input 
+                    type="tel" 
+                    name="phone" 
+                    id="phoneInput" 
+                    placeholder="Contoh: 081234567890" 
+                    inputmode="numeric"
+                    maxlength="15" 
+                    oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                    required />
             </div>
 
             <div class="form-group" id="portfolioGroup" style="display: none;">
@@ -2102,18 +2111,17 @@ async function handleFormSubmit(e) {
 
     // 3. VALIDASI INPUT KETAT
     const nameVal = document.getElementById('nameInput')?.value.trim();
-    const emailVal = document.getElementById('emailInput')?.value.trim();
+    const phoneVal = document.getElementById('phoneInput')?.value.trim();
     const msgVal = document.getElementById('messageInput')?.value.trim();
 
-    if (!nameVal || !emailVal || !msgVal) {
+    if (!nameVal || !phoneVal || !msgVal) {
         showToast("Mohon lengkapi semua bidang yang wajib diisi.", "⚠️");
         return;
     }
 
-    // Validasi Format Email
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(emailVal)) {
-        showToast("Format alamat email tidak valid.", "⚠️");
+    // Validasi Format Nomor WA / Telepon (Minimal 9 Angka)
+    if (phoneVal.length < 9) {
+        showToast("Nomor WhatsApp/HP terlalu pendek. Masukkan nomor yang valid.", "⚠️");
         return;
     }
 
@@ -2136,7 +2144,7 @@ async function handleFormSubmit(e) {
 
         if (data.success) {
             lastSubmitTime = Date.now();
-            showToast("Terima kasih! Pesanmu berhasil terkirim ke email SPR Audio.", "✉️");
+            showToast("Terima kasih! Pesanmu berhasil terkirim ke SPR Audio.", "✉️");
             form.reset();
             closeModal();
         } else {
