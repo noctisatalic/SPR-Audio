@@ -472,50 +472,87 @@ body:before{
     transition: height 0.1s ease;
 }
 
-/* ================= KALENDER KETERSEDIAAN TANGGAL ================= */
-.schedule-section {
-    padding: 100px 6vw 50px;
-    background: var(--bg);
+/* ================= KALENDER POPUP TRIGGER SECTION ================= */
+.schedule-banner {
+    padding: 40px 6vw;
+    background: var(--panel2);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
-.schedule-card {
-    background: var(--panel);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    padding: 35px;
+.schedule-banner-text h3 {
+    font-family: "Space Grotesk";
+    font-size: 22px;
+    margin-bottom: 4px;
+}
+
+.schedule-banner-text p {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.btn-check-date {
+    background: rgba(125, 182, 214, 0.1);
+    color: var(--accent2);
+    border: 1px solid rgba(125, 182, 214, 0.3);
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-check-date:hover {
+    background: var(--accent);
+    color: #08090b;
+    transform: translateY(-2px);
+}
+
+/* Modal Kalender */
+.calendar-modal-box {
+    max-width: 600px !important;
 }
 
 .schedule-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
     flex-wrap: wrap;
     gap: 15px;
 }
 
 .schedule-month {
     font-family: "Space Grotesk";
-    font-size: 22px;
+    font-size: 20px;
     color: var(--text);
 }
 
 .schedule-legend {
     display: flex;
-    gap: 20px;
+    gap: 15px;
     font-size: 12px;
 }
 
 .legend-item {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     color: var(--muted);
 }
 
 .dot {
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
 }
 
@@ -526,34 +563,29 @@ body:before{
 .calendar-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 10px;
+    gap: 8px;
     text-align: center;
 }
 
 .calendar-day-head {
-    font-size: 12px;
+    font-size: 11px;
     color: var(--accent2);
     font-weight: 700;
-    padding-bottom: 10px;
+    padding-bottom: 8px;
 }
 
 .calendar-day {
-    background: var(--bg2);
+    background: var(--bg);
     border: 1px solid var(--line);
-    border-radius: 12px;
-    padding: 14px 8px;
-    font-size: 14px;
+    border-radius: 10px;
+    padding: 10px 4px;
+    font-size: 13px;
     font-weight: bold;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 6px;
+    gap: 4px;
     position: relative;
-    transition: 0.2s;
-}
-
-.calendar-day:hover {
-    border-color: rgba(125,182,214,0.4);
 }
 
 .calendar-day.empty {
@@ -562,9 +594,9 @@ body:before{
 }
 
 .status-tag {
-    font-size: 9px;
-    padding: 2px 6px;
-    border-radius: 6px;
+    font-size: 8px;
+    padding: 2px 4px;
+    border-radius: 4px;
     font-weight: 600;
     text-transform: uppercase;
 }
@@ -584,13 +616,11 @@ body:before{
     color: var(--warning);
 }
 
-
-/* ================= KALKULATOR PRICELIST ================= */
+/* ================= KALKULATOR PRICELIST (COLLAPSIBLE DROPDOWN) ================= */
 
 .calculator-section {
     padding: 100px 6vw;
     background: var(--bg2);
-    border-top: 1px solid var(--line);
 }
 
 .calc-grid {
@@ -608,64 +638,107 @@ body:before{
 }
 
 .calc-group {
-    margin-bottom: 24px;
+    margin-bottom: 20px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: var(--bg);
+    overflow: hidden;
+    transition: border-color 0.3s ease;
 }
 
-.calc-group label {
+.calc-group.open {
+    border-color: rgba(125, 182, 214, 0.4);
+}
+
+/* Header Penutup Opsi */
+.calc-trigger {
+    padding: 18px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    user-select: none;
+}
+
+.calc-trigger-info label {
     display: block;
-    font-size: 12px;
+    font-size: 11px;
     color: var(--accent2);
-    margin-bottom: 12px;
     text-transform: uppercase;
     letter-spacing: 1px;
     font-weight: 700;
+    margin-bottom: 2px;
 }
 
-/* Custom Minimalist Radio Options */
+.calc-selected-val {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.calc-arrow {
+    font-size: 12px;
+    color: var(--muted);
+    transition: transform 0.3s ease;
+}
+
+.calc-group.open .calc-arrow {
+    transform: rotate(180deg);
+    color: var(--accent);
+}
+
+/* Container Opsi Muncul Saat Klik */
 .custom-options {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease, padding 0.35s ease;
+    padding: 0 16px;
     display: flex;
     flex-direction: column;
     gap: 10px;
+}
+
+.calc-group.open .custom-options {
+    max-height: 400px;
+    padding: 0 16px 16px 16px;
 }
 
 .option-card {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 16px 20px;
-    background: var(--bg);
+    padding: 14px 18px;
+    background: var(--panel);
     border: 1px solid var(--line);
-    border-radius: 14px;
+    border-radius: 12px;
     cursor: pointer;
-    transition: all 0.25s ease;
+    transition: all 0.2s ease;
 }
 
 .option-card:hover {
     border-color: rgba(125, 182, 214, 0.3);
-    background: rgba(255, 255, 255, 0.02);
 }
 
 .option-card.active {
     border-color: var(--accent);
-    background: rgba(125, 182, 214, 0.06);
+    background: rgba(125, 182, 214, 0.08);
 }
 
 .option-text strong {
     display: block;
-    font-size: 14px;
+    font-size: 13.5px;
     color: var(--text);
     margin-bottom: 2px;
-    font-weight: 600;
 }
 
 .option-text span {
-    font-size: 12px;
+    font-size: 11.5px;
     color: var(--muted);
 }
 
 .radio-indicator {
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
     border: 2px solid var(--muted);
     border-radius: 50%;
     display: flex;
@@ -681,18 +754,18 @@ body:before{
 
 .option-card.active .radio-indicator::after {
     content: "";
-    width: 8px;
-    height: 8px;
+    width: 7px;
+    height: 7px;
     background: var(--accent);
     border-radius: 50%;
 }
 
 .calc-group input[type="number"] {
     width: 100%;
-    background: var(--bg);
+    background: var(--panel);
     border: 1px solid var(--line);
-    border-radius: 12px;
-    padding: 14px 16px;
+    border-radius: 10px;
+    padding: 12px 16px;
     color: var(--text);
     font-family: inherit;
     font-size: 14px;
@@ -1431,14 +1504,6 @@ section{
     margin-bottom: 5px;
 }
 
-.terms-body::-webkit-scrollbar {
-    width: 5px;
-}
-.terms-body::-webkit-scrollbar-thumb {
-    background: rgba(255,255,255,0.2);
-    border-radius: 10px;
-}
-
 /* ================= FOOTER ================= */
 
 footer{
@@ -1596,17 +1661,17 @@ footer{
     }
 
     .calendar-grid {
-        gap: 5px;
+        gap: 4px;
     }
 
     .calendar-day {
-        padding: 8px 4px;
+        padding: 6px 2px;
         font-size: 11px;
     }
 
     .status-tag {
-        font-size: 8px;
-        padding: 1px 4px;
+        font-size: 7px;
+        padding: 1px 3px;
     }
 
     footer{
@@ -1639,7 +1704,7 @@ footer{
 </a>
 
     <div class="nav-links">
-        <a href="#jadwal">Jadwal Realtime</a>
+        <a onclick="openCalendarModal()">Cek Jadwal</a>
         <a href="#kalkulator">Hitung Sewa</a>
         <a href="#jobs">Lowongan Kerja</a>
         <a href="#process">Proses</a>
@@ -1686,9 +1751,9 @@ footer{
                 Simulasi Biaya Sewa
             </a>
 
-            <a href="#jobs" class="btn-secondary">
-                Jelajahi Lowongan
-            </a>
+            <button class="btn-secondary" onclick="openCalendarModal()">
+                📅 Cek Tanggal Kosong
+            </button>
 
         </div>
 
@@ -1720,37 +1785,20 @@ footer{
 </header>
 
 
-<!-- ================= KALENDER JADWAL REALTIME ================= -->
+<!-- ================= CALL TO ACTION KETERSEDIAAN JADWAL ================= -->
 
-<section class="schedule-section" id="jadwal">
-
-    <div class="section-head reveal" style="margin-bottom: 25px;">
-        <div>
-            <div class="section-label">Jadwal Tanggal Terbuka</div>
-            <h2>Ketersediaan Realtime.</h2>
-        </div>
-        <p>Cek ketersediaan tanggal acara kamu secara langsung sebelum melakukan pemesanan sound system.</p>
+<div class="schedule-banner reveal">
+    <div class="schedule-banner-text">
+        <h3>Ingin Memastikan Jadwal Acara Anda?</h3>
+        <p>Lihat ketersediaan tanggal kosong dan jadwal terisi secara realtime sebelum melakukan booking.</p>
     </div>
-
-    <div class="schedule-card reveal">
-        <div class="schedule-header">
-            <div class="schedule-month" id="currentMonthYear">Agustus 2026</div>
-            <div class="schedule-legend">
-                <div class="legend-item"><span class="dot available"></span> Kosong (Tersedia)</div>
-                <div class="legend-item"><span class="dot limited"></span> Terbatas</div>
-                <div class="legend-item"><span class="dot booked"></span> Penuh (Booked)</div>
-            </div>
-        </div>
-
-        <div class="calendar-grid" id="calendarGrid">
-            <!-- Kalender di-generate via JavaScript -->
-        </div>
-    </div>
-
-</section>
+    <button class="btn-check-date" onclick="openCalendarModal()">
+        📅 Cek Tanggal Kosong
+    </button>
+</div>
 
 
-<!-- ================= KALKULATOR PRICELIST ================= -->
+<!-- ================= KALKULATOR PRICELIST (COLLAPSIBLE) ================= -->
 
 <section class="calculator-section" id="kalkulator">
 
@@ -1759,18 +1807,26 @@ footer{
             <div class="section-label">Simulasi Biaya Cepat</div>
             <h2>Kalkulator Sewa<br>Sound System.</h2>
         </div>
-        <p>Pilih konfigurasi kebutuhan kamu di bawah ini untuk melihat estimasi transparan secara otomatis.</p>
+        <p>Klik opsi di bawah ini untuk memilih konfigurasi acara kamu dan dapatkan rincian harganya secara transparan.</p>
     </div>
 
     <div class="calc-grid reveal">
-        <!-- FORM PILIHAN CUSTOM SIMPLE & ELEGAN -->
+        
+        <!-- FORM PILIHAN (KLIK BARU MUNCUL OPSI) -->
         <div class="calc-box">
             
             <!-- 1. PAKET SOUND -->
-            <div class="calc-group">
-                <label>1. Pilih Paket Sound System</label>
-                <div class="custom-options" id="groupPaket">
-                    <div class="option-card" onclick="selectOption('groupPaket', 1500000, 'Paket Akustik / Indoor', 'Hingga 3.000 Watt')">
+            <div class="calc-group" id="groupPaket">
+                <div class="calc-trigger" onclick="toggleCalcGroup('groupPaket')">
+                    <div class="calc-trigger-info">
+                        <label>1. Pilih Paket Sound System</label>
+                        <div class="calc-selected-val" id="valPaket">Paket Medium / Pernikahan</div>
+                    </div>
+                    <span class="calc-arrow">▼</span>
+                </div>
+
+                <div class="custom-options">
+                    <div class="option-card" onclick="selectOption('groupPaket', 'valPaket', 1500000, 'Paket Akustik / Indoor', 'Hingga 3.000 Watt')">
                         <div class="option-text">
                             <strong>Paket Akustik / Indoor</strong>
                             <span>Kapasitas Hingga 3.000 W</span>
@@ -1778,7 +1834,7 @@ footer{
                         <div class="radio-indicator"></div>
                     </div>
 
-                    <div class="option-card active" onclick="selectOption('groupPaket', 3000000, 'Paket Medium / Pernikahan', 'Hingga 5.000 Watt')">
+                    <div class="option-card active" onclick="selectOption('groupPaket', 'valPaket', 3000000, 'Paket Medium / Pernikahan', 'Hingga 5.000 Watt')">
                         <div class="option-text">
                             <strong>Paket Medium / Pernikahan</strong>
                             <span>Kapasitas Hingga 5.000 W</span>
@@ -1786,7 +1842,7 @@ footer{
                         <div class="radio-indicator"></div>
                     </div>
 
-                    <div class="option-card" onclick="selectOption('groupPaket', 5500000, 'Paket Pro Concert / Outdoor', 'Hingga 10.000 Watt')">
+                    <div class="option-card" onclick="selectOption('groupPaket', 'valPaket', 5500000, 'Paket Pro Concert / Outdoor', 'Hingga 10.000 Watt')">
                         <div class="option-text">
                             <strong>Paket Pro Concert / Outdoor</strong>
                             <span>Kapasitas Hingga 10.000 W</span>
@@ -1797,16 +1853,27 @@ footer{
             </div>
 
             <!-- 2. JARAK LOKASI -->
-            <div class="calc-group">
-                <label>2. Jarak Lokasi Acara (KM dari Basecamp)</label>
-                <input type="number" id="jarakKM" value="5" min="0" placeholder="Masukkan jarak (KM)" oninput="hitungSewa()">
+            <div class="calc-group open">
+                <div style="padding: 18px 20px;">
+                    <div class="calc-trigger-info">
+                        <label>2. Jarak Lokasi Acara (KM dari Basecamp)</label>
+                    </div>
+                    <input type="number" id="jarakKM" value="5" min="0" placeholder="Masukkan jarak (KM)" oninput="hitungSewa()" style="margin-top: 8px;">
+                </div>
             </div>
 
             <!-- 3. AKSESIBILITAS MEDAN -->
-            <div class="calc-group">
-                <label>3. Aksesibilitas Medan Lokasi</label>
-                <div class="custom-options" id="groupAkses">
-                    <div class="option-card active" onclick="selectOption('groupAkses', 0, 'Mudah', 'Akses jalan rata, parkir samping panggung')">
+            <div class="calc-group" id="groupAkses">
+                <div class="calc-trigger" onclick="toggleCalcGroup('groupAkses')">
+                    <div class="calc-trigger-info">
+                        <label>3. Aksesibilitas Medan Lokasi</label>
+                        <div class="calc-selected-val" id="valAkses">Akses Rata / Mudah</div>
+                    </div>
+                    <span class="calc-arrow">▼</span>
+                </div>
+
+                <div class="custom-options">
+                    <div class="option-card active" onclick="selectOption('groupAkses', 'valAkses', 0, 'Akses Rata / Mudah', 'Parkir samping lokasi & jalan rata')">
                         <div class="option-text">
                             <strong>Akses Rata / Mudah</strong>
                             <span>Parkir samping lokasi & jalan rata</span>
@@ -1814,7 +1881,7 @@ footer{
                         <div class="radio-indicator"></div>
                     </div>
 
-                    <div class="option-card" onclick="selectOption('groupAkses', 150000, 'Sedang', 'Angkut jalan kaki &lt;50m / Naik tangga')">
+                    <div class="option-card" onclick="selectOption('groupAkses', 'valAkses', 150000, 'Sedang (Naik Tangga/Jalan Kaki)', 'Angkut manual / Naik tangga lantai 2')">
                         <div class="option-text">
                             <strong>Sedang</strong>
                             <span>Angkut manual / Naik tangga lantai 2</span>
@@ -1822,7 +1889,7 @@ footer{
                         <div class="radio-indicator"></div>
                     </div>
 
-                    <div class="option-card" onclick="selectOption('groupAkses', 350000, 'Ekstrem', 'Gang sempit / Medan becek & berlumpur')">
+                    <div class="option-card" onclick="selectOption('groupAkses', 'valAkses', 350000, 'Ekstrem (Gang Sempit/Becek)', 'Gang sempit / Tangga curam / Becek')">
                         <div class="option-text">
                             <strong>Ekstrem</strong>
                             <span>Gang sempit / Tangga curam / Becek</span>
@@ -1833,10 +1900,17 @@ footer{
             </div>
 
             <!-- 4. DURASI ACARA -->
-            <div class="calc-group">
-                <label>4. Durasi Pemakaian</label>
-                <div class="custom-options" id="groupDurasi">
-                    <div class="option-card active" onclick="selectOption('groupDurasi', 0, 'Standar', 'Maksimal 8 Jam Kerja')">
+            <div class="calc-group" id="groupDurasi">
+                <div class="calc-trigger" onclick="toggleCalcGroup('groupDurasi')">
+                    <div class="calc-trigger-info">
+                        <label>4. Durasi Pemakaian</label>
+                        <div class="calc-selected-val" id="valDurasi">Standar Acara (s.d 8 Jam)</div>
+                    </div>
+                    <span class="calc-arrow">▼</span>
+                </div>
+
+                <div class="custom-options">
+                    <div class="option-card active" onclick="selectOption('groupDurasi', 'valDurasi', 0, 'Standar Acara (s.d 8 Jam)', 'Pemakaian standar hingga 8 jam')">
                         <div class="option-text">
                             <strong>Standar Acara</strong>
                             <span>Pemakaian standar hingga 8 jam</span>
@@ -1844,7 +1918,7 @@ footer{
                         <div class="radio-indicator"></div>
                     </div>
 
-                    <div class="option-card" onclick="selectOption('groupDurasi', 250000, 'Full Day / Lembur', 'Lebih dari 8 Jam Kerja')">
+                    <div class="option-card" onclick="selectOption('groupDurasi', 'valDurasi', 250000, 'Full Day / Lembur', 'Penggunaan seharian penuh')">
                         <div class="option-text">
                             <strong>Full Day / Lembur</strong>
                             <span>Penggunaan seharian penuh</span>
@@ -1856,17 +1930,17 @@ footer{
 
         </div>
 
-        <!-- HASIL ESTIMASI -->
+        <!-- HASIL ESTIMASI TRANSPARAN -->
         <div class="result-card">
             <div>
-                <span style="font-size:11px; color:var(--accent2); font-weight:bold; letter-spacing:1.5px; text-transform:uppercase;">TOTAL ESTIMASI KESEPAKATAN</span>
+                <span style="font-size:11px; color:var(--accent2); font-weight:bold; letter-spacing:1.5px; text-transform:uppercase;">TOTAL ESTIMASI DEAL</span>
                 <div class="total-price" id="totalDisplay">Rp 3.000.000</div>
                 
                 <div class="price-breakdown" id="breakdownDisplay">
                     • Paket: Paket Medium / Pernikahan (Rp 3.000.000)<br>
                     • Transportasi (5 KM): Gratis<br>
-                    • Medan Akses: Mudah (Gratis)<br>
-                    • Durasi Pemakaian: Standar (Gratis)
+                    • Medan Akses: Akses Rata / Mudah (Gratis)<br>
+                    • Extra Durasi: Standar Acara (Gratis)
                 </div>
             </div>
 
@@ -2138,15 +2212,17 @@ footer{
 </section>
 
 
-<!-- ================= MODAL / POPUP ================= -->
+<!-- ================= MODAL / POPUP (DINAMIS FORMS & KALENDER) ================= -->
 
 <div class="modal-overlay" id="modalOverlay">
-    <div class="modal-box">
+    
+    <!-- BOX MODAL UTAMA -->
+    <div class="modal-box" id="modalBox">
         <button class="close-modal" onclick="closeModal()">✕</button>
         <h3 class="modal-title" id="modalTitle">Hubungi SPR Audio</h3>
         <p class="modal-desc" id="modalDesc">Isi informasi di bawah ini untuk mengirimkan pesan.</p>
-        
-        <!-- Form Pendaftaran & Kontak -->
+
+        <!-- Container Form Pendaftaran & Kontak -->
         <form id="applyForm" onsubmit="handleFormSubmit(event)">
             <input type="hidden" name="access_key" value="4c3cc0e1-b452-43e7-a8cb-cc54bdec18a2">
             <input type="hidden" name="subject" id="emailSubject" value="General Inquiry - SPR Audio">
@@ -2175,7 +2251,23 @@ footer{
             <button type="submit" class="submit-btn" id="submitBtn">Kirim Pesan</button>
         </form>
 
-        <!-- Konten Ketentuan -->
+        <!-- Container Kalender Ketersediaan -->
+        <div id="calendarContainer" style="display: none;">
+            <div class="schedule-header">
+                <div class="schedule-month" id="currentMonthYear">Agustus 2026</div>
+                <div class="schedule-legend">
+                    <div class="legend-item"><span class="dot available"></span> Kosong</div>
+                    <div class="legend-item"><span class="dot limited"></span> Terbatas</div>
+                    <div class="legend-item"><span class="dot booked"></span> Penuh</div>
+                </div>
+            </div>
+
+            <div class="calendar-grid" id="calendarGrid">
+                <!-- Kalender di-generate via JavaScript -->
+            </div>
+        </div>
+
+        <!-- Container Ketentuan Layanan -->
         <div id="termsContainer" style="display: none;">
             <div class="terms-body">
                 <h4>1. Perjanjian Proyek</h4>
@@ -2221,12 +2313,16 @@ footer{
 </footer>
 
 <script>
-/* ================= 1. GENERATE KALENDER KETERSEDIAAN ================= */
+/* ================= 1. DEV CONFIG: SETTING STATUS TANGGAL KALENDER ================= */
+// Dev bisa langsung ubah isi array angka tanggal di bawah ini!
+const bookedDays = [8, 15, 17, 22, 29]; // Angka tanggal yang SUDAH BOOKED / PENUH
+const limitedDays = [5, 12, 25];        // Angka tanggal yang TERBATAS
+
 function renderCalendar() {
     const grid = document.getElementById('calendarGrid');
     if (!grid) return;
+    grid.innerHTML = ""; // Clear grid
 
-    // Header Nama Hari
     const days = ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
     days.forEach(day => {
         const head = document.createElement('div');
@@ -2235,23 +2331,15 @@ function renderCalendar() {
         grid.appendChild(head);
     });
 
-    // Simulasi status tanggal bulan Agustus 2026 (31 Hari)
-    // Tanggal 1 Agustus 2026 dimulai hari Sabtu (Index 6)
-    const firstDayOffset = 6; 
+    const firstDayOffset = 6; // Tanggal 1 Agustus 2026 = Sabtu
     const totalDays = 31;
 
-    // Data simulasi booking (Bisa disesuaikan manual tanggalnya)
-    const bookedDays = [8, 15, 17, 22, 29]; // Tanggal Penuh
-    const limitedDays = [5, 12, 25];         // Tanggal Terbatas
-
-    // Kotak kosong sebelum tanggal 1
     for (let i = 0; i < firstDayOffset; i++) {
         const empty = document.createElement('div');
         empty.className = 'calendar-day empty';
         grid.appendChild(empty);
     }
 
-    // Mengisi tanggal 1-31
     for (let d = 1; d <= totalDays; d++) {
         const dayBox = document.createElement('div');
         dayBox.className = 'calendar-day';
@@ -2275,52 +2363,34 @@ function renderCalendar() {
         grid.appendChild(dayBox);
     }
 }
-renderCalendar();
 
-/* ================= 2. ACCORDION FAQ ================= */
-function toggleAccordion(header) {
-    const item = header.parentElement;
-    const isActive = item.classList.contains('active');
-    
-    // Tutup accordion lain
-    document.querySelectorAll('.accordion-item').forEach(el => el.classList.remove('active'));
-
-    // Toggle item diklik
-    if (!isActive) {
-        item.classList.add('active');
-    }
-}
-
-/* ================= 3. TOAST NOTIFICATION SYSTEM ================= */
-function showToast(message, icon = "✓") {
-    const container = document.getElementById('toastContainer');
-    const toast = document.createElement('div');
-    toast.className = 'toast';
-    
-    toast.innerHTML = `
-        <div class="toast-icon">${icon}</div>
-        <div>${message}</div>
-    `;
-    
-    container.appendChild(toast);
-    
-    setTimeout(() => toast.classList.add('show'), 10);
-    
-    setTimeout(() => {
-        toast.classList.remove('show');
-        setTimeout(() => toast.remove(), 400);
-    }, 4500);
-}
-
-/* ================= 4. KALKULATOR PRICELIST ELEGANT ================= */
+/* ================= 2. KALKULATOR PRICELIST (COLLAPSIBLE TOGGLE) ================= */
 let selectedPaket = 3000000;
 let selectedPaketText = "Paket Medium / Pernikahan";
 let selectedAkses = 0;
 let selectedAksesText = "Akses Rata / Mudah";
 let selectedDurasi = 0;
-let selectedDurasiText = "Standar Acara";
+let selectedDurasiText = "Standar Acara (s.d 8 Jam)";
 
-function selectOption(groupId, value, nameText, descText) {
+function toggleCalcGroup(groupId) {
+    const targetGroup = document.getElementById(groupId);
+    if (!targetGroup) return;
+
+    const isOpen = targetGroup.classList.contains('open');
+
+    // Tutup opsi kalkulator lain
+    document.querySelectorAll('.calc-group').forEach(group => {
+        if (group.querySelector('.custom-options')) {
+            group.classList.remove('open');
+        }
+    });
+
+    if (!isOpen) {
+        targetGroup.classList.add('open');
+    }
+}
+
+function selectOption(groupId, displayValId, value, nameText, descText) {
     const group = document.getElementById(groupId);
     if (!group) return;
 
@@ -2328,6 +2398,9 @@ function selectOption(groupId, value, nameText, descText) {
     cards.forEach(card => card.classList.remove('active'));
 
     event.currentTarget.classList.add('active');
+
+    // Update label text tampilan utama
+    document.getElementById(displayValId).innerText = nameText;
 
     if (groupId === 'groupPaket') {
         selectedPaket = value;
@@ -2339,6 +2412,9 @@ function selectOption(groupId, value, nameText, descText) {
         selectedDurasi = value;
         selectedDurasiText = nameText;
     }
+
+    // Tutup dropdown setelah memilih
+    group.classList.remove('open');
 
     hitungSewa();
 }
@@ -2379,6 +2455,39 @@ function pesanKalkulator() {
 }
 
 hitungSewa();
+
+/* ================= 3. ACCORDION FAQ ================= */
+function toggleAccordion(header) {
+    const item = header.parentElement;
+    const isActive = item.classList.contains('active');
+    
+    document.querySelectorAll('.accordion-item').forEach(el => el.classList.remove('active'));
+
+    if (!isActive) {
+        item.classList.add('active');
+    }
+}
+
+/* ================= 4. TOAST NOTIFICATION SYSTEM ================= */
+function showToast(message, icon = "✓") {
+    const container = document.getElementById('toastContainer');
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    
+    toast.innerHTML = `
+        <div class="toast-icon">${icon}</div>
+        <div>${message}</div>
+    `;
+    
+    container.appendChild(toast);
+    
+    setTimeout(() => toast.classList.add('show'), 10);
+    
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 400);
+    }, 4500);
+}
 
 /* ================= 5. MP3 AUDIO PLAYER ================= */
 const audio = new Audio("goth-slowed.mp3");
@@ -2465,18 +2574,40 @@ function startCounter(el) {
     update();
 }
 
-/* ================= 8. MODAL DINAMIS & WEB3FORMS ================= */
+/* ================= 8. MODAL DINAMIS (KALENDER, FORMS, TERMS) ================= */
 const modal = document.getElementById('modalOverlay');
+const modalBox = document.getElementById('modalBox');
 const modalTitle = document.getElementById('modalTitle');
 const modalDesc = document.getElementById('modalDesc');
+
 const applyForm = document.getElementById('applyForm');
+const calendarContainer = document.getElementById('calendarContainer');
 const termsContainer = document.getElementById('termsContainer');
+
+function openCalendarModal() {
+    if (!modal) return;
+
+    if (applyForm) applyForm.style.display = 'none';
+    if (termsContainer) termsContainer.style.display = 'none';
+    if (calendarContainer) calendarContainer.style.display = 'block';
+
+    if (modalBox) modalBox.classList.add('calendar-modal-box');
+
+    if (modalTitle) modalTitle.innerText = `Jadwal & Ketersediaan Realtime`;
+    if (modalDesc) modalDesc.innerText = `Cek ketersediaan tanggal acara kamu di bulan ini secara resmi.`;
+
+    renderCalendar();
+    modal.classList.add('active');
+}
 
 function openApplyModal(jobTitle) {
     if (!modal) return;
     
-    if (applyForm) applyForm.style.display = 'block';
+    if (calendarContainer) calendarContainer.style.display = 'none';
     if (termsContainer) termsContainer.style.display = 'none';
+    if (applyForm) applyForm.style.display = 'block';
+
+    if (modalBox) modalBox.classList.remove('calendar-modal-box');
 
     if (modalTitle) modalTitle.innerText = `Lamar Posisi: ${jobTitle}`;
     if (modalDesc) modalDesc.innerText = `Kirimkan link portofoliomu untuk posisi ${jobTitle}.`;
@@ -2501,8 +2632,11 @@ function openApplyModal(jobTitle) {
 function openContactModal() {
     if (!modal) return;
 
-    if (applyForm) applyForm.style.display = 'block';
+    if (calendarContainer) calendarContainer.style.display = 'none';
     if (termsContainer) termsContainer.style.display = 'none';
+    if (applyForm) applyForm.style.display = 'block';
+
+    if (modalBox) modalBox.classList.remove('calendar-modal-box');
 
     if (modalTitle) modalTitle.innerText = `Hubungi SPR Audio`;
     if (modalDesc) modalDesc.innerText = `Ada pertanyaan atau penawaran proyek? Tuliskan pesanmu di bawah.`;
@@ -2528,8 +2662,11 @@ function openContactModal() {
 function openTermsModal() {
     if (!modal) return;
 
+    if (calendarContainer) calendarContainer.style.display = 'none';
     if (applyForm) applyForm.style.display = 'none';
     if (termsContainer) termsContainer.style.display = 'block';
+
+    if (modalBox) modalBox.classList.remove('calendar-modal-box');
 
     if (modalTitle) modalTitle.innerText = `Ketentuan Layanan`;
     if (modalDesc) modalDesc.innerText = `Syarat & ketentuan umum dalam bekerja sama dengan SPR Audio.`;
