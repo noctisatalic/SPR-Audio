@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>SPR Audio — Lowongan Kerja Produksi Audio</title>
+<title>SPR Audio — Sound System & Audio Production</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -67,6 +67,55 @@ body:before{
 
     background-image:
     url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+}
+
+/* ================= TOAST NOTIFICATION (BARU) ================= */
+.toast-container {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    pointer-events: none;
+}
+
+.toast {
+    background: rgba(21, 24, 29, 0.95);
+    border: 1px solid var(--accent);
+    backdrop-filter: blur(12px);
+    color: var(--text);
+    padding: 16px 24px;
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    min-width: 300px;
+    transform: translateY(100px);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    pointer-events: all;
+}
+
+.toast.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.toast-icon {
+    width: 24px;
+    height: 24px;
+    background: var(--accent);
+    color: #08090b;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    flex-shrink: 0;
 }
 
 /* ================= NAV ================= */
@@ -241,15 +290,8 @@ body:before{
 }
 
 @keyframes pulse{
-    0%,100%{
-        transform:scale(1);
-        opacity:1;
-    }
-
-    50%{
-        transform:scale(.65);
-        opacity:.5;
-    }
+    0%,100%{ transform:scale(1); opacity:1; }
+    50%{ transform:scale(.65); opacity:.5; }
 }
 
 .hero h1{
@@ -426,6 +468,105 @@ body:before{
 
     background:#8bc5df;
     transition: height 0.1s ease;
+}
+
+/* ================= KALKULATOR PRICELIST (BARU) ================= */
+
+.calculator-section {
+    padding: 110px 6vw;
+    background: var(--bg2);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+}
+
+.calc-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 35px;
+    margin-top: 45px;
+}
+
+.calc-box {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    padding: 35px;
+    border-radius: var(--radius);
+}
+
+.calc-group {
+    margin-bottom: 22px;
+}
+
+.calc-group label {
+    display: block;
+    font-size: 12px;
+    color: var(--accent2);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+}
+
+.calc-group select, .calc-group input {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 14px 16px;
+    color: var(--text);
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.calc-group select:focus, .calc-group input:focus {
+    border-color: var(--accent);
+}
+
+.result-card {
+    background: linear-gradient(145deg, rgba(125, 182, 214, 0.1), rgba(255,255,255,0.02));
+    border: 1px solid rgba(125, 182, 214, 0.3);
+    padding: 35px;
+    border-radius: var(--radius);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.total-price {
+    font-family: "Space Grotesk";
+    font-size: 42px;
+    color: #fff;
+    margin: 15px 0;
+}
+
+.price-breakdown {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 25px;
+    border-top: 1px dashed var(--line);
+    padding-top: 20px;
+}
+
+.btn-book {
+    width: 100%;
+    height: 52px;
+    background: var(--accent);
+    color: #08090b;
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 14px;
+}
+
+.btn-book:hover {
+    background: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(125,182,214,0.2);
 }
 
 /* ================= SECTIONS ================= */
@@ -868,6 +1009,7 @@ section{
 }
 
 /* ================= MODAL / POPUP ================= */
+
 .modal-overlay {
     position: fixed;
     inset: 0;
@@ -977,7 +1119,6 @@ section{
     background: #ffffff;
 }
 
-/* Styling Khusus Teks Ketentuan (Terms) */
 .terms-body {
     font-size: 13px;
     color: var(--muted);
@@ -995,7 +1136,6 @@ section{
     margin-bottom: 5px;
 }
 
-/* Custom Scrollbar untuk modal Terms */
 .terms-body::-webkit-scrollbar {
     width: 5px;
 }
@@ -1086,7 +1226,8 @@ footer{
     }
 
     .job-grid,
-    .process-grid{
+    .process-grid,
+    .calc-grid{
         grid-template-columns:1fr;
     }
 
@@ -1174,6 +1315,9 @@ footer{
 
 <body>
 
+<!-- TOAST CONTAINER (TOAST NOTIFIKASI BARU) -->
+<div class="toast-container" id="toastContainer"></div>
+
 <div class="ambient-light" id="ambientLight"></div>
 
 <!-- ================= NAV ================= -->
@@ -1185,23 +1329,20 @@ footer{
 </a>
 
     <div class="nav-links">
-
+        <a href="#kalkulator">Hitung Sewa</a>
         <a href="#jobs">Lowongan Kerja</a>
         <a href="#process">Proses</a>
         <a href="#about">Tentang Kami</a>
-
     </div>
 
     <div class="nav-actions">
-
         <a class="signin" onclick="openContactModal()">
             Kontak
         </a>
 
-        <a href="#jobs" class="btn-small">
-            Lihat Lowongan
+        <a href="#kalkulator" class="btn-small">
+            Cek Harga Sewa
         </a>
-
     </div>
 
 </nav>
@@ -1226,19 +1367,17 @@ footer{
         </h1>
 
         <p class="hero-description">
-
-            SPR Audio sedang mencari para profesional audio, produser, teknisi, dan musisi yang luar biasa untuk proyek-proyek kreatif mendatang.
-
+            SPR Audio menyediakan persewaan sound system profesional serta mencari profesional audio, produser, teknisi, dan musisi luar biasa untuk proyek mendatang.
         </p>
 
         <div class="hero-buttons">
 
-            <a href="#jobs" class="btn-primary">
-                Jelajahi Lowongan Pekerjaan
+            <a href="#kalkulator" class="btn-primary">
+                Simulasi Biaya Sewa
             </a>
 
-            <a href="#about" class="btn-secondary">
-                Tentang SPR Audio
+            <a href="#jobs" class="btn-secondary">
+                Jelajahi Lowongan
             </a>
 
         </div>
@@ -1255,37 +1394,89 @@ footer{
         </button>
 
         <div class="track-info">
-
             <small>Sedang Diputar</small>
-
             <strong title="Goth (Slowed + Reverb)">Goth (Slowed + Reverb)</strong>
-
         </div>
 
         <div class="wave">
-
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-
+            <span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span>
+            <span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span>
+            <span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span>
+            <span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span>
         </div>
 
     </div>
 
 </header>
+
+
+<!-- ================= KALKULATOR PRICELIST (SEKSI BARU) ================= -->
+
+<section class="calculator-section" id="kalkulator">
+
+    <div class="section-head reveal" style="margin-bottom: 20px;">
+        <div>
+            <div class="section-label">Fitur Transparansi Harga</div>
+            <h2>Kalkulator Sewa<br>Sound System.</h2>
+        </div>
+        <p>Hitung estimasi total biaya sewa berdasarkan kapasitas alat, jarak pengiriman, hingga tingkat kesulitan medan lokasi acara.</p>
+    </div>
+
+    <div class="calc-grid reveal">
+        <!-- FORM PILIHAN -->
+        <div class="calc-box">
+            <div class="calc-group">
+                <label>1. Pilih Paket Sound System</label>
+                <select id="paketSound" onchange="hitungSewa()">
+                    <option value="1500000">Paket Akustik / Indoor (Up to 3.000 Watt) - Rp 1.500.000</option>
+                    <option value="3000000" selected>Paket Medium / Wedding (Up to 5.000 Watt) - Rp 3.000.000</option>
+                    <option value="5500000">Paket Pro Concert / Outdoor (Up to 10.000 Watt) - Rp 5.500.000</option>
+                </select>
+            </div>
+
+            <div class="calc-group">
+                <label>2. Jarak Lokasi Acara (KM dari Basecamp)</label>
+                <input type="number" id="jarakKM" value="5" min="0" placeholder="Masukkan jarak (KM)" oninput="hitungSewa()">
+                <small style="color:var(--muted); font-size:11px; margin-top:6px; display:block;">*10 KM pertama Gratis Transportasi. Selebihnya Rp 10.000 / KM.</small>
+            </div>
+
+            <div class="calc-group">
+                <label>3. Aksesibilitas & Medan Tempat</label>
+                <select id="aksesLokasi" onchange="hitungSewa()">
+                    <option value="0">Mudah (Truk/Mobil parkir di samping panggung, jalan rata)</option>
+                    <option value="150000">Sedang (Angkut jalan kaki <50m, naik tangga / Lt 2)</option>
+                    <option value="350000">Ekstrem (Gang sempit, tangga curam, tanah becek/berlumpur)</option>
+                </select>
+            </div>
+
+            <div class="calc-group">
+                <label>4. Durasi Pemakaian</label>
+                <select id="durasiAcara" onchange="hitungSewa()">
+                    <option value="0">Standar Acara (Hingga 8 Jam Kerja)</option>
+                    <option value="250000">Full Day / Lembur Overtime (+ Rp 250.000)</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- HASIL ESTIMASI -->
+        <div class="result-card">
+            <div>
+                <span style="font-size:11px; color:var(--accent2); font-weight:bold; letter-spacing:1.5px; text-transform:uppercase;">ESTIMASI KESEPAKATAN BIAYA</span>
+                <div class="total-price" id="totalDisplay">Rp 3.000.000</div>
+                
+                <div class="price-breakdown" id="breakdownDisplay">
+                    • Paket Sound: Rp 3.000.000<br>
+                    • Transportasi (5 KM): Gratis<br>
+                    • Medan Lokasi: Gratis<br>
+                    • Durasi Pemakaian: Standar
+                </div>
+            </div>
+
+            <button class="btn-book" onclick="pesanKalkulator()">Pesan & Deal Harga Ini</button>
+        </div>
+    </div>
+
+</section>
 
 
 <!-- ================= JOBS ================= -->
@@ -1295,138 +1486,55 @@ footer{
     <div class="section-head reveal">
 
         <div>
-
-            <div class="section-label">
-                Posisi Terbuka
-            </div>
-
-            <h2>
-                Proyek<br>
-                Saat Ini.
-            </h2>
-
+            <div class="section-label">Posisi Terbuka</div>
+            <h2>Proyek<br>Saat Ini.</h2>
         </div>
 
-        <p>
-            SPR Audio saat ini mencari talenta terbaik untuk berkolaborasi pada produksi audio mendatang.
-        </p>
+        <p>SPR Audio saat ini mencari talenta terbaik untuk berkolaborasi pada produksi audio mendatang.</p>
 
     </div>
 
 
     <div class="job-grid">
 
-
         <article class="job-card reveal" onclick="openApplyModal('Mixing Engineer')">
-
             <div class="job-top">
-
-                <span class="status">
-                    Terbuka
-                </span>
-
-                <span class="job-type">
-                    Remote
-                </span>
-
+                <span class="status">Terbuka</span>
+                <span class="job-type">Remote</span>
             </div>
-
-            <h3>
-                Mixing Engineer
-            </h3>
-
-            <p>
-                Mencari mixing engineer berpengalaman untuk proyek musik kontemporer.
-            </p>
-
+            <h3>Mixing Engineer</h3>
+            <p>Mencari mixing engineer berpengalaman untuk proyek musik kontemporer.</p>
             <div class="job-bottom">
-
-                <span class="budget">
-                    Rp 1.500.000+
-                </span>
-
-                <span class="view-job">
-                    Lihat Posisi →
-                </span>
-
+                <span class="budget">Rp 1.500.000+</span>
+                <span class="view-job">Lihat Posisi →</span>
             </div>
-
         </article>
-
 
         <article class="job-card reveal" onclick="openApplyModal('Vocal Producer')">
-
             <div class="job-top">
-
-                <span class="status">
-                    Terbuka
-                </span>
-
-                <span class="job-type">
-                    Remote
-                </span>
-
+                <span class="status">Terbuka</span>
+                <span class="job-type">Remote</span>
             </div>
-
-            <h3>
-                Vocal Producer
-            </h3>
-
-            <p>
-                Mencari produser vokal yang memahami musik pop modern, R&B, dan alternatif.
-            </p>
-
+            <h3>Vocal Producer</h3>
+            <p>Mencari produser vokal yang memahami musik pop modern, R&B, dan alternatif.</p>
             <div class="job-bottom">
-
-                <span class="budget">
-                    Rp 1.000.000+
-                </span>
-
-                <span class="view-job">
-                    Lihat Posisi →
-                </span>
-
+                <span class="budget">Rp 1.000.000+</span>
+                <span class="view-job">Lihat Posisi →</span>
             </div>
-
         </article>
-
 
         <article class="job-card reveal" onclick="openApplyModal('Mastering Engineer')">
-
             <div class="job-top">
-
-                <span class="status">
-                    Terbuka
-                </span>
-
-                <span class="job-type">
-                    Proyek
-                </span>
-
+                <span class="status">Terbuka</span>
+                <span class="job-type">Proyek</span>
             </div>
-
-            <h3>
-                Mastering Engineer
-            </h3>
-
-            <p>
-                Dibutuhkan mastering engineer untuk perilisan digital multi-track.
-            </p>
-
+            <h3>Mastering Engineer</h3>
+            <p>Dibutuhkan mastering engineer untuk perilisan digital multi-track.</p>
             <div class="job-bottom">
-
-                <span class="budget">
-                    Rp 750.000+
-                </span>
-
-                <span class="view-job">
-                    Lihat Posisi →
-                </span>
-
+                <span class="budget">Rp 750.000+</span>
+                <span class="view-job">Lihat Posisi →</span>
             </div>
-
         </article>
-
 
     </div>
 
@@ -1441,55 +1549,17 @@ footer{
 
     <div class="feature-content reveal">
 
-        <div class="section-label">
-            Filosofi Kami
-        </div>
+        <div class="section-label">Filosofi Kami</div>
 
-        <h2>
-            Suara hebat
-            dimulai dari
-            orang-orang hebat.
-        </h2>
+        <h2>Suara hebat dimulai dari orang-orang hebat.</h2>
 
-        <p>
-            SPR Audio percaya bahwa produksi terbaik diciptakan ketika individu kreatif memiliki kebebasan, alat, dan lingkungan yang tepat untuk fokus pada keahlian mereka.
-        </p>
-
+        <p>SPR Audio percaya bahwa produksi terbaik diciptakan ketika individu kreatif memiliki kebebasan, alat, dan lingkungan yang tepat untuk fokus pada keahlian mereka.</p>
 
         <div class="feature-list">
-
-            <div class="feature-item">
-
-                <span class="check">✓</span>
-
-                Kolaborasi Remote
-
-            </div>
-
-            <div class="feature-item">
-
-                <span class="check">✓</span>
-
-                Proyek Audio Profesional
-
-            </div>
-
-            <div class="feature-item">
-
-                <span class="check">✓</span>
-
-                Ekspektasi Proyek yang Jelas
-
-            </div>
-
-            <div class="feature-item">
-
-                <span class="check">✓</span>
-
-                Kerja Sama Jangka Panjang
-
-            </div>
-
+            <div class="feature-item"><span class="check">✓</span> Kolaborasi Remote</div>
+            <div class="feature-item"><span class="check">✓</span> Proyek Audio & Sound System Profesional</div>
+            <div class="feature-item"><span class="check">✓</span> Ekspektasi Proyek yang Jelas</div>
+            <div class="feature-item"><span class="check">✓</span> Kerja Sama Jangka Panjang</div>
         </div>
 
         <a href="#jobs" class="btn-secondary" style="width:max-content;">
@@ -1506,43 +1576,23 @@ footer{
 <section class="stats">
 
     <div class="stat reveal">
-
         <strong class="counter" data-target="12" data-suffix="+">0</strong>
-
-        <span>
-            Proyek Aktif
-        </span>
-
+        <span>Proyek Aktif</span>
     </div>
 
     <div class="stat reveal">
-
         <strong class="counter" data-target="28">0</strong>
-
-        <span>
-            Profesional Audio
-        </span>
-
+        <span>Profesional Audio</span>
     </div>
 
     <div class="stat reveal">
-
         <strong class="counter" data-target="6" data-prefix="0">0</strong>
-
-        <span>
-            Kategori Musik
-        </span>
-
+        <span>Kategori Musik</span>
     </div>
 
     <div class="stat reveal">
-
         <strong>24/7</strong>
-
-        <span>
-            Kolaborasi Kreatif
-        </span>
-
+        <span>Kolaborasi Kreatif</span>
     </div>
 
 </section>
@@ -1553,77 +1603,31 @@ footer{
 <section id="process">
 
     <div class="section-head reveal">
-
         <div>
-
-            <div class="section-label">
-                Cara Kerja
-            </div>
-
-            <h2>
-                Sederhana.<br>
-                Fokus.
-            </h2>
-
+            <div class="section-label">Cara Kerja</div>
+            <h2>Sederhana.<br>Fokus.</h2>
         </div>
-
-        <p>
-            Tanpa proses rumit. Temukan proyek, kirim karya terbaikmu, dan mulailah berkarya.
-        </p>
-
+        <p>Tanpa proses rumit. Temukan proyek, kirim karya terbaikmu, atau pesan layanan sound system kami.</p>
     </div>
-
 
     <div class="process-grid">
 
         <div class="process reveal">
-
-            <div class="number">
-                01 — TEMUKAN
-            </div>
-
-            <h3>
-                Cari Proyek
-            </h3>
-
-            <p>
-                Jelajahi proyek audio aktif dan temukan yang sesuai dengan keahlianmu.
-            </p>
-
+            <div class="number">01 — TEMUKAN</div>
+            <h3>Cari Proyek</h3>
+            <p>Jelajahi proyek audio aktif dan temukan yang sesuai dengan keahlianmu.</p>
         </div>
 
-
         <div class="process reveal">
-
-            <div class="number">
-                02 — LAMAR
-            </div>
-
-            <h3>
-                Kirim Karya
-            </h3>
-
-            <p>
-                Kirimkan portofolio, pengalaman, serta penawaran hargamu.
-            </p>
-
+            <div class="number">02 — LAMAR</div>
+            <h3>Kirim Karya</h3>
+            <p>Kirimkan portofolio, pengalaman, serta penawaran hargamu.</p>
         </div>
 
-
         <div class="process reveal">
-
-            <div class="number">
-                03 — KARYA
-            </div>
-
-            <h3>
-                Mulai Berkarya
-            </h3>
-
-            <p>
-                Kandidat terpilih akan dihubungi langsung untuk mendiskusikan rincian proyek.
-            </p>
-
+            <div class="number">03 — KARYA</div>
+            <h3>Mulai Berkarya</h3>
+            <p>Kandidat terpilih akan dihubungi langsung untuk mendiskusikan rincian proyek.</p>
         </div>
 
     </div>
@@ -1636,28 +1640,13 @@ footer{
 <section class="cta">
 
     <div class="reveal">
+        <div class="section-label">Bekerja Bersama SPR Audio</div>
+        <h2>Buat karya yang layak didengar.</h2>
+        <p>Proyek baru terus bermunculan. Jelajahi peluang saat ini dan jadilah bagian dari produksi selanjutnya.</p>
 
-        <div class="section-label">
-            Bekerja Bersama SPR Audio
-        </div>
-
-        <h2>
-            Buat karya yang
-            layak didengar.
-        </h2>
-
-        <p>
-            Proyek baru terus bermunculan. Jelajahi peluang saat ini dan jadilah bagian dari produksi selanjutnya.
-        </p>
-
-        <a href="#jobs"
-           class="btn-primary"
-           style="width:max-content;margin:auto;">
-
+        <a href="#jobs" class="btn-primary" style="width:max-content;margin:auto;">
             Jelajahi Lowongan Pekerjaan
-
         </a>
-
     </div>
 
 </section>
@@ -1673,13 +1662,8 @@ footer{
         
         <!-- Form Pendaftaran & Kontak -->
         <form id="applyForm" onsubmit="handleFormSubmit(event)">
-            <!-- Access Key dari Web3Forms -->
             <input type="hidden" name="access_key" value="4c3cc0e1-b452-43e7-a8cb-cc54bdec18a2">
-            
-            <!-- Judul Subjek Email -->
             <input type="hidden" name="subject" id="emailSubject" value="General Inquiry - SPR Audio">
-            
-            <!-- Nama Pengirim -->
             <input type="hidden" name="from_name" value="SPR Audio Website">
 
             <div class="form-group">
@@ -1692,7 +1676,6 @@ footer{
                 <input type="email" name="email" placeholder="budi@example.com" required />
             </div>
 
-            <!-- Input Portofolio (Hanya Tampil saat Melamar Job) -->
             <div class="form-group" id="portfolioGroup" style="display: none;">
                 <label>Link Portofolio (Soundcloud / Drive / Spotify)</label>
                 <input type="url" name="portfolio" id="portfolioInput" placeholder="https://..." />
@@ -1700,7 +1683,7 @@ footer{
 
             <div class="form-group">
                 <label id="messageLabel">Pesan / Detail Proyek</label>
-                <textarea name="message" rows="3" placeholder="Tuliskan pesan atau detail pertanyaanmu..." required></textarea>
+                <textarea name="message" id="messageInput" rows="3" placeholder="Tuliskan pesan atau detail pertanyaanmu..." required></textarea>
             </div>
 
             <button type="submit" class="submit-btn" id="submitBtn">Kirim Pesan</button>
@@ -1736,8 +1719,6 @@ footer{
     </div>
 
     <div class="footer-links">
-
-        <!-- Link Instagram Resmimu -->
         <a href="https://www.instagram.com/spraudiosystem?igsh=MWVoc3o5YjJnbXFteA==" target="_blank" rel="noopener noreferrer">
             Instagram
         </a>
@@ -1746,17 +1727,79 @@ footer{
             Kontak
         </a>
 
-        <!-- Membuka Pop-up Ketentuan (Terms) -->
         <a onclick="openTermsModal()">
             Ketentuan
         </a>
-
     </div>
 
 </footer>
 
 <script>
-/* ================= 1. MP3 AUDIO PLAYER ================= */
+/* ================= 1. TOAST NOTIFICATION SYSTEM (BARU) ================= */
+function showToast(message, icon = "✓") {
+    const container = document.getElementById('toastContainer');
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    
+    toast.innerHTML = `
+        <div class="toast-icon">${icon}</div>
+        <div>${message}</div>
+    `;
+    
+    container.appendChild(toast);
+    
+    setTimeout(() => toast.classList.add('show'), 10);
+    
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 400);
+    }, 4500);
+}
+
+/* ================= 2. KALKULATOR PRICELIST LOGIC (BARU) ================= */
+function hitungSewa() {
+    const hargaPaket = parseInt(document.getElementById('paketSound').value) || 0;
+    const jarak = parseInt(document.getElementById('jarakKM').value) || 0;
+    const biayaAkses = parseInt(document.getElementById('aksesLokasi').value) || 0;
+    const biayaDurasi = parseInt(document.getElementById('durasiAcara').value) || 0;
+
+    let biayaOngkir = 0;
+    if (jarak > 10) {
+        biayaOngkir = (jarak - 10) * 10000;
+    }
+
+    const total = hargaPaket + biayaOngkir + biayaAkses + biayaDurasi;
+    const formatRupiah = (num) => "Rp " + num.toLocaleString('id-ID');
+
+    document.getElementById('totalDisplay').innerText = formatRupiah(total);
+
+    document.getElementById('breakdownDisplay').innerHTML = `
+        • Paket Sound: ${formatRupiah(hargaPaket)}<br>
+        • Transportasi (${jarak} KM): ${biayaOngkir === 0 ? 'Gratis' : formatRupiah(biayaOngkir)}<br>
+        • Medan Akses: ${biayaAkses === 0 ? 'Gratis' : formatRupiah(biayaAkses)}<br>
+        • Extra Durasi: ${biayaDurasi === 0 ? 'Standar' : formatRupiah(biayaDurasi)}
+    `;
+}
+
+function pesanKalkulator() {
+    const total = document.getElementById('totalDisplay').innerText;
+    const breakdown = document.getElementById('breakdownDisplay').innerText.replace(/<br>/g, '\n');
+    
+    openContactModal();
+    
+    // Auto-fill pesan di form
+    const messageInput = document.getElementById('messageInput');
+    if (messageInput) {
+        messageInput.value = `Halo SPR Audio, saya ingin booking sewa Sound System dengan rincian berikut:\n\n${breakdown}\n\nTOTAL ESTIMASI: ${total}`;
+    }
+    
+    showToast(`Rincian sewa dimasukkan ke form kontak!`, '🔊');
+}
+
+// Jalankan kalkulator pertama kali
+hitungSewa();
+
+/* ================= 3. MP3 AUDIO PLAYER ================= */
 const audio = new Audio("goth-slowed.mp3");
 audio.loop = true;
 
@@ -1771,8 +1814,9 @@ if (playBtn) {
                 isPlaying = true;
                 playBtn.innerHTML = "Ⅱ";
                 animateVisualizer();
+                showToast("Memutar audio demo", "🎵");
             }).catch(err => {
-                console.error("Gagal memutar lagu:", err);
+                showToast("Gagal memutar audio, file goth-slowed.mp3 tidak ditemukan", "⚠️");
             });
         } else {
             audio.pause();
@@ -1794,7 +1838,7 @@ function animateVisualizer() {
     setTimeout(animateVisualizer, 100);
 }
 
-/* ================= 2. AMBIENT LIGHT ================= */
+/* ================= 4. AMBIENT LIGHT ================= */
 const ambientLight = document.getElementById('ambientLight');
 if (ambientLight) {
     window.addEventListener('mousemove', (e) => {
@@ -1803,12 +1847,11 @@ if (ambientLight) {
     });
 }
 
-/* ================= 3. SCROLL REVEAL & STATS COUNTER ================= */
+/* ================= 5. SCROLL REVEAL & STATS COUNTER ================= */
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if(entry.isIntersecting){
             entry.target.classList.add("active");
-            // Menjalankan animasi angka counter
             const counters = entry.target.querySelectorAll('.counter');
             counters.forEach(counter => {
                 if(!counter.classList.contains('counted')) {
@@ -1841,18 +1884,16 @@ function startCounter(el) {
     update();
 }
 
-/* ================= 4. MODAL DINAMIS & WEB3FORMS ================= */
+/* ================= 6. MODAL DINAMIS & WEB3FORMS ================= */
 const modal = document.getElementById('modalOverlay');
 const modalTitle = document.getElementById('modalTitle');
 const modalDesc = document.getElementById('modalDesc');
 const applyForm = document.getElementById('applyForm');
 const termsContainer = document.getElementById('termsContainer');
 
-// Fungsi Modal Khusus Melamar Lowongan Kerja
 function openApplyModal(jobTitle) {
     if (!modal) return;
     
-    // Tampilkan Form, Sembunyikan Ketentuan
     if (applyForm) applyForm.style.display = 'block';
     if (termsContainer) termsContainer.style.display = 'none';
 
@@ -1876,11 +1917,9 @@ function openApplyModal(jobTitle) {
     modal.classList.add('active');
 }
 
-// Fungsi Modal Khusus Kontak
 function openContactModal() {
     if (!modal) return;
 
-    // Tampilkan Form, Sembunyikan Ketentuan
     if (applyForm) applyForm.style.display = 'block';
     if (termsContainer) termsContainer.style.display = 'none';
 
@@ -1905,11 +1944,9 @@ function openContactModal() {
     modal.classList.add('active');
 }
 
-// Fungsi Modal Khusus Menampilkan Ketentuan (Terms)
 function openTermsModal() {
     if (!modal) return;
 
-    // Sembunyikan Form, Tampilkan Ketentuan
     if (applyForm) applyForm.style.display = 'none';
     if (termsContainer) termsContainer.style.display = 'block';
 
@@ -1929,7 +1966,7 @@ if (modal) {
     });
 }
 
-// Fungsi Pengirim Email Web3Forms
+// Pengiriman Web3Forms Menggunakan Toast Notif Modern
 async function handleFormSubmit(e) {
     e.preventDefault();
     
@@ -1953,14 +1990,14 @@ async function handleFormSubmit(e) {
         const data = await response.json();
 
         if (data.success) {
-            alert("Terima kasih! Pesanmu berhasil terkirim ke email SPR Audio.");
+            showToast("Terima kasih! Pesanmu berhasil terkirim ke email SPR Audio.", "✉️");
             form.reset();
             closeModal();
         } else {
-            alert("Terjadi kesalahan. Silakan coba lagi.");
+            showToast("Terjadi kesalahan. Silakan coba lagi.", "❌");
         }
     } catch (error) {
-        alert("Gagal mengirim. Periksa koneksi internetmu.");
+        showToast("Gagal mengirim. Periksa koneksi internetmu.", "🌐");
     } finally {
         if (submitBtn) {
             submitBtn.innerText = originalBtnText;
