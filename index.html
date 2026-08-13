@@ -1656,25 +1656,39 @@ footer{
         <h3 class="modal-title" id="modalTitle">Apply Position</h3>
         <p class="modal-desc" id="modalDesc">Fill in your information to join this production.</p>
         
-        <form onsubmit="handleFormSubmit(event)">
-            <div class="form-group">
-                <label>Your Name</label>
-                <input type="text" placeholder="John Doe" required />
-            </div>
-            <div class="form-group">
-                <label>Email Address</label>
-                <input type="email" placeholder="john@example.com" required />
-            </div>
-            <div class="form-group">
-                <label>Portfolio Link (Soundcloud / Drive / Spotify)</label>
-                <input type="url" placeholder="https://..." required />
-            </div>
-            <div class="form-group">
-                <label>Short Pitch / Note</label>
-                <textarea rows="3" placeholder="Tell us about your experience..."></textarea>
-            </div>
-            <button type="submit" class="submit-btn">Submit Application</button>
-        </form>
+        <form id="applyForm" onsubmit="handleFormSubmit(event)">
+    <!-- Access Key dari Web3Forms -->
+    <input type="hidden" name="access_key" value="4c3cc0e1-b452-43e7-a8cb-cc54bdec18a2">
+    
+    <!-- Judul Subjek Email yang Akan Kamu Terima -->
+    <input type="hidden" name="subject" id="emailSubject" value="New Application - SPR Audio">
+    
+    <!-- Nama Pengirim (Diisi Otomatis) -->
+    <input type="hidden" name="from_name" value="SPR Audio Website">
+
+    <div class="form-group">
+        <label>Your Name</label>
+        <input type="text" name="name" placeholder="John Doe" required />
+    </div>
+
+    <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" name="email" placeholder="john@example.com" required />
+    </div>
+
+    <div class="form-group">
+        <label>Portfolio Link (Soundcloud / Drive / Spotify)</label>
+        <input type="url" name="portfolio" placeholder="https://..." required />
+    </div>
+
+    <div class="form-group">
+        <label>Short Pitch / Note</label>
+        <textarea name="message" rows="3" placeholder="Tell us about your experience..."></textarea>
+    </div>
+
+    <button type="submit" class="submit-btn" id="submitBtn">Submit Application</button>
+</form>
+
     </div>
 </div>
 
