@@ -337,7 +337,7 @@ body:before{
     bottom:45px;
     right:6vw;
 
-    width:350px;
+    width:380px;
 
     padding:15px 18px;
 
@@ -379,6 +379,7 @@ body:before{
 
     font-size:13px;
     transition: 0.2s;
+    flex-shrink: 0;
 }
 
 .play:hover {
@@ -387,7 +388,7 @@ body:before{
 }
 
 .track-info{
-    min-width:75px;
+    min-width:110px;
 }
 
 .track-info small{
@@ -399,7 +400,12 @@ body:before{
 }
 
 .track-info strong{
-    font-size:12px;
+    font-size:11px;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 140px;
 }
 
 .wave{
@@ -1129,8 +1135,10 @@ footer{
         gap:20px;
     }
 
-.brand-logo img{
-    width:125px;
+    .brand-logo img{
+        width:125px;
+    }
+
 }
 
 </style>
@@ -1221,9 +1229,9 @@ footer{
 
         <div class="track-info">
 
-            <small>Preview</small>
+            <small>Now Playing</small>
 
-            <strong>SPR Studio Session</strong>
+            <strong title="Goth (Slowed + Reverb)">Goth (Slowed + Reverb)</strong>
 
         </div>
 
@@ -1700,63 +1708,29 @@ footer{
 
 <script>
 
-/* ================= 1. AUDIO SYNTHESIZER (WEB AUDIO API) ================= */
-// Tanpa butuh file MP3 eksternal, membuat suara musik ambient synthesizer otomatis dari browser
-let audioCtx;
+/* ================= 1. MP3 AUDIO PLAYER ================= */
+// Membuat objek Audio yang merujuk ke file lagu MP3
+const audio = new Audio("goth-slowed.mp3");
+audio.loop = true; // lagu berputar terus secara otomatis (loop)
+
 let isPlaying = false;
-let osc1, osc2, gainNode;
-
-function initAudio() {
-    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    
-    // Low pass filter
-    const filter = audioCtx.createBiquadFilter();
-    filter.type = 'lowpass';
-    filter.frequency.setValueAtTime(800, audioCtx.currentTime);
-
-    // Master gain
-    gainNode = audioCtx.createGain();
-    gainNode.gain.setValueAtTime(0.15, audioCtx.currentTime);
-
-    // Oscillators untuk chord pad synth
-    osc1 = audioCtx.createOscillator();
-    osc2 = audioCtx.createOscillator();
-
-    osc1.type = 'sawtooth';
-    osc2.type = 'sine';
-
-    // Chord frequency (A minor / Ambient Chill vibe)
-    osc1.frequency.setValueAtTime(220, audioCtx.currentTime); // A3
-    osc2.frequency.setValueAtTime(329.63, audioCtx.currentTime); // E4
-
-    osc1.connect(filter);
-    osc2.connect(filter);
-    filter.connect(gainNode);
-    gainNode.connect(audioCtx.destination);
-
-    osc1.start();
-    osc2.start();
-}
-
 const playBtn = document.getElementById("playBtn");
 const bars = document.querySelectorAll(".bar");
 
 playBtn.addEventListener("click", () => {
-    if(!audioCtx) initAudio();
-
-    if (audioCtx.state === 'suspended') {
-        audioCtx.resume();
-    }
-
-    isPlaying = !isPlaying;
-
-    if(isPlaying){
-        playBtn.innerHTML = "Ⅱ";
-        gainNode.gain.setTargetAtTime(0.15, audioCtx.currentTime, 0.1);
-        animateVisualizer();
+    if(!isPlaying){
+        audio.play().then(() => {
+            isPlaying = true;
+            playBtn.innerHTML = "Ⅱ";
+            animateVisualizer();
+        }).catch(err => {
+            console.error("Gagal memutar lagu. Pastikan nama file audio sesuai:", err);
+            alert("File lagu 'goth-slowed.mp3' tidak ditemukan di folder yang sama.");
+        });
     } else {
+        audio.pause();
+        isPlaying = false;
         playBtn.innerHTML = "▶";
-        gainNode.gain.setTargetAtTime(0, audioCtx.currentTime, 0.1);
     }
 });
 
