@@ -11,7 +11,6 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
 
 <style>
-
 :root{
     --bg:#08090b;
     --bg2:#0d0f12;
@@ -121,26 +120,20 @@ body:before{
 }
 
 /* ================= NAV ================= */
-
 .navbar{
     position:fixed;
     top:0;
     left:0;
     width:100%;
     height:82px;
-
     display:flex;
     align-items:center;
-    justify-space-between:space-between;
-
+    justify-content:space-between;
     padding:0 6vw;
-
     z-index:1000;
-
     background:rgba(8,9,11,.75);
     backdrop-filter:blur(18px);
     border-bottom:1px solid rgba(255,255,255,.04);
-
     transition:.35s ease;
 }
 
@@ -194,14 +187,11 @@ body:before{
 .btn-small{
     padding:11px 18px;
     border-radius:10px;
-
     color:#071017;
     background:#e7f5fc;
-
     text-decoration:none;
     font-size:13px;
     font-weight:700;
-
     transition:.3s;
 }
 
@@ -211,16 +201,12 @@ body:before{
 }
 
 /* ================= HERO ================= */
-
 .hero{
     min-height:100vh;
     position:relative;
-
     display:flex;
     align-items:center;
-
     padding:130px 6vw 80px;
-
     overflow:hidden;
 }
 
@@ -228,10 +214,8 @@ body:before{
     position:absolute;
     right:0;
     top:0;
-
     width:58%;
     height:100%;
-
     background:
         linear-gradient(
             90deg,
@@ -241,12 +225,9 @@ body:before{
             rgba(8,9,11,.25)
         ),
         url("https://images.unsplash.com/photo-1714347738034-f8280c00e97b?auto=format&fit=crop&w=2200&q=85");
-
     background-size:cover;
     background-position:center;
-
     opacity:.78;
-
     mask-image:linear-gradient(
         to right,
         transparent 0%,
@@ -258,7 +239,6 @@ body:before{
 .hero-content{
     position:relative;
     z-index:2;
-
     max-width:700px;
 }
 
@@ -266,14 +246,10 @@ body:before{
     display:inline-flex;
     align-items:center;
     gap:9px;
-
     margin-bottom:27px;
-
     color:var(--accent2);
-
     font-size:12px;
     font-weight:700;
-
     text-transform:uppercase;
     letter-spacing:2px;
 }
@@ -283,11 +259,9 @@ body:before{
     height:7px;
     border-radius:50%;
     background:#a8d9ee;
-
     box-shadow:
         0 0 0 5px rgba(168,217,238,.08),
         0 0 18px rgba(168,217,238,.8);
-
     animation:pulse 2s infinite;
 }
 
@@ -300,11 +274,8 @@ body:before{
     font-family:"Space Grotesk";
     font-size:clamp(55px,7vw,100px);
     line-height:.94;
-
     letter-spacing:-5px;
-
     max-width:780px;
-
     margin-bottom:30px;
 }
 
@@ -314,12 +285,9 @@ body:before{
 
 .hero-description{
     max-width:570px;
-
     color:#a4a9b0;
-
     font-size:17px;
     line-height:1.75;
-
     margin-bottom:38px;
 }
 
@@ -332,20 +300,14 @@ body:before{
 .btn-primary,
 .btn-secondary{
     height:52px;
-
     padding:0 23px;
-
     display:flex;
     align-items:center;
     justify-content:center;
-
     border-radius:12px;
-
     text-decoration:none;
-
     font-size:14px;
     font-weight:700;
-
     transition:.3s;
     cursor: pointer;
 }
@@ -363,7 +325,6 @@ body:before{
 .btn-secondary{
     color:#dce1e5;
     border:1px solid rgba(255,255,255,.15);
-
     background:rgba(255,255,255,.025);
 }
 
@@ -374,30 +335,20 @@ body:before{
 }
 
 /* ================= AUDIO VISUALIZER ================= */
-
 .audio-player{
     position:absolute;
-
     bottom:45px;
     right:6vw;
-
     width:380px;
-
     padding:15px 18px;
-
     display:flex;
     align-items:center;
     gap:15px;
-
     background:rgba(16,18,22,.72);
     backdrop-filter:blur(20px);
-
     border:1px solid rgba(255,255,255,.09);
-
     border-radius:16px;
-
     z-index:5;
-
     box-shadow:0 20px 70px rgba(0,0,0,.35);
     transition: transform 0.3s ease;
 }
@@ -409,25 +360,20 @@ body:before{
 .play{
     width:38px;
     height:38px;
-
     border:none;
     border-radius:50%;
-
     display:grid;
     place-items:center;
-
     background:#eaf7fc;
     color:#0a1116;
-
     cursor:pointer;
-
     font-size:13px;
     transition: 0.2s;
     flex-shrink: 0;
 }
 
 .play:hover {
-    transform: scale(1.08);
+    scale: 1.08;
     background: #ffffff;
 }
 
@@ -454,9 +400,7 @@ body:before{
 
 .wave{
     height:30px;
-
     flex:1;
-
     display:flex;
     align-items:center;
     gap:3px;
@@ -464,16 +408,13 @@ body:before{
 
 .bar{
     width:3px;
-    height:5px;
-
+    height:10px;
     border-radius:4px;
-
     background:#8bc5df;
     transition: height 0.1s ease;
 }
 
 /* ================= KALKULATOR PRICELIST ================= */
-
 .calculator-section {
     padding: 100px 6vw;
     background: var(--bg2);
@@ -676,8 +617,7 @@ body:before{
     box-shadow: 0 10px 30px rgba(125,182,214,0.2);
 }
 
-/* ================= ACCORDION & FAQ ================= */
-
+/* ================= FAQ & ACCORDION ================= */
 .info-section {
     padding: 60px 6vw 100px;
     background: var(--bg2);
@@ -792,7 +732,6 @@ body:before{
 }
 
 /* ================= SECTIONS ================= */
-
 section{
     padding:130px 6vw;
 }
@@ -800,8 +739,7 @@ section{
 .section-head{
     display:flex;
     justify-content:space-between;
-    align-items:flex-end;
-
+    align-items:end;
     margin-bottom:55px;
 }
 
@@ -811,29 +749,23 @@ section{
     font-weight:700;
     text-transform:uppercase;
     letter-spacing:2px;
-
     margin-bottom:14px;
 }
 
 .section-head h2{
     font-family:"Space Grotesk";
-
     font-size:clamp(36px,5vw,65px);
     line-height:1;
-
     letter-spacing:-3px;
 }
 
 .section-head p{
     max-width:380px;
-
     color:#858b94;
-
     line-height:1.7;
 }
 
 /* ================= JOBS ================= */
-
 .jobs{
     background:#0b0d10;
 }
@@ -846,45 +778,31 @@ section{
 
 .job-card{
     position:relative;
-
     padding:28px;
-
     min-height:290px;
-
     background:
         linear-gradient(
             145deg,
             rgba(255,255,255,.055),
             rgba(255,255,255,.018)
         );
-
     border:1px solid var(--line);
-
     border-radius:var(--radius);
-
     overflow:hidden;
-
     transition:.4s ease;
     cursor: pointer;
 }
 
 .job-card:before{
     content:"";
-
     position:absolute;
-
     width:200px;
     height:200px;
-
     top:-100px;
     right:-100px;
-
     background:#7db6d6;
-
     opacity:.08;
-
     border-radius:50%;
-
     filter:blur(50px);
     transition: 0.4s ease;
 }
@@ -897,33 +815,23 @@ section{
 
 .job-card:hover{
     transform:translateY(-8px);
-
     border-color:rgba(150,210,235,.3);
-
-    box-shadow:
-        0 30px 80px rgba(0,0,0,.25);
+    box-shadow: 0 30px 80px rgba(0,0,0,.25);
 }
 
 .job-top{
     display:flex;
     justify-content:space-between;
-
     margin-bottom:30px;
 }
 
 .status{
     padding:7px 10px;
-
     border-radius:30px;
-
     font-size:10px;
-
     color:#9bd6ef;
-
     background:rgba(126,190,220,.09);
-
     border:1px solid rgba(126,190,220,.14);
-
     text-transform:uppercase;
     letter-spacing:1px;
 }
@@ -935,30 +843,23 @@ section{
 
 .job-card h3{
     font-family:"Space Grotesk";
-
     font-size:23px;
-
     margin-bottom:12px;
-
     letter-spacing:-.7px;
 }
 
 .job-card p{
     color:#818791;
-
     font-size:13px;
     line-height:1.65;
-
     max-width:360px;
 }
 
 .job-bottom{
     position:absolute;
-
     left:28px;
     right:28px;
     bottom:25px;
-
     display:flex;
     justify-content:space-between;
     align-items:center;
@@ -971,12 +872,9 @@ section{
 
 .view-job{
     color:#9bcfe6;
-
     font-size:12px;
     font-weight:700;
-
     text-decoration:none;
-
     transition:.25s;
 }
 
@@ -986,22 +884,16 @@ section{
 }
 
 /* ================= FEATURE ================= */
-
 .feature{
     display:grid;
-
     grid-template-columns:1.1fr .9fr;
-
     min-height:620px;
-
     padding:0;
-
     background:#0b0d10;
 }
 
 .feature-image{
     min-height:620px;
-
     background:
         linear-gradient(
             90deg,
@@ -1009,14 +901,12 @@ section{
             #0b0d10 100%
         ),
         url("https://images.unsplash.com/photo-1483412033650-1015ddeb83d1?auto=format&fit=crop&w=1800&q=85");
-
     background-size:cover;
     background-position:center;
 }
 
 .feature-content{
     padding:100px 8vw 100px 4vw;
-
     display:flex;
     flex-direction:column;
     justify-content:center;
@@ -1024,23 +914,16 @@ section{
 
 .feature-content h2{
     font-family:"Space Grotesk";
-
     font-size:clamp(40px,5vw,70px);
-
     line-height:.98;
-
     letter-spacing:-3px;
-
     margin-bottom:25px;
 }
 
 .feature-content p{
     color:#8c929a;
-
     line-height:1.8;
-
     max-width:500px;
-
     margin-bottom:35px;
 }
 
@@ -1054,45 +937,33 @@ section{
     display:flex;
     align-items:center;
     gap:12px;
-
     color:#c4c9cf;
-
     font-size:13px;
 }
 
 .check{
     width:22px;
     height:22px;
-
     border:1px solid rgba(140,205,230,.3);
-
     border-radius:50%;
-
     display:grid;
     place-items:center;
-
     color:#9ed5ef;
-
     font-size:11px;
 }
 
 /* ================= STATS ================= */
-
 .stats{
     display:grid;
-
     grid-template-columns:repeat(4,1fr);
-
     border-top:1px solid var(--line);
     border-bottom:1px solid var(--line);
-
     padding-top:70px;
     padding-bottom:70px;
 }
 
 .stat{
     padding:10px 35px;
-
     border-right:1px solid var(--line);
 }
 
@@ -1102,13 +973,9 @@ section{
 
 .stat strong{
     display:block;
-
     font-family:"Space Grotesk";
-
     font-size:48px;
-
     letter-spacing:-3px;
-
     margin-bottom:8px;
 }
 
@@ -1118,24 +985,17 @@ section{
 }
 
 /* ================= PROCESS ================= */
-
 .process-grid{
     display:grid;
-
     grid-template-columns:repeat(3,1fr);
-
     gap:18px;
 }
 
 .process{
     padding:35px 30px;
-
     border:1px solid var(--line);
-
     border-radius:20px;
-
     background:#0d0f12;
-
     transition: 0.3s ease;
 }
 
@@ -1146,92 +1006,63 @@ section{
 
 .number{
     font-family:"Space Grotesk";
-
     color:#59616a;
-
     font-size:12px;
-
     margin-bottom:55px;
 }
 
 .process h3{
     font-family:"Space Grotesk";
-
     font-size:23px;
-
     margin-bottom:14px;
 }
 
 .process p{
     color:#7d848c;
-
     font-size:13px;
-
     line-height:1.7;
 }
 
 /* ================= CTA ================= */
-
 .cta{
     position:relative;
-
     text-align:center;
-
     overflow:hidden;
-
     padding:150px 6vw;
 }
 
 .cta:before{
     content:"";
-
     position:absolute;
-
     width:500px;
     height:500px;
-
     left:50%;
     top:50%;
-
     transform:translate(-50%,-50%);
-
     background:#70b6d6;
-
     opacity:.07;
-
     filter:blur(100px);
-
     border-radius:50%;
 }
 
 .cta h2{
     position:relative;
-
     font-family:"Space Grotesk";
-
     font-size:clamp(50px,7vw,100px);
-
     line-height:.9;
-
     letter-spacing:-5px;
-
     margin-bottom:30px;
 }
 
 .cta p{
     position:relative;
-
     max-width:500px;
-
     margin:auto auto 35px;
-
     color:#838a92;
-
     line-height:1.7;
 }
 
 /* ================= MODAL / POPUP ================= */
-
 .modal-overlay {
     position: fixed;
     inset: 0;
@@ -1325,6 +1156,14 @@ section{
     border-color: var(--accent);
 }
 
+/* ANTI-SPAM: Hidden Honeypot Field */
+.hidden-honeypot {
+    display: none !important;
+    visibility: hidden !important;
+    position: absolute !important;
+    left: -9999px !important;
+}
+
 .submit-btn {
     width: 100%;
     height: 48px;
@@ -1339,6 +1178,11 @@ section{
 
 .submit-btn:hover {
     background: #ffffff;
+}
+
+.submit-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 .terms-body {
@@ -1359,17 +1203,12 @@ section{
 }
 
 /* ================= FOOTER ================= */
-
 footer{
     padding:35px 6vw;
-
     border-top:1px solid var(--line);
-
     display:flex;
     justify-content:space-between;
-
     color:#646b73;
-
     font-size:12px;
 }
 
@@ -1385,12 +1224,9 @@ footer{
 }
 
 /* ================= SCROLL ANIMATION ================= */
-
 .reveal{
     opacity:0;
-
     transform:translateY(45px);
-
     transition:
         opacity .9s ease,
         transform .9s cubic-bezier(.16,1,.3,1);
@@ -1398,133 +1234,42 @@ footer{
 
 .reveal.active{
     opacity:1;
-
     transform:translateY(0);
 }
 
 /* ================= RESPONSIVE ================= */
-
 @media(max-width:900px){
-
-    .nav-links{
-        display:none;
-    }
-
-    .hero{
-        min-height:900px;
-    }
-
+    .nav-links{ display:none; }
+    .hero{ min-height:900px; }
     .hero-image{
         width:100%;
-
         opacity:.45;
-
-        mask-image:
-            linear-gradient(
-                to bottom,
-                transparent 0%,
-                black 30%,
-                black 70%,
-                transparent 100%
-            );
+        mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 70%, transparent 100%);
     }
-
-    .hero h1{
-        letter-spacing:-3px;
-    }
-
-    .audio-player{
-        left:6vw;
-        right:6vw;
-        width:auto;
-    }
-
-    .job-grid,
-    .process-grid,
-    .calc-grid,
-    .rules-list {
-        grid-template-columns:1fr;
-    }
-
-    .feature{
-        grid-template-columns:1fr;
-    }
-
-    .feature-image{
-        min-height:400px;
-    }
-
-    .feature-content{
-        padding:80px 6vw;
-    }
-
-    .stats{
-        grid-template-columns:1fr 1fr;
-    }
-
-    .stat{
-        padding:25px;
-
-        border-right:none;
-        border-bottom:1px solid var(--line);
-    }
-
+    .hero h1{ letter-spacing:-3px; }
+    .audio-player{ left:6vw; right:6vw; width:auto; }
+    .job-grid, .process-grid, .calc-grid, .rules-list { grid-template-columns:1fr; }
+    .feature{ grid-template-columns:1fr; }
+    .feature-image{ min-height:400px; }
+    .feature-content{ padding:80px 6vw; }
+    .stats{ grid-template-columns:1fr 1fr; }
+    .stat{ padding:25px; border-right:none; border-bottom:1px solid var(--line); }
 }
 
 @media(max-width:600px){
-
-    .navbar{
-        padding:0 5vw;
-    }
-
-    .signin{
-        display:none;
-    }
-
-    .btn-small{
-        padding:10px 14px;
-    }
-
-    section{
-        padding:90px 5vw;
-    }
-
-    .hero{
-        padding-left:5vw;
-        padding-right:5vw;
-    }
-
-    .hero h1{
-        font-size:57px;
-    }
-
-    .hero-description{
-        font-size:15px;
-    }
-
-    .section-head{
-        display:block;
-    }
-
-    .section-head p{
-        margin-top:20px;
-    }
-
-    .stats {
-        grid-template-columns:1fr;
-    }
-
-    footer{
-        flex-direction:column;
-        gap:20px;
-    }
-
-    .brand-logo img{
-        width:125px;
-    }
-
+    .navbar{ padding:0 5vw; }
+    .signin{ display:none; }
+    .btn-small{ padding:10px 14px; }
+    section{ padding:90px 5vw; }
+    .hero{ padding-left:5vw; padding-right:5vw; }
+    .hero h1{ font-size:57px; }
+    .hero-description{ font-size:15px; }
+    .section-head{ display:block; }
+    .section-head p{ margin-top:20px; }
+    .stats { grid-template-columns:1fr; }
+    footer{ flex-direction:column; gap:20px; }
+    .brand-logo img{ width:125px; }
 }
-
 </style>
 </head>
 
@@ -1536,12 +1281,10 @@ footer{
 <div class="ambient-light" id="ambientLight"></div>
 
 <!-- ================= NAV ================= -->
-
 <nav class="navbar">
-
-<a href="#" class="brand-logo">
-    <img src="spr-audio-logo.png" alt="SPR Audio">
-</a>
+    <a href="#" class="brand-logo">
+        <img src="spr-audio-logo.png" alt="SPR Audio">
+    </a>
 
     <div class="nav-links">
         <a href="#kalkulator">Hitung Sewa</a>
@@ -1550,80 +1293,46 @@ footer{
     </div>
 
     <div class="nav-actions">
-        <a class="signin" onclick="openContactModal()">
-            Kontak
-        </a>
-
-        <a href="#kalkulator" class="btn-small">
-            Cek Harga Sewa
-        </a>
+        <a class="signin" onclick="openContactModal()">Kontak</a>
+        <a href="#kalkulator" class="btn-small">Cek Harga Sewa</a>
     </div>
-
 </nav>
 
-
 <!-- ================= HERO ================= -->
-
 <header class="hero">
-
     <div class="hero-image"></div>
-
     <div class="hero-content reveal">
-
         <div class="eyebrow">
             <span class="live-dot"></span>
             SAAT INI SEDANG MEMBUKA LOWONGAN UNTUK TENAGA AHLI AUDIO.
         </div>
-
-        <h1>
-            Suara membutuhkan
-            <span>ketelitian.</span>
-        </h1>
-
+        <h1>Suara membutuhkan <span>ketelitian.</span></h1>
         <p class="hero-description">
             SPR Audio menyediakan persewaan sound system profesional serta mencari profesional audio, produser, teknisi, dan musisi luar biasa untuk proyek mendatang.
         </p>
-
         <div class="hero-buttons">
-
-            <a href="#kalkulator" class="btn-primary">
-                Simulasi Biaya Sewa
-            </a>
-
+            <a href="#kalkulator" class="btn-primary">Simulasi Biaya Sewa</a>
         </div>
-
     </div>
 
-
     <!-- AUDIO PLAYER -->
-
     <div class="audio-player">
-
-        <button class="play" id="playBtn" aria-label="Putar Audio Demo">
-            ▶
-        </button>
-
+        <button class="play" id="playBtn" aria-label="Putar Audio Demo">▶</button>
         <div class="track-info">
             <small>Sedang Diputar</small>
             <strong title="Goth (Slowed + Reverb)">Goth (Slowed + Reverb)</strong>
         </div>
-
         <div class="wave">
             <span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span>
             <span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span>
             <span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span>
             <span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span>
         </div>
-
     </div>
-
 </header>
 
-
 <!-- ================= KALKULATOR PRICELIST ================= -->
-
 <section class="calculator-section" id="kalkulator">
-
     <div class="section-head reveal" style="margin-bottom: 20px;">
         <div>
             <div class="section-label">Simulasi Biaya Cepat</div>
@@ -1633,10 +1342,7 @@ footer{
     </div>
 
     <div class="calc-grid reveal">
-        
-        <!-- FORM PILIHAN -->
         <div class="calc-box">
-            
             <!-- 1. PAKET SOUND -->
             <div class="calc-group" id="groupPaket">
                 <div class="calc-trigger" onclick="toggleCalcGroup('groupPaket')">
@@ -1648,7 +1354,7 @@ footer{
                 </div>
 
                 <div class="custom-options">
-                    <div class="option-card" onclick="selectOption(event, 'groupPaket', 'valPaket', 1500000, 'Paket Akustik / Indoor', 'Hingga 3.000 Watt')">
+                    <div class="option-card" onclick="selectOption(event, 'groupPaket', 'valPaket', 1500000, 'Paket Akustik / Indoor')">
                         <div class="option-text">
                             <strong>Paket Akustik / Indoor</strong>
                             <span>Kapasitas Hingga 3.000 W</span>
@@ -1656,7 +1362,7 @@ footer{
                         <div class="radio-indicator"></div>
                     </div>
 
-                    <div class="option-card active" onclick="selectOption(event, 'groupPaket', 'valPaket', 3000000, 'Paket Medium / Pernikahan', 'Hingga 5.000 Watt')">
+                    <div class="option-card active" onclick="selectOption(event, 'groupPaket', 'valPaket', 3000000, 'Paket Medium / Pernikahan')">
                         <div class="option-text">
                             <strong>Paket Medium / Pernikahan</strong>
                             <span>Kapasitas Hingga 5.000 W</span>
@@ -1664,7 +1370,7 @@ footer{
                         <div class="radio-indicator"></div>
                     </div>
 
-                    <div class="option-card" onclick="selectOption(event, 'groupPaket', 'valPaket', 5500000, 'Paket Pro Concert / Outdoor', 'Hingga 10.000 Watt')">
+                    <div class="option-card" onclick="selectOption(event, 'groupPaket', 'valPaket', 5500000, 'Paket Pro Concert / Outdoor')">
                         <div class="option-text">
                             <strong>Paket Pro Concert / Outdoor</strong>
                             <span>Kapasitas Hingga 10.000 W</span>
@@ -1680,7 +1386,8 @@ footer{
                     <div class="calc-trigger-info">
                         <label>2. Jarak Lokasi Acara (KM dari Basecamp)</label>
                     </div>
-                    <input type="number" id="jarakKM" value="5" min="0" placeholder="Masukkan jarak (KM)" oninput="hitungSewa()" style="margin-top: 8px;">
+                    <!-- UBAH BATAS MIN & MAX DI SINI (0 - 1500) -->
+                    <input type="number" id="jarakKM" value="5" min="0" max="1500" placeholder="Masukkan jarak (0 - 1500 KM)" oninput="hitungSewa()" style="margin-top: 8px;">
                 </div>
             </div>
 
@@ -1695,7 +1402,7 @@ footer{
                 </div>
 
                 <div class="custom-options">
-                    <div class="option-card active" onclick="selectOption(event, 'groupAkses', 'valAkses', 0, 'Akses Rata / Mudah', 'Parkir samping lokasi & jalan rata')">
+                    <div class="option-card active" onclick="selectOption(event, 'groupAkses', 'valAkses', 0, 'Akses Rata / Mudah')">
                         <div class="option-text">
                             <strong>Akses Rata / Mudah</strong>
                             <span>Parkir samping lokasi & jalan rata</span>
@@ -1703,7 +1410,7 @@ footer{
                         <div class="radio-indicator"></div>
                     </div>
 
-                    <div class="option-card" onclick="selectOption(event, 'groupAkses', 'valAkses', 150000, 'Sedang (Naik Tangga/Jalan Kaki)', 'Angkut manual / Naik tangga lantai 2')">
+                    <div class="option-card" onclick="selectOption(event, 'groupAkses', 'valAkses', 150000, 'Sedang (Naik Tangga/Jalan Kaki)')">
                         <div class="option-text">
                             <strong>Sedang</strong>
                             <span>Angkut manual / Naik tangga lantai 2</span>
@@ -1711,7 +1418,7 @@ footer{
                         <div class="radio-indicator"></div>
                     </div>
 
-                    <div class="option-card" onclick="selectOption(event, 'groupAkses', 'valAkses', 350000, 'Ekstrem (Gang Sempit/Becek)', 'Gang sempit / Tangga curam / Becek')">
+                    <div class="option-card" onclick="selectOption(event, 'groupAkses', 'valAkses', 350000, 'Ekstrem (Gang Sempit/Becek)')">
                         <div class="option-text">
                             <strong>Ekstrem</strong>
                             <span>Gang sempit / Tangga curam / Becek</span>
@@ -1732,7 +1439,7 @@ footer{
                 </div>
 
                 <div class="custom-options">
-                    <div class="option-card active" onclick="selectOption(event, 'groupDurasi', 'valDurasi', 0, 'Standar Acara (s.d 8 Jam)', 'Pemakaian standar hingga 8 jam')">
+                    <div class="option-card active" onclick="selectOption(event, 'groupDurasi', 'valDurasi', 0, 'Standar Acara (s.d 8 Jam)')">
                         <div class="option-text">
                             <strong>Standar Acara</strong>
                             <span>Pemakaian standar hingga 8 jam</span>
@@ -1740,7 +1447,7 @@ footer{
                         <div class="radio-indicator"></div>
                     </div>
 
-                    <div class="option-card" onclick="selectOption(event, 'groupDurasi', 'valDurasi', 250000, 'Full Day / Lembur', 'Penggunaan seharian penuh')">
+                    <div class="option-card" onclick="selectOption(event, 'groupDurasi', 'valDurasi', 250000, 'Full Day / Lembur')">
                         <div class="option-text">
                             <strong>Full Day / Lembur</strong>
                             <span>Penggunaan seharian penuh</span>
@@ -1749,15 +1456,12 @@ footer{
                     </div>
                 </div>
             </div>
-
         </div>
 
-        <!-- HASIL ESTIMASI -->
         <div class="result-card">
             <div>
                 <span style="font-size:11px; color:var(--accent2); font-weight:bold; letter-spacing:1.5px; text-transform:uppercase;">TOTAL ESTIMASI DEAL</span>
                 <div class="total-price" id="totalDisplay">Rp 3.000.000</div>
-                
                 <div class="price-breakdown" id="breakdownDisplay">
                     • Paket: Paket Medium / Pernikahan (Rp 3.000.000)<br>
                     • Transportasi (5 KM): Gratis<br>
@@ -1769,20 +1473,13 @@ footer{
             <button class="btn-book" onclick="pesanKalkulator()">Pesan & Deal Harga Ini</button>
         </div>
     </div>
-
 </section>
 
-
-<!-- ================= FAQ & ACCORDION TRANSAKSI ================= -->
-
+<!-- ================= FAQ ACCORDION ================= -->
 <div class="info-section">
     <div class="info-container reveal">
-        
         <h3 class="info-tabs-title">Aturan Transaksi & FAQ</h3>
-
         <div class="accordion">
-            
-            <!-- ACCORDION 1 -->
             <div class="accordion-item active">
                 <div class="accordion-header" onclick="toggleAccordion(this)">
                     <div class="accordion-header-text">
@@ -1813,7 +1510,6 @@ footer{
                 </div>
             </div>
 
-            <!-- ACCORDION 2 -->
             <div class="accordion-item">
                 <div class="accordion-header" onclick="toggleAccordion(this)">
                     <div class="accordion-header-text">
@@ -1827,7 +1523,6 @@ footer{
                 </div>
             </div>
 
-            <!-- ACCORDION 3 -->
             <div class="accordion-item">
                 <div class="accordion-header" onclick="toggleAccordion(this)">
                     <div class="accordion-header-text">
@@ -1841,7 +1536,6 @@ footer{
                 </div>
             </div>
 
-            <!-- ACCORDION 4 -->
             <div class="accordion-item">
                 <div class="accordion-header" onclick="toggleAccordion(this)">
                     <div class="accordion-header-text">
@@ -1851,34 +1545,24 @@ footer{
                     <span class="accordion-arrow">▼</span>
                 </div>
                 <div class="accordion-content">
-                    <p>Peralatan kami dilengkapi <em>stabilizer</em> untuk mencegah lonjakan arus. Jika pemadaman berasal dari PLN pusat, disarankan lokasi acara menyediakan Genset cadangan agar audio tetap beroperasi lancar.</p>
+                    <p>Peralatan kami dilengkapi *stabilizer* untuk mencegah lonjakan arus. Jika pemadaman berasal dari PLN pusat, disarankan lokasi acara menyediakan Genset cadangan agar audio tetap beroperasi lancar.</p>
                 </div>
             </div>
-
         </div>
-
     </div>
 </div>
 
-
 <!-- ================= JOBS ================= -->
-
 <section class="jobs" id="jobs">
-
     <div class="section-head reveal">
-
         <div>
             <div class="section-label">Posisi Terbuka</div>
             <h2>Proyek<br>Saat Ini.</h2>
         </div>
-
         <p>SPR Audio saat ini mencari talenta terbaik untuk berkolaborasi pada produksi audio mendatang.</p>
-
     </div>
 
-
     <div class="job-grid">
-
         <article class="job-card reveal" onclick="openApplyModal('Mixing Engineer')">
             <div class="job-top">
                 <span class="status">Terbuka</span>
@@ -1917,73 +1601,48 @@ footer{
                 <span class="view-job">Lihat Posisi →</span>
             </div>
         </article>
-
     </div>
-
 </section>
 
-
 <!-- ================= FEATURE ================= -->
-
 <section class="feature" id="about">
-
     <div class="feature-image reveal"></div>
-
     <div class="feature-content reveal">
-
         <div class="section-label">Filosofi Kami</div>
-
         <h2>Suara hebat dimulai dari orang-orang hebat.</h2>
-
         <p>SPR Audio percaya bahwa produksi terbaik diciptakan ketika individu kreatif memiliki kebebasan, alat, dan lingkungan yang tepat untuk fokus pada keahlian mereka.</p>
-
         <div class="feature-list">
             <div class="feature-item"><span class="check">✓</span> Kolaborasi Remote</div>
             <div class="feature-item"><span class="check">✓</span> Proyek Audio & Sound System Profesional</div>
             <div class="feature-item"><span class="check">✓</span> Ekspektasi Proyek yang Jelas</div>
             <div class="feature-item"><span class="check">✓</span> Kerja Sama Jangka Panjang</div>
         </div>
-
-        <a href="#jobs" class="btn-secondary" style="width:max-content;">
-            Lihat Lowongan Terbuka
-        </a>
-
+        <a href="#jobs" class="btn-secondary" style="width:max-content;">Lihat Lowongan Terbuka</a>
     </div>
-
 </section>
 
-
 <!-- ================= STATS ================= -->
-
 <section class="stats">
-
     <div class="stat reveal">
         <strong class="counter" data-target="12" data-suffix="+">0</strong>
         <span>Proyek Aktif</span>
     </div>
-
     <div class="stat reveal">
         <strong class="counter" data-target="28">0</strong>
         <span>Profesional Audio</span>
     </div>
-
     <div class="stat reveal">
         <strong class="counter" data-target="6" data-prefix="0">0</strong>
         <span>Kategori Musik</span>
     </div>
-
     <div class="stat reveal">
         <strong>24/7</strong>
         <span>Kolaborasi Kreatif</span>
     </div>
-
 </section>
 
-
 <!-- ================= PROCESS ================= -->
-
 <section id="process">
-
     <div class="section-head reveal">
         <div>
             <div class="section-label">Cara Kerja</div>
@@ -1993,128 +1652,100 @@ footer{
     </div>
 
     <div class="process-grid">
-
         <div class="process reveal">
             <div class="number">01 — TEMUKAN</div>
             <h3>Cari Proyek</h3>
             <p>Jelajahi proyek audio aktif dan temukan yang sesuai dengan keahlianmu.</p>
         </div>
-
         <div class="process reveal">
             <div class="number">02 — LAMAR</div>
             <h3>Kirim Karya</h3>
             <p>Kirimkan portofolio, pengalaman, serta penawaran hargamu.</p>
         </div>
-
         <div class="process reveal">
             <div class="number">03 — KARYA</div>
             <h3>Mulai Berkarya</h3>
             <p>Kandidat terpilih akan dihubungi langsung untuk mendiskusikan rincian proyek.</p>
         </div>
-
     </div>
-
 </section>
 
-
 <!-- ================= CTA ================= -->
-
 <section class="cta">
-
     <div class="reveal">
         <div class="section-label">Bekerja Bersama SPR Audio</div>
         <h2>Buat karya yang layak didengar.</h2>
         <p>Proyek baru terus bermunculan. Jelajahi peluang saat ini dan jadilah bagian dari produksi selanjutnya.</p>
-
-        <a href="#jobs" class="btn-primary" style="width:max-content;margin:auto;">
-            Jelajahi Lowongan Pekerjaan
-        </a>
+        <a href="#jobs" class="btn-primary" style="width:max-content;margin:auto;">Jelajahi Lowongan Pekerjaan</a>
     </div>
-
 </section>
 
-
-<!-- ================= MODAL / POPUP ================= -->
-
+<!-- ================= MODAL POPUP ================= -->
 <div class="modal-overlay" id="modalOverlay">
-    
     <div class="modal-box" id="modalBox">
         <button class="close-modal" onclick="closeModal()">✕</button>
         <h3 class="modal-title" id="modalTitle">Hubungi SPR Audio</h3>
         <p class="modal-desc" id="modalDesc">Isi informasi di bawah ini untuk mengirimkan pesan.</p>
 
-        <!-- Form Pendaftaran & Kontak -->
         <form id="applyForm" onsubmit="handleFormSubmit(event)">
             <input type="hidden" name="access_key" value="4c3cc0e1-b452-43e7-a8cb-cc54bdec18a2">
             <input type="hidden" name="subject" id="emailSubject" value="General Inquiry - SPR Audio">
             <input type="hidden" name="from_name" value="SPR Audio Website">
 
+            <!-- ANTI-SPAM: Web3Forms Captcha Enabled -->
+            <input type="checkbox" name="botcheck" class="hidden-honeypot">
+            
+            <!-- ANTI-SPAM: Custom Honeypot Field -->
+            <div class="hidden-honeypot">
+                <input type="text" name="website_url_check" id="honeyInput" autocomplete="off" tabindex="-1">
+            </div>
+
             <div class="form-group">
                 <label>Nama Lengkap</label>
-                <input type="text" name="name" placeholder="Contoh: Budi Santoso" required />
+                <input type="text" name="name" id="nameInput" placeholder="Contoh: Budi Santoso" maxlength="60" required />
             </div>
 
             <div class="form-group">
                 <label>Alamat Email</label>
-                <input type="email" name="email" placeholder="budi@example.com" required />
+                <input type="email" name="email" id="emailInput" placeholder="budi@example.com" maxlength="80" required />
             </div>
 
             <div class="form-group" id="portfolioGroup" style="display: none;">
                 <label>Link Portofolio (Soundcloud / Drive / Spotify)</label>
-                <input type="url" name="portfolio" id="portfolioInput" placeholder="https://..." />
+                <input type="url" name="portfolio" id="portfolioInput" placeholder="https://..." maxlength="200" />
             </div>
 
             <div class="form-group">
                 <label id="messageLabel">Pesan / Detail Proyek</label>
-                <textarea name="message" id="messageInput" rows="3" placeholder="Tuliskan pesan atau detail pertanyaanmu..." required></textarea>
+                <textarea name="message" id="messageInput" rows="3" placeholder="Tuliskan pesan atau detail pertanyaanmu..." maxlength="1000" required></textarea>
             </div>
 
             <button type="submit" class="submit-btn" id="submitBtn">Kirim Pesan</button>
         </form>
 
-        <!-- Container Ketentuan Layanan -->
         <div id="termsContainer" style="display: none;">
             <div class="terms-body">
                 <h4>1. Perjanjian Proyek</h4>
                 <p>Seluruh kolaborasi, cakupan kerja, tenggat waktu, dan biaya disepakati bersama sebelum proyek dimulai.</p>
-
                 <h4>2. Kerahasiaan (NDA)</h4>
                 <p>File audio yang belum dirilis, stems, dan rincian proyek dari SPR Audio bersifat rahasia dan tidak boleh disebarluaskan tanpa izin tertulis.</p>
-
                 <h4>3. Hak Kekayaan Intelektual</h4>
                 <p>Seluruh hasil akhir produksi audio menjadi hak milik pemilik proyek setelah pelunasan pembayaran dilakukan sesuai kontrak.</p>
-
                 <h4>4. Revisi & Pengiriman</h4>
                 <p>Teknisi dan produser wajib menyerahkan audio stems serta file WAV resolusi tinggi sesuai spesifikasi proyek dalam batas waktu yang disepakati.</p>
             </div>
         </div>
-
     </div>
 </div>
 
-
 <!-- ================= FOOTER ================= -->
-
 <footer>
-
-    <div>
-        © 2026 SPR Audio. Hak cipta dilindungi undang-undang.
-    </div>
-
+    <div>© 2026 SPR Audio. Hak cipta dilindungi undang-undang.</div>
     <div class="footer-links">
-        <a href="https://www.instagram.com/spraudiosystem?igsh=MWVoc3o5YjJnbXFteA==" target="_blank" rel="noopener noreferrer">
-            Instagram
-        </a>
-
-        <a onclick="openContactModal()">
-            Kontak
-        </a>
-
-        <a onclick="openTermsModal()">
-            Ketentuan
-        </a>
+        <a href="https://www.instagram.com/spraudiosystem?igsh=MWVoc3o5YjJnbXFteA==" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a onclick="openContactModal()">Kontak</a>
+        <a onclick="openTermsModal()">Ketentuan</a>
     </div>
-
 </footer>
 
 <script>
@@ -2143,38 +1774,50 @@ function toggleCalcGroup(groupId) {
     }
 }
 
-function selectOption(e, groupId, displayValId, value, nameText, descText) {
+function selectOption(e, groupId, displayValId, value, nameText) {
     const group = document.getElementById(groupId);
     if (!group) return;
 
     const cards = group.querySelectorAll('.option-card');
     cards.forEach(card => card.classList.remove('active'));
 
-    const currentCard = e.currentTarget;
+    const currentCard = e ? e.currentTarget : null;
     if (currentCard) {
         currentCard.classList.add('active');
     }
 
-    document.getElementById(displayValId).innerText = nameText;
+    const valDisplay = document.getElementById(displayValId);
+    if (valDisplay) {
+        valDisplay.innerText = nameText;
+    }
 
     if (groupId === 'groupPaket') {
-        selectedPaket = value;
+        selectedPaket = Number(value) || 0;
         selectedPaketText = nameText;
     } else if (groupId === 'groupAkses') {
-        selectedAkses = value;
+        selectedAkses = Number(value) || 0;
         selectedAksesText = nameText;
     } else if (groupId === 'groupDurasi') {
-        selectedDurasi = value;
+        selectedDurasi = Number(value) || 0;
         selectedDurasiText = nameText;
     }
 
     group.classList.remove('open');
-
     hitungSewa();
 }
 
 function hitungSewa() {
-    const jarak = parseInt(document.getElementById('jarakKM').value) || 0;
+    const jarakInput = document.getElementById('jarakKM');
+    let jarak = parseInt(jarakInput ? jarakInput.value : 0, 10);
+    
+    // Safety check: Mencegah input angka negatif / NaN / melebihi 1500 KM
+    if (isNaN(jarak) || jarak < 0) {
+        jarak = 0;
+        if (jarakInput) jarakInput.value = 0;
+    } else if (jarak > 1500) {
+        jarak = 1500;
+        if (jarakInput) jarakInput.value = 1500;
+    }
 
     let biayaOngkir = 0;
     if (jarak > 10) {
@@ -2184,19 +1827,26 @@ function hitungSewa() {
     const total = selectedPaket + biayaOngkir + selectedAkses + selectedDurasi;
     const formatRupiah = (num) => "Rp " + num.toLocaleString('id-ID');
 
-    document.getElementById('totalDisplay').innerText = formatRupiah(total);
+    const totalDisp = document.getElementById('totalDisplay');
+    const breakDisp = document.getElementById('breakdownDisplay');
 
-    document.getElementById('breakdownDisplay').innerHTML = `
-        • Paket: ${selectedPaketText} (${formatRupiah(selectedPaket)})<br>
-        • Transportasi (${jarak} KM): ${biayaOngkir === 0 ? 'Gratis' : formatRupiah(biayaOngkir)}<br>
-        • Medan Akses: ${selectedAksesText} (${selectedAkses === 0 ? 'Gratis' : formatRupiah(selectedAkses)})<br>
-        • Extra Durasi: ${selectedDurasiText} (${selectedDurasi === 0 ? 'Gratis' : formatRupiah(selectedDurasi)})
-    `;
+    if (totalDisp) totalDisp.innerText = formatRupiah(total);
+    if (breakDisp) {
+        breakDisp.innerHTML = `
+            • Paket: ${sanitizeText(selectedPaketText)} (${formatRupiah(selectedPaket)})<br>
+            • Transportasi (${jarak} KM): ${biayaOngkir === 0 ? 'Gratis' : formatRupiah(biayaOngkir)}<br>
+            • Medan Akses: ${sanitizeText(selectedAksesText)} (${selectedAkses === 0 ? 'Gratis' : formatRupiah(selectedAkses)})<br>
+            • Extra Durasi: ${sanitizeText(selectedDurasiText)} (${selectedDurasi === 0 ? 'Gratis' : formatRupiah(selectedDurasi)})
+        `;
+    }
 }
 
 function pesanKalkulator() {
-    const total = document.getElementById('totalDisplay').innerText;
-    const breakdown = document.getElementById('breakdownDisplay').innerText.replace(/<br>/g, '\n');
+    const totalElem = document.getElementById('totalDisplay');
+    const breakdownElem = document.getElementById('breakdownDisplay');
+    
+    const total = totalElem ? totalElem.innerText : '';
+    const breakdown = breakdownElem ? breakdownElem.innerText.replace(/<br>/g, '\n') : '';
     
     openContactModal();
     
@@ -2212,6 +1862,7 @@ hitungSewa();
 
 /* ================= 2. ACCORDION FAQ ================= */
 function toggleAccordion(header) {
+    if (!header) return;
     const item = header.parentElement;
     const isActive = item.classList.contains('active');
     
@@ -2222,19 +1873,20 @@ function toggleAccordion(header) {
     }
 }
 
-/* ================= 3. TOAST NOTIFICATION SYSTEM ================= */
+/* ================= 3. TOAST SYSTEM ================= */
 function showToast(message, icon = "✓") {
     const container = document.getElementById('toastContainer');
+    if (!container) return;
+
     const toast = document.createElement('div');
     toast.className = 'toast';
     
     toast.innerHTML = `
-        <div class="toast-icon">${icon}</div>
-        <div>${message}</div>
+        <div class="toast-icon">${sanitizeText(icon)}</div>
+        <div>${sanitizeText(message)}</div>
     `;
     
     container.appendChild(toast);
-    
     setTimeout(() => toast.classList.add('show'), 10);
     
     setTimeout(() => {
@@ -2243,7 +1895,7 @@ function showToast(message, icon = "✓") {
     }, 4500);
 }
 
-/* ================= 4. MP3 AUDIO PLAYER ================= */
+/* ================= 4. AUDIO PLAYER ================= */
 const audio = new Audio("goth-slowed.mp3");
 audio.loop = true;
 
@@ -2259,14 +1911,13 @@ if (playBtn) {
                 playBtn.innerHTML = "Ⅱ";
                 animateVisualizer();
                 showToast("Memutar audio demo", "🎵");
-            }).catch(err => {
+            }).catch(() => {
                 showToast("Gagal memutar audio, file goth-slowed.mp3 tidak ditemukan", "⚠️");
             });
         } else {
             audio.pause();
             isPlaying = false;
             playBtn.innerHTML = "▶";
-            bars.forEach(bar => bar.style.height = "5px");
         }
     });
 }
@@ -2292,7 +1943,7 @@ if (ambientLight) {
     });
 }
 
-/* ================= 6. SCROLL REVEAL & STATS COUNTER ================= */
+/* ================= 6. SCROLL REVEAL & COUNTER ================= */
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if(entry.isIntersecting){
@@ -2329,7 +1980,7 @@ function startCounter(el) {
     update();
 }
 
-/* ================= 7. MODAL DINAMIS ================= */
+/* ================= 7. MODAL & SECURITY HANDLERS ================= */
 const modal = document.getElementById('modalOverlay');
 const modalBox = document.getElementById('modalBox');
 const modalTitle = document.getElementById('modalTitle');
@@ -2413,12 +2064,60 @@ if (modal) {
     });
 }
 
+// Anti-XSS Sanitizer
+function sanitizeText(str) {
+    if (!str) return '';
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#x27;');
+}
+
+// Client-side Rate Limiter State
+let lastSubmitTime = 0;
+
 async function handleFormSubmit(e) {
     e.preventDefault();
     
     const form = e.target;
     const submitBtn = document.getElementById('submitBtn');
     
+    // 1. RATE LIMITING: Cegah spam klik (minimal jeda 15 detik)
+    const now = Date.now();
+    if (now - lastSubmitTime < 15000) {
+        showToast("Tunggu 15 detik sebelum mengirim pesan lagi.", "⏱️");
+        return;
+    }
+
+    // 2. HONEYPOT CHECK: Jika field jebakan diisi, gagalkan diam-diam (bot detector)
+    const honeyField = document.getElementById('honeyInput');
+    if (honeyField && honeyField.value !== '') {
+        showToast("Pesan terkirim!", "✉️"); // Fake feedback untuk mengecoh bot
+        form.reset();
+        closeModal();
+        return;
+    }
+
+    // 3. VALIDASI INPUT KETAT
+    const nameVal = document.getElementById('nameInput')?.value.trim();
+    const emailVal = document.getElementById('emailInput')?.value.trim();
+    const msgVal = document.getElementById('messageInput')?.value.trim();
+
+    if (!nameVal || !emailVal || !msgVal) {
+        showToast("Mohon lengkapi semua bidang yang wajib diisi.", "⚠️");
+        return;
+    }
+
+    // Validasi Format Email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(emailVal)) {
+        showToast("Format alamat email tidak valid.", "⚠️");
+        return;
+    }
+
+    // Lock tombol submit
     const originalBtnText = submitBtn ? submitBtn.innerText : "Kirim Pesan";
     if (submitBtn) {
         submitBtn.innerText = "Mengirim...";
@@ -2436,11 +2135,12 @@ async function handleFormSubmit(e) {
         const data = await response.json();
 
         if (data.success) {
-            showToast("Terima kasih! Pesanmu berhasil terkirim.", "✉️");
+            lastSubmitTime = Date.now();
+            showToast("Terima kasih! Pesanmu berhasil terkirim ke email SPR Audio.", "✉️");
             form.reset();
             closeModal();
         } else {
-            showToast("Terjadi kesalahan. Silakan coba lagi.", "❌");
+            showToast("Terjadi kesalahan sistem. Silakan coba lagi.", "❌");
         }
     } catch (error) {
         showToast("Gagal mengirim. Periksa koneksi internetmu.", "🌐");
