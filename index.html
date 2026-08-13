@@ -1719,7 +1719,7 @@ footer{
 
 </footer>
 
-    <script>
+<script>
 /* ================= 1. MP3 AUDIO PLAYER ================= */
 const audio = new Audio("goth-slowed.mp3");
 audio.loop = true;
@@ -1758,7 +1758,7 @@ function animateVisualizer() {
     setTimeout(animateVisualizer, 100);
 }
 
-/* ================= 2. AMBIENT LIGHT & ANIMASI ================= */
+/* ================= 2. AMBIENT LIGHT ================= */
 const ambientLight = document.getElementById('ambientLight');
 if (ambientLight) {
     window.addEventListener('mousemove', (e) => {
@@ -1767,17 +1767,45 @@ if (ambientLight) {
     });
 }
 
+/* ================= 3. SCROLL REVEAL & STATS COUNTER ================= */
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if(entry.isIntersecting){
             entry.target.classList.add("active");
+            // Menjalankan animasi angka counter
+            const counters = entry.target.querySelectorAll('.counter');
+            counters.forEach(counter => {
+                if(!counter.classList.contains('counted')) {
+                    counter.classList.add('counted');
+                    startCounter(counter);
+                }
+            });
         }
     });
 }, { threshold: 0.15 });
 
 document.querySelectorAll(".reveal, .stats").forEach(el => observer.observe(el));
 
-/* ================= 3. MODAL & KIRIM EMAIL (WEB3FORMS) ================= */
+function startCounter(el) {
+    const target = +el.getAttribute('data-target');
+    const prefix = el.getAttribute('data-prefix') || '';
+    const suffix = el.getAttribute('data-suffix') || '';
+    let count = 0;
+    const speed = target / 30;
+
+    const update = () => {
+        count += speed;
+        if(count < target) {
+            el.innerText = prefix + Math.ceil(count) + suffix;
+            setTimeout(update, 30);
+        } else {
+            el.innerText = prefix + target + suffix;
+        }
+    };
+    update();
+}
+
+/* ================= 4. MODAL & KIRIM EMAIL (WEB3FORMS) ================= */
 const modal = document.getElementById('modalOverlay');
 const modalTitle = document.getElementById('modalTitle');
 const modalDesc = document.getElementById('modalDesc');
@@ -1850,5 +1878,6 @@ async function handleFormSubmit(e) {
     }
 }
 </script>
+
 </body>
 </html>
