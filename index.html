@@ -1719,143 +1719,136 @@ footer{
 
 </footer>
 
-<script src="script.js"</script>
-
+    <script>
 /* ================= 1. MP3 AUDIO PLAYER ================= */
-// Membuat objek Audio yang merujuk ke file lagu MP3
 const audio = new Audio("goth-slowed.mp3");
-audio.loop = true; // lagu berputar terus secara otomatis (loop)
+audio.loop = true;
 
 let isPlaying = false;
 const playBtn = document.getElementById("playBtn");
 const bars = document.querySelectorAll(".bar");
 
-playBtn.addEventListener("click", () => {
-    if(!isPlaying){
-        audio.play().then(() => {
-            isPlaying = true;
-            playBtn.innerHTML = "Ⅱ";
-            animateVisualizer();
-        }).catch(err => {
-            console.error("Gagal memutar lagu. Pastikan nama file audio sesuai:", err);
-            alert("File lagu 'goth-slowed.mp3' tidak ditemukan di folder yang sama.");
-        });
-    } else {
-        audio.pause();
-        isPlaying = false;
-        playBtn.innerHTML = "▶";
-    }
-});
+if (playBtn) {
+    playBtn.addEventListener("click", () => {
+        if(!isPlaying){
+            audio.play().then(() => {
+                isPlaying = true;
+                playBtn.innerHTML = "Ⅱ";
+                animateVisualizer();
+            }).catch(err => {
+                console.error("Gagal memutar lagu:", err);
+            });
+        } else {
+            audio.pause();
+            isPlaying = false;
+            playBtn.innerHTML = "▶";
+        }
+    });
+}
 
 function animateVisualizer() {
     if (!isPlaying) {
         bars.forEach(bar => bar.style.height = "5px");
         return;
     }
-
     bars.forEach(bar => {
         const height = Math.floor(Math.random() * 22) + 5;
         bar.style.height = height + "px";
     });
-
     setTimeout(animateVisualizer, 100);
 }
 
-
-/* ================= 2. AMBIENT CURSOR LIGHT ================= */
+/* ================= 2. AMBIENT LIGHT & ANIMASI ================= */
 const ambientLight = document.getElementById('ambientLight');
-window.addEventListener('mousemove', (e) => {
-    ambientLight.style.left = e.clientX + 'px';
-    ambientLight.style.top = e.clientY + 'px';
-});
+if (ambientLight) {
+    window.addEventListener('mousemove', (e) => {
+        ambientLight.style.left = e.clientX + 'px';
+        ambientLight.style.top = e.clientY + 'px';
+    });
+}
 
-
-/* ================= 3. SCROLL REVEAL & STATS COUNTER ================= */
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if(entry.isIntersecting){
             entry.target.classList.add("active");
-
-            // Jika ada counter di dalam elemen yang revealed
-            const counters = entry.target.querySelectorAll('.counter');
-            counters.forEach(counter => {
-                if(!counter.classList.contains('counted')) {
-                    counter.classList.add('counted');
-                    startCounter(counter);
-                }
-            });
         }
     });
 }, { threshold: 0.15 });
 
 document.querySelectorAll(".reveal, .stats").forEach(el => observer.observe(el));
 
-function startCounter(el) {
-    const target = +el.getAttribute('data-target');
-    const prefix = el.getAttribute('data-prefix') || '';
-    const suffix = el.getAttribute('data-suffix') || '';
-    let count = 0;
-    const speed = target / 30; // durasi animasi
-
-    const update = () => {
-        count += speed;
-        if(count < target) {
-            el.innerText = prefix + Math.ceil(count) + suffix;
-            setTimeout(update, 30);
-        } else {
-            el.innerText = prefix + target + suffix;
-        }
-    };
-    update();
-}
-
-
-/* ================= 4. MODAL SYSTEM ================= */
+/* ================= 3. MODAL & KIRIM EMAIL (WEB3FORMS) ================= */
 const modal = document.getElementById('modalOverlay');
 const modalTitle = document.getElementById('modalTitle');
 const modalDesc = document.getElementById('modalDesc');
 
 function openApplyModal(jobTitle) {
-    modalTitle.innerText = `Apply: ${jobTitle}`;
-    modalDesc.innerText = `Send us your portfolio link for the ${jobTitle} position.`;
+    if (!modal) return;
+    if (modalTitle) modalTitle.innerText = `Apply: ${jobTitle}`;
+    if (modalDesc) modalDesc.innerText = `Send us your portfolio link for the ${jobTitle} position.`;
+    const subjectInput = document.getElementById('emailSubject');
+    if (subjectInput) subjectInput.value = `New Application: ${jobTitle} - SPR Audio`;
     modal.classList.add('active');
 }
 
 function openContactModal() {
-    modalTitle.innerText = `Contact SPR Audio`;
-    modalDesc.innerText = `Have a general question or custom project proposal? Drop us a message.`;
+    if (!modal) return;
+    if (modalTitle) modalTitle.innerText = `Contact SPR Audio`;
+    if (modalDesc) modalDesc.innerText = `Have a general question or custom project proposal? Drop us a message.`;
+    const subjectInput = document.getElementById('emailSubject');
+    if (subjectInput) subjectInput.value = `General Inquiry - SPR Audio`;
     modal.classList.add('active');
 }
 
 function closeModal() {
-    modal.classList.remove('active');
+    if (modal) modal.classList.remove('active');
 }
 
-modal.addEventListener('click', (e) => {
-    if(e.target === modal) closeModal();
-});
+if (modal) {
+    modal.addEventListener('click', (e) => {
+        if(e.target === modal) closeModal();
+    });
+}
 
-function handleFormSubmit(e) {
+// Fungsi Pengirim Email Web3Forms
+async function handleFormSubmit(e) {
     e.preventDefault();
-    alert('Thank you! Your application has been submitted successfully.');
-    closeModal();
-}
-
-
-/* ================= 5. NAV SCROLL EFFECT ================= */
-window.addEventListener("scroll", () => {
-    const nav = document.querySelector(".navbar");
-    if(window.scrollY > 60){
-        nav.style.background = "rgba(8,9,11,.92)";
-        nav.style.borderColor = "rgba(255,255,255,.08)";
-    } else {
-        nav.style.background = "rgba(8,9,11,.65)";
-        nav.style.borderColor = "rgba(255,255,255,.04)";
+    
+    const form = e.target;
+    const submitBtn = document.getElementById('submitBtn');
+    
+    const originalBtnText = submitBtn ? submitBtn.innerText : "Submit Application";
+    if (submitBtn) {
+        submitBtn.innerText = "Sending...";
+        submitBtn.disabled = true;
     }
-});
 
-<script src="script.js"></script>
+    const formData = new FormData(form);
 
+    try {
+        const response = await fetch("https://api.web3forms.com/submit", {
+            method: "POST",
+            body: formData
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            alert("Thank you! Your submission has been sent to our email.");
+            form.reset();
+            closeModal();
+        } else {
+            alert("Something went wrong. Please try again.");
+        }
+    } catch (error) {
+        alert("Error sending request. Please check your internet connection.");
+    } finally {
+        if (submitBtn) {
+            submitBtn.innerText = originalBtnText;
+            submitBtn.disabled = false;
+        }
+    }
+}
+</script>
 </body>
 </html>
-
