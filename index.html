@@ -977,6 +977,33 @@ section{
     background: #ffffff;
 }
 
+/* Styling Khusus Teks Ketentuan (Terms) */
+.terms-body {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+    max-height: 280px;
+    overflow-y: auto;
+    padding-right: 8px;
+    margin-top: 15px;
+}
+
+.terms-body h4 {
+    color: var(--text);
+    font-size: 14px;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+/* Custom Scrollbar untuk modal Terms */
+.terms-body::-webkit-scrollbar {
+    width: 5px;
+}
+.terms-body::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.2);
+    border-radius: 10px;
+}
+
 /* ================= FOOTER ================= */
 
 footer{
@@ -1000,6 +1027,7 @@ footer{
 .footer-links a{
     color:#777e86;
     text-decoration:none;
+    cursor: pointer;
 }
 
 /* ================= SCROLL ANIMATION ================= */
@@ -1148,7 +1176,7 @@ footer{
 
 <div class="ambient-light" id="ambientLight"></div>
 
-<!-- ================= NAV ================= -->
+<!-- ================= NAV ================= */
 
 <nav class="navbar">
 
@@ -1656,6 +1684,7 @@ footer{
         <h3 class="modal-title" id="modalTitle">Contact SPR Audio</h3>
         <p class="modal-desc" id="modalDesc">Fill in your information to send us a message.</p>
         
+        <!-- Form Pendaftaran & Kontak -->
         <form id="applyForm" onsubmit="handleFormSubmit(event)">
             <!-- Access Key dari Web3Forms -->
             <input type="hidden" name="access_key" value="4c3cc0e1-b452-43e7-a8cb-cc54bdec18a2">
@@ -1676,7 +1705,7 @@ footer{
                 <input type="email" name="email" placeholder="john@example.com" required />
             </div>
 
-            <!-- Input Portofolio (Bisa disembunyikan / dimunculkan lewat JS) -->
+            <!-- Input Portofolio (Hanya Tampil saat Melamar Job) -->
             <div class="form-group" id="portfolioGroup" style="display: none;">
                 <label>Portfolio Link (Soundcloud / Drive / Spotify)</label>
                 <input type="url" name="portfolio" id="portfolioInput" placeholder="https://..." />
@@ -1689,6 +1718,23 @@ footer{
 
             <button type="submit" class="submit-btn" id="submitBtn">Send Message</button>
         </form>
+
+        <!-- Konten Ketentuan (Hanya Tampil saat Klik Terms) -->
+        <div id="termsContainer" style="display: none;">
+            <div class="terms-body">
+                <h4>1. Project Agreement</h4>
+                <p>All collaborations, scope of work, timeline, and rates are agreed upon prior to project commencement.</p>
+
+                <h4>2. Confidentiality (NDA)</h4>
+                <p>Unreleased audio files, stems, and project details provided by SPR Audio must remain strictly confidential and may not be shared without prior written consent.</p>
+
+                <h4>3. Intellectual Property</h4>
+                <p>All final audio deliverables remain the property of the project owner upon completed compensation as agreed in the contract.</p>
+
+                <h4>4. Revisions & Delivery</h4>
+                <p>Engineers and producers are required to provide audio stems and high-resolution WAV files according to the project specifications within the agreed timeline.</p>
+            </div>
+        </div>
 
     </div>
 </div>
@@ -1704,15 +1750,17 @@ footer{
 
     <div class="footer-links">
 
-        <a href="#">
+        <!-- Link Instagram Resmimu -->
+        <a href="https://www.instagram.com/spraudiosystem?igsh=MWVoc3o5YjJnbXFteA==" target="_blank" rel="noopener noreferrer">
             Instagram
         </a>
 
-        <a href="#" onclick="openContactModal()">
+        <a onclick="openContactModal()">
             Contact
         </a>
 
-        <a href="#">
+        <!-- Membuka Teks Ketentuan (Terms) -->
+        <a onclick="openTermsModal()">
             Terms
         </a>
 
@@ -1810,10 +1858,17 @@ function startCounter(el) {
 const modal = document.getElementById('modalOverlay');
 const modalTitle = document.getElementById('modalTitle');
 const modalDesc = document.getElementById('modalDesc');
+const applyForm = document.getElementById('applyForm');
+const termsContainer = document.getElementById('termsContainer');
 
 // Fungsi Modal Khusus Melamar Lowongan Kerja
 function openApplyModal(jobTitle) {
     if (!modal) return;
+    
+    // Tampilkan Form, Sembunyikan Terms
+    if (applyForm) applyForm.style.display = 'block';
+    if (termsContainer) termsContainer.style.display = 'none';
+
     if (modalTitle) modalTitle.innerText = `Apply Position: ${jobTitle}`;
     if (modalDesc) modalDesc.innerText = `Send us your portfolio link for the ${jobTitle} position.`;
     
@@ -1834,9 +1889,14 @@ function openApplyModal(jobTitle) {
     modal.classList.add('active');
 }
 
-// Fungsi Modal Khusus Kontak Biasa / Sewa Jasa (Portfolio Dihilangkan)
+// Fungsi Modal Khusus Kontak
 function openContactModal() {
     if (!modal) return;
+
+    // Tampilkan Form, Sembunyikan Terms
+    if (applyForm) applyForm.style.display = 'block';
+    if (termsContainer) termsContainer.style.display = 'none';
+
     if (modalTitle) modalTitle.innerText = `Contact SPR Audio`;
     if (modalDesc) modalDesc.innerText = `Have a general question or custom project proposal? Drop us a message.`;
     
@@ -1848,13 +1908,27 @@ function openContactModal() {
     if (portfolioGroup && portfolioInput) {
         portfolioGroup.style.display = 'none';
         portfolioInput.required = false;
-        portfolioInput.value = ''; // Reset isi input
+        portfolioInput.value = ''; 
     }
     if (messageLabel) messageLabel.innerText = 'Message / Project Details';
     if (submitBtn) submitBtn.innerText = 'Send Message';
 
     const subjectInput = document.getElementById('emailSubject');
     if (subjectInput) subjectInput.value = `General Inquiry - SPR Audio`;
+    modal.classList.add('active');
+}
+
+// Fungsi Modal Khusus Menampilkan Ketentuan (Terms)
+function openTermsModal() {
+    if (!modal) return;
+
+    // Sembunyikan Form, Tampilkan Terms
+    if (applyForm) applyForm.style.display = 'none';
+    if (termsContainer) termsContainer.style.display = 'block';
+
+    if (modalTitle) modalTitle.innerText = `Terms of Service`;
+    if (modalDesc) modalDesc.innerText = `General terms & conditions for working with SPR Audio.`;
+
     modal.classList.add('active');
 }
 
