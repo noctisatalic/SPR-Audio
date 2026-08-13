@@ -1,1026 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>SPR Audio — Audio Production Jobs</title>
+    <title>SPR Audio — Audio Production Jobs</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <meta
+        name="description"
+        content="SPR Audio — Professional audio production, engineering and creative opportunities."
+    >
 
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<style>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
 
-:root{
-    --bg:#08090b;
-    --bg2:#0d0f12;
-    --panel:#111419;
-    --panel2:#15181d;
-    --text:#f4f5f7;
-    --muted:#8c929b;
-    --line:rgba(255,255,255,.08);
-    --accent:#7db6d6;
-    --accent2:#9ed5ef;
-    --radius:22px;
-}
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-html{
-    scroll-behavior:smooth;
-}
-
-body{
-    background:var(--bg);
-    color:var(--text);
-    font-family:"DM Sans",sans-serif;
-    overflow-x:hidden;
-}
-
-body:before{
-    content:"";
-    position:fixed;
-    inset:0;
-    pointer-events:none;
-    z-index:9999;
-    opacity:.035;
-
-    background-image:
-    url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
-}
-
-/* ================= NAV ================= */
-
-.navbar{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:82px;
-
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    padding:0 6vw;
-
-    z-index:1000;
-
-    background:rgba(8,9,11,.65);
-    backdrop-filter:blur(18px);
-    border-bottom:1px solid rgba(255,255,255,.04);
-
-    transition:.35s ease;
-}
-
-.logo{
-    font-family:"Space Grotesk";
-    font-size:21px;
-    font-weight:700;
-    letter-spacing:-1px;
-}
-
-.logo span{
-    color:var(--accent);
-}
-
-.nav-links{
-    display:flex;
-    gap:34px;
-}
-
-.nav-links a{
-    color:#aeb3ba;
-    text-decoration:none;
-    font-size:14px;
-    transition:.25s;
-}
-
-.nav-links a:hover{
-    color:white;
-}
-
-.nav-actions{
-    display:flex;
-    align-items:center;
-    gap:18px;
-}
-
-.signin{
-    color:#aaa;
-    text-decoration:none;
-    font-size:14px;
-}
-
-.btn-small{
-    padding:11px 18px;
-    border-radius:10px;
-
-    color:#071017;
-    background:#e7f5fc;
-
-    text-decoration:none;
-    font-size:13px;
-    font-weight:700;
-
-    transition:.3s;
-}
-
-.btn-small:hover{
-    transform:translateY(-2px);
-    box-shadow:0 10px 30px rgba(125,182,214,.2);
-}
-
-/* ================= HERO ================= */
-
-.hero{
-    min-height:100vh;
-    position:relative;
-
-    display:flex;
-    align-items:center;
-
-    padding:130px 6vw 80px;
-
-    overflow:hidden;
-}
-
-.hero-image{
-    position:absolute;
-    right:0;
-    top:0;
-
-    width:58%;
-    height:100%;
-
-    background:
-        linear-gradient(
-            90deg,
-            var(--bg) 0%,
-            rgba(8,9,11,.75) 15%,
-            rgba(8,9,11,.15) 55%,
-            rgba(8,9,11,.25)
-        ),
-        url("https://images.unsplash.com/photo-1714347738034-f8280c00e97b?auto=format&fit=crop&w=2200&q=85");
-
-    background-size:cover;
-    background-position:center;
-
-    opacity:.78;
-
-    mask-image:linear-gradient(
-        to right,
-        transparent 0%,
-        black 20%,
-        black 100%
-    );
-}
-
-.hero-content{
-    position:relative;
-    z-index:2;
-
-    max-width:700px;
-}
-
-.eyebrow{
-    display:inline-flex;
-    align-items:center;
-    gap:9px;
-
-    margin-bottom:27px;
-
-    color:var(--accent2);
-
-    font-size:12px;
-    font-weight:700;
-
-    text-transform:uppercase;
-    letter-spacing:2px;
-}
-
-.live-dot{
-    width:7px;
-    height:7px;
-    border-radius:50%;
-    background:#a8d9ee;
-
-    box-shadow:
-        0 0 0 5px rgba(168,217,238,.08),
-        0 0 18px rgba(168,217,238,.8);
-
-    animation:pulse 2s infinite;
-}
-
-@keyframes pulse{
-    0%,100%{
-        transform:scale(1);
-        opacity:1;
-    }
-
-    50%{
-        transform:scale(.65);
-        opacity:.5;
-    }
-}
-
-.hero h1{
-    font-family:"Space Grotesk";
-    font-size:clamp(55px,7vw,100px);
-    line-height:.94;
-
-    letter-spacing:-5px;
-
-    max-width:780px;
-
-    margin-bottom:30px;
-}
-
-.hero h1 span{
-    color:#8fc8e4;
-}
-
-.hero-description{
-    max-width:570px;
-
-    color:#a4a9b0;
-
-    font-size:17px;
-    line-height:1.75;
-
-    margin-bottom:38px;
-}
-
-.hero-buttons{
-    display:flex;
-    gap:13px;
-    flex-wrap:wrap;
-}
-
-.btn-primary,
-.btn-secondary{
-    height:52px;
-
-    padding:0 23px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    border-radius:12px;
-
-    text-decoration:none;
-
-    font-size:14px;
-    font-weight:700;
-
-    transition:.3s;
-}
-
-.btn-primary{
-    background:#e9f6fc;
-    color:#081015;
-}
-
-.btn-primary:hover{
-    transform:translateY(-3px);
-    box-shadow:0 18px 40px rgba(125,182,214,.2);
-}
-
-.btn-secondary{
-    color:#dce1e5;
-    border:1px solid rgba(255,255,255,.15);
-
-    background:rgba(255,255,255,.025);
-}
-
-.btn-secondary:hover{
-    border-color:rgba(159,212,237,.5);
-    background:rgba(159,212,237,.06);
-    transform:translateY(-3px);
-}
-
-/* ================= AUDIO VISUALIZER ================= */
-
-.audio-player{
-    position:absolute;
-
-    bottom:45px;
-    right:6vw;
-
-    width:350px;
-
-    padding:15px 18px;
-
-    display:flex;
-    align-items:center;
-    gap:15px;
-
-    background:rgba(16,18,22,.72);
-    backdrop-filter:blur(20px);
-
-    border:1px solid rgba(255,255,255,.09);
-
-    border-radius:16px;
-
-    z-index:5;
-
-    box-shadow:0 20px 70px rgba(0,0,0,.35);
-}
-
-.play{
-    width:38px;
-    height:38px;
-
-    border:none;
-    border-radius:50%;
-
-    display:grid;
-    place-items:center;
-
-    background:#eaf7fc;
-    color:#0a1116;
-
-    cursor:pointer;
-
-    font-size:13px;
-}
-
-.track-info{
-    min-width:75px;
-}
-
-.track-info small{
-    color:#777e87;
-    display:block;
-    font-size:10px;
-    text-transform:uppercase;
-    letter-spacing:1px;
-}
-
-.track-info strong{
-    font-size:12px;
-}
-
-.wave{
-    height:30px;
-
-    flex:1;
-
-    display:flex;
-    align-items:center;
-    gap:3px;
-}
-
-.bar{
-    width:3px;
-    height:10px;
-
-    border-radius:4px;
-
-    background:#8bc5df;
-
-    animation:wave 1s ease-in-out infinite alternate;
-    animation-play-state:paused;
-}
-
-.bar:nth-child(2n){
-    animation-delay:.15s;
-}
-
-.bar:nth-child(3n){
-    animation-delay:.35s;
-}
-
-.bar:nth-child(4n){
-    animation-delay:.55s;
-}
-
-@keyframes wave{
-    from{
-        height:5px;
-        opacity:.35;
-    }
-
-    to{
-        height:27px;
-        opacity:1;
-    }
-}
-
-/* ================= SECTIONS ================= */
-
-section{
-    padding:130px 6vw;
-}
-
-.section-head{
-    display:flex;
-    justify-content:space-between;
-    align-items:end;
-
-    margin-bottom:55px;
-}
-
-.section-label{
-    color:var(--accent);
-    font-size:11px;
-    font-weight:700;
-    text-transform:uppercase;
-    letter-spacing:2px;
-
-    margin-bottom:14px;
-}
-
-.section-head h2{
-    font-family:"Space Grotesk";
-
-    font-size:clamp(36px,5vw,65px);
-    line-height:1;
-
-    letter-spacing:-3px;
-}
-
-.section-head p{
-    max-width:380px;
-
-    color:#858b94;
-
-    line-height:1.7;
-}
-
-/* ================= JOBS ================= */
-
-.jobs{
-    background:#0b0d10;
-}
-
-.job-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:18px;
-}
-
-.job-card{
-    position:relative;
-
-    padding:28px;
-
-    min-height:290px;
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(255,255,255,.055),
-            rgba(255,255,255,.018)
-        );
-
-    border:1px solid var(--line);
-
-    border-radius:var(--radius);
-
-    overflow:hidden;
-
-    transition:.4s ease;
-}
-
-.job-card:before{
-    content:"";
-
-    position:absolute;
-
-    width:200px;
-    height:200px;
-
-    top:-100px;
-    right:-100px;
-
-    background:#7db6d6;
-
-    opacity:.08;
-
-    border-radius:50%;
-
-    filter:blur(50px);
-}
-
-.job-card:hover{
-    transform:translateY(-8px);
-
-    border-color:rgba(150,210,235,.3);
-
-    box-shadow:
-        0 30px 80px rgba(0,0,0,.25);
-}
-
-.job-top{
-    display:flex;
-    justify-content:space-between;
-
-    margin-bottom:30px;
-}
-
-.status{
-    padding:7px 10px;
-
-    border-radius:30px;
-
-    font-size:10px;
-
-    color:#9bd6ef;
-
-    background:rgba(126,190,220,.09);
-
-    border:1px solid rgba(126,190,220,.14);
-
-    text-transform:uppercase;
-    letter-spacing:1px;
-}
-
-.job-type{
-    color:#686f77;
-    font-size:11px;
-}
-
-.job-card h3{
-    font-family:"Space Grotesk";
-
-    font-size:23px;
-
-    margin-bottom:12px;
-
-    letter-spacing:-.7px;
-}
-
-.job-card p{
-    color:#818791;
-
-    font-size:13px;
-    line-height:1.65;
-
-    max-width:360px;
-}
-
-.job-bottom{
-    position:absolute;
-
-    left:28px;
-    right:28px;
-    bottom:25px;
-
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-
-.budget{
-    font-size:13px;
-    color:#dce2e7;
-}
-
-.view-job{
-    color:#9bcfe6;
-
-    font-size:12px;
-    font-weight:700;
-
-    text-decoration:none;
-
-    transition:.25s;
-}
-
-.view-job:hover{
-    color:white;
-}
-
-/* ================= FEATURE ================= */
-
-.feature{
-    display:grid;
-
-    grid-template-columns:1.1fr .9fr;
-
-    min-height:620px;
-
-    padding:0;
-
-    background:#0b0d10;
-}
-
-.feature-image{
-    min-height:620px;
-
-    background:
-        linear-gradient(
-            90deg,
-            transparent 55%,
-            #0b0d10 100%
-        ),
-        url("https://images.unsplash.com/photo-1483412033650-1015ddeb83d1?auto=format&fit=crop&w=1800&q=85");
-
-    background-size:cover;
-    background-position:center;
-}
-
-.feature-content{
-    padding:100px 8vw 100px 4vw;
-
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-}
-
-.feature-content h2{
-    font-family:"Space Grotesk";
-
-    font-size:clamp(40px,5vw,70px);
-
-    line-height:.98;
-
-    letter-spacing:-3px;
-
-    margin-bottom:25px;
-}
-
-.feature-content p{
-    color:#8c929a;
-
-    line-height:1.8;
-
-    max-width:500px;
-
-    margin-bottom:35px;
-}
-
-.feature-list{
-    display:grid;
-    gap:14px;
-    margin-bottom:35px;
-}
-
-.feature-item{
-    display:flex;
-    align-items:center;
-    gap:12px;
-
-    color:#c4c9cf;
-
-    font-size:13px;
-}
-
-.check{
-    width:22px;
-    height:22px;
-
-    border:1px solid rgba(140,205,230,.3);
-
-    border-radius:50%;
-
-    display:grid;
-    place-items:center;
-
-    color:#9ed5ef;
-
-    font-size:11px;
-}
-
-/* ================= STATS ================= */
-
-.stats{
-    display:grid;
-
-    grid-template-columns:repeat(4,1fr);
-
-    border-top:1px solid var(--line);
-    border-bottom:1px solid var(--line);
-
-    padding-top:70px;
-    padding-bottom:70px;
-}
-
-.stat{
-    padding:10px 35px;
-
-    border-right:1px solid var(--line);
-}
-
-.stat:last-child{
-    border-right:none;
-}
-
-.stat strong{
-    display:block;
-
-    font-family:"Space Grotesk";
-
-    font-size:48px;
-
-    letter-spacing:-3px;
-
-    margin-bottom:8px;
-}
-
-.stat span{
-    color:#777e87;
-    font-size:12px;
-}
-
-/* ================= PROCESS ================= */
-
-.process-grid{
-    display:grid;
-
-    grid-template-columns:repeat(3,1fr);
-
-    gap:18px;
-}
-
-.process{
-    padding:35px 30px;
-
-    border:1px solid var(--line);
-
-    border-radius:20px;
-
-    background:#0d0f12;
-}
-
-.number{
-    font-family:"Space Grotesk";
-
-    color:#59616a;
-
-    font-size:12px;
-
-    margin-bottom:55px;
-}
-
-.process h3{
-    font-family:"Space Grotesk";
-
-    font-size:23px;
-
-    margin-bottom:14px;
-}
-
-.process p{
-    color:#7d848c;
-
-    font-size:13px;
-
-    line-height:1.7;
-}
-
-/* ================= CTA ================= */
-
-.cta{
-    position:relative;
-
-    text-align:center;
-
-    overflow:hidden;
-
-    padding:150px 6vw;
-}
-
-.cta:before{
-    content:"";
-
-    position:absolute;
-
-    width:500px;
-    height:500px;
-
-    left:50%;
-    top:50%;
-
-    transform:translate(-50%,-50%);
-
-    background:#70b6d6;
-
-    opacity:.07;
-
-    filter:blur(100px);
-
-    border-radius:50%;
-}
-
-.cta h2{
-    position:relative;
-
-    font-family:"Space Grotesk";
-
-    font-size:clamp(50px,7vw,100px);
-
-    line-height:.9;
-
-    letter-spacing:-5px;
-
-    margin-bottom:30px;
-}
-
-.cta p{
-    position:relative;
-
-    max-width:500px;
-
-    margin:auto auto 35px;
-
-    color:#838a92;
-
-    line-height:1.7;
-}
-
-/* ================= FOOTER ================= */
-
-footer{
-    padding:35px 6vw;
-
-    border-top:1px solid var(--line);
-
-    display:flex;
-    justify-content:space-between;
-
-    color:#646b73;
-
-    font-size:12px;
-}
-
-.footer-links{
-    display:flex;
-    gap:25px;
-}
-
-.footer-links a{
-    color:#777e86;
-    text-decoration:none;
-}
-
-/* ================= SCROLL ANIMATION ================= */
-
-.reveal{
-    opacity:0;
-
-    transform:translateY(45px);
-
-    transition:
-        opacity .9s ease,
-        transform .9s cubic-bezier(.16,1,.3,1);
-}
-
-.reveal.active{
-    opacity:1;
-
-    transform:translateY(0);
-}
-
-/* ================= RESPONSIVE ================= */
-
-@media(max-width:900px){
-
-    .nav-links{
-        display:none;
-    }
-
-    .hero{
-        min-height:900px;
-    }
-
-    .hero-image{
-        width:100%;
-
-        opacity:.45;
-
-        mask-image:
-            linear-gradient(
-                to bottom,
-                transparent 0%,
-                black 30%,
-                black 70%,
-                transparent 100%
-            );
-    }
-
-    .hero h1{
-        letter-spacing:-3px;
-    }
-
-    .audio-player{
-        left:6vw;
-        right:6vw;
-        width:auto;
-    }
-
-    .job-grid,
-    .process-grid{
-        grid-template-columns:1fr;
-    }
-
-    .feature{
-        grid-template-columns:1fr;
-    }
-
-    .feature-image{
-        min-height:400px;
-    }
-
-    .feature-content{
-        padding:80px 6vw;
-    }
-
-    .stats{
-        grid-template-columns:1fr 1fr;
-    }
-
-    .stat{
-        padding:25px;
-
-        border-right:none;
-        border-bottom:1px solid var(--line);
-    }
-
-}
-
-@media(max-width:600px){
-
-    .navbar{
-        padding:0 5vw;
-    }
-
-    .signin{
-        display:none;
-    }
-
-    .btn-small{
-        padding:10px 14px;
-    }
-
-    section{
-        padding:90px 5vw;
-    }
-
-    .hero{
-        padding-left:5vw;
-        padding-right:5vw;
-    }
-
-    .hero h1{
-        font-size:57px;
-    }
-
-    .hero-description{
-        font-size:15px;
-    }
-
-    .section-head{
-        display:block;
-    }
-
-    .section-head p{
-        margin-top:20px;
-    }
-
-    .stats{
-        grid-template-columns:1fr;
-    }
-
-    footer{
-        flex-direction:column;
-        gap:20px;
-    }
-
-}
-
-</style>
+    <!-- Main stylesheet -->
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<!-- ================= NAV ================= -->
+<!-- =========================================
+     NAVIGATION
+========================================= -->
 
 <nav class="navbar">
 
-    <div class="logo">
-        SPR Audio<span>.</span>
-    </div>
+    <a href="#" class="brand-logo" aria-label="SPR Audio Home">
+        <img
+            src="spr-audio-logo.png"
+            alt="SPR Audio"
+        >
+    </a>
 
     <div class="nav-links">
 
         <a href="#jobs">Open Jobs</a>
+
         <a href="#process">Process</a>
+
         <a href="#about">About</a>
 
     </div>
 
     <div class="nav-actions">
 
-        <a href="#" class="signin">
+        <a href="#contact" class="signin">
             Contact
         </a>
 
@@ -1033,7 +63,9 @@ footer{
 </nav>
 
 
-<!-- ================= HERO ================= -->
+<!-- =========================================
+     HERO
+========================================= -->
 
 <header class="hero">
 
@@ -1042,14 +74,19 @@ footer{
     <div class="hero-content reveal">
 
         <div class="eyebrow">
+
             <span class="live-dot"></span>
+
             Currently hiring audio talent
+
         </div>
+
 
         <h1>
             Sound deserves
             <span>precision.</span>
         </h1>
+
 
         <p class="hero-description">
 
@@ -1057,6 +94,7 @@ footer{
             producers, engineers and musicians for upcoming creative projects.
 
         </p>
+
 
         <div class="hero-buttons">
 
@@ -1073,21 +111,32 @@ footer{
     </div>
 
 
-    <!-- AUDIO PLAYER -->
+    <!-- AUDIO VISUALIZER -->
 
     <div class="audio-player">
 
-        <button class="play" id="playBtn">
+        <button
+            class="play"
+            id="playBtn"
+            type="button"
+            aria-label="Play audio preview"
+        >
             ▶
         </button>
 
+
         <div class="track-info">
 
-            <small>Preview</small>
+            <small>
+                Preview
+            </small>
 
-            <strong>SPR Studio Session</strong>
+            <strong>
+                SPR Studio Session
+            </strong>
 
         </div>
+
 
         <div class="wave">
 
@@ -1115,9 +164,14 @@ footer{
 </header>
 
 
-<!-- ================= JOBS ================= -->
+<!-- =========================================
+     OPEN JOBS
+========================================= -->
 
-<section class="jobs" id="jobs">
+<section
+    class="jobs"
+    id="jobs"
+>
 
     <div class="section-head reveal">
 
@@ -1134,6 +188,7 @@ footer{
 
         </div>
 
+
         <p>
             SPR Audio is currently looking for talented people
             to collaborate on upcoming audio productions.
@@ -1145,6 +200,8 @@ footer{
     <div class="job-grid">
 
 
+        <!-- JOB 01 -->
+
         <article class="job-card reveal">
 
             <div class="job-top">
@@ -1159,14 +216,17 @@ footer{
 
             </div>
 
+
             <h3>
                 Mixing Engineer
             </h3>
+
 
             <p>
                 Looking for an experienced mixing engineer
                 for a contemporary music project.
             </p>
+
 
             <div class="job-bottom">
 
@@ -1174,7 +234,11 @@ footer{
                     Rp 1.500.000+
                 </span>
 
-                <a href="#" class="view-job">
+
+                <a
+                    href="#"
+                    class="view-job"
+                >
                     View Position →
                 </a>
 
@@ -1182,6 +246,8 @@ footer{
 
         </article>
 
+
+        <!-- JOB 02 -->
 
         <article class="job-card reveal">
 
@@ -1197,14 +263,17 @@ footer{
 
             </div>
 
+
             <h3>
                 Vocal Producer
             </h3>
+
 
             <p>
                 Seeking a vocal producer who understands
                 modern pop, R&B and alternative records.
             </p>
+
 
             <div class="job-bottom">
 
@@ -1212,7 +281,11 @@ footer{
                     Rp 1.000.000+
                 </span>
 
-                <a href="#" class="view-job">
+
+                <a
+                    href="#"
+                    class="view-job"
+                >
                     View Position →
                 </a>
 
@@ -1220,6 +293,8 @@ footer{
 
         </article>
 
+
+        <!-- JOB 03 -->
 
         <article class="job-card reveal">
 
@@ -1235,14 +310,17 @@ footer{
 
             </div>
 
+
             <h3>
                 Mastering Engineer
             </h3>
+
 
             <p>
                 Mastering engineer required for a
                 multi-track digital release.
             </p>
+
 
             <div class="job-bottom">
 
@@ -1250,7 +328,11 @@ footer{
                     Rp 750.000+
                 </span>
 
-                <a href="#" class="view-job">
+
+                <a
+                    href="#"
+                    class="view-job"
+                >
                     View Position →
                 </a>
 
@@ -1258,17 +340,22 @@ footer{
 
         </article>
 
-
     </div>
 
 </section>
 
 
-<!-- ================= FEATURE ================= -->
+<!-- =========================================
+     ABOUT / FEATURE
+========================================= -->
 
-<section class="feature" id="about">
+<section
+    class="feature"
+    id="about"
+>
 
     <div class="feature-image reveal"></div>
+
 
     <div class="feature-content reveal">
 
@@ -1276,11 +363,13 @@ footer{
             The Philosophy
         </div>
 
+
         <h2>
             Great sound
             starts with
             great people.
         </h2>
+
 
         <p>
             SPR Audio believes the best productions are created when
@@ -1291,41 +380,58 @@ footer{
 
         <div class="feature-list">
 
+
             <div class="feature-item">
 
-                <span class="check">✓</span>
+                <span class="check">
+                    ✓
+                </span>
 
                 Remote collaboration
 
             </div>
 
+
             <div class="feature-item">
 
-                <span class="check">✓</span>
+                <span class="check">
+                    ✓
+                </span>
 
                 Professional audio projects
 
             </div>
 
+
             <div class="feature-item">
 
-                <span class="check">✓</span>
+                <span class="check">
+                    ✓
+                </span>
 
                 Clear project expectations
 
             </div>
 
+
             <div class="feature-item">
 
-                <span class="check">✓</span>
+                <span class="check">
+                    ✓
+                </span>
 
                 Long-term collaboration
 
             </div>
 
+
         </div>
 
-        <a href="#jobs" class="btn-secondary" style="width:max-content;">
+
+        <a
+            href="#jobs"
+            class="btn-secondary"
+        >
             See Open Positions
         </a>
 
@@ -1334,13 +440,18 @@ footer{
 </section>
 
 
-<!-- ================= STATS ================= -->
+<!-- =========================================
+     STATS
+========================================= -->
 
 <section class="stats">
 
+
     <div class="stat reveal">
 
-        <strong>12+</strong>
+        <strong>
+            12+
+        </strong>
 
         <span>
             Active Projects
@@ -1348,9 +459,12 @@ footer{
 
     </div>
 
+
     <div class="stat reveal">
 
-        <strong>28</strong>
+        <strong>
+            28
+        </strong>
 
         <span>
             Audio Professionals
@@ -1358,9 +472,12 @@ footer{
 
     </div>
 
+
     <div class="stat reveal">
 
-        <strong>06</strong>
+        <strong>
+            06
+        </strong>
 
         <span>
             Music Categories
@@ -1368,9 +485,12 @@ footer{
 
     </div>
 
+
     <div class="stat reveal">
 
-        <strong>24/7</strong>
+        <strong>
+            24/7
+        </strong>
 
         <span>
             Creative Collaboration
@@ -1378,12 +498,17 @@ footer{
 
     </div>
 
+
 </section>
 
 
-<!-- ================= PROCESS ================= -->
+<!-- =========================================
+     PROCESS
+========================================= -->
 
-<section id="process">
+<section
+    id="process"
+>
 
     <div class="section-head reveal">
 
@@ -1400,6 +525,7 @@ footer{
 
         </div>
 
+
         <p>
             No unnecessary complexity.
             Find a project, send your work and start creating.
@@ -1410,15 +536,20 @@ footer{
 
     <div class="process-grid">
 
+
+        <!-- STEP 01 -->
+
         <div class="process reveal">
 
             <div class="number">
                 01 — DISCOVER
             </div>
 
+
             <h3>
                 Find a project
             </h3>
+
 
             <p>
                 Browse the current audio projects
@@ -1428,15 +559,19 @@ footer{
         </div>
 
 
+        <!-- STEP 02 -->
+
         <div class="process reveal">
 
             <div class="number">
                 02 — APPLY
             </div>
 
+
             <h3>
                 Send your work
             </h3>
+
 
             <p>
                 Submit your portfolio, experience,
@@ -1446,15 +581,19 @@ footer{
         </div>
 
 
+        <!-- STEP 03 -->
+
         <div class="process reveal">
 
             <div class="number">
                 03 — CREATE
             </div>
 
+
             <h3>
                 Start creating
             </h3>
+
 
             <p>
                 Selected professionals will be contacted
@@ -1468,9 +607,14 @@ footer{
 </section>
 
 
-<!-- ================= CTA ================= -->
+<!-- =========================================
+     CTA
+========================================= -->
 
-<section class="cta">
+<section
+    class="cta"
+    id="contact"
+>
 
     <div class="reveal">
 
@@ -1478,10 +622,12 @@ footer{
             Work With SPR Audio
         </div>
 
+
         <h2>
             Make something
             worth hearing.
         </h2>
+
 
         <p>
             New projects are constantly coming in.
@@ -1489,12 +635,12 @@ footer{
             of the next production.
         </p>
 
-        <a href="#jobs"
-           class="btn-primary"
-           style="width:max-content;margin:auto;">
 
+        <a
+            href="#jobs"
+            class="btn-primary"
+        >
             Explore Open Jobs
-
         </a>
 
     </div>
@@ -1502,7 +648,9 @@ footer{
 </section>
 
 
-<!-- ================= FOOTER ================= -->
+<!-- =========================================
+     FOOTER
+========================================= -->
 
 <footer>
 
@@ -1510,15 +658,18 @@ footer{
         © 2026 SPR Audio. All rights reserved.
     </div>
 
+
     <div class="footer-links">
 
         <a href="#">
             Instagram
         </a>
 
-        <a href="#">
+
+        <a href="#contact">
             Contact
         </a>
+
 
         <a href="#">
             Terms
@@ -1529,69 +680,91 @@ footer{
 </footer>
 
 
+<!-- =========================================
+     JAVASCRIPT
+========================================= -->
+
 <script>
 
-/* ================= SCROLL REVEAL ================= */
+/* -----------------------------------------
+   SCROLL REVEAL
+----------------------------------------- */
 
-const observer =
-new IntersectionObserver(
-(entries) => {
+const observer = new IntersectionObserver(
 
-    entries.forEach(entry => {
+    (entries) => {
 
-        if(entry.isIntersecting){
+        entries.forEach((entry) => {
 
-            entry.target.classList.add("active");
+            if (entry.isIntersecting) {
 
-        }
+                entry.target.classList.add("active");
 
-    });
+            }
 
-},
-{
-    threshold:.12
-});
+        });
+
+    },
+
+    {
+        threshold: 0.12
+    }
+
+);
 
 
 document
-.querySelectorAll(".reveal")
-.forEach(el => observer.observe(el));
+    .querySelectorAll(".reveal")
+    .forEach((element) => {
+
+        observer.observe(element);
+
+    });
 
 
-/* ================= AUDIO VISUALIZER ================= */
+
+/* -----------------------------------------
+   AUDIO VISUALIZER
+----------------------------------------- */
 
 const playBtn =
-document.getElementById("playBtn");
+    document.getElementById("playBtn");
 
 const bars =
-document.querySelectorAll(".bar");
+    document.querySelectorAll(".bar");
 
 let playing = false;
+
 
 playBtn.addEventListener("click", () => {
 
     playing = !playing;
 
-    if(playing){
+
+    if (playing) {
 
         playBtn.innerHTML = "Ⅱ";
 
-        bars.forEach((bar)=>{
 
-            bar.style.animationPlayState = "running";
+        bars.forEach((bar) => {
+
+            bar.style.animationPlayState =
+                "running";
 
             bar.style.animationDuration =
-                `${.5 + Math.random()*.8}s`;
+                `${0.5 + Math.random() * 0.8}s`;
 
         });
 
-    }else{
+    } else {
 
         playBtn.innerHTML = "▶";
 
-        bars.forEach(bar=>{
 
-            bar.style.animationPlayState = "paused";
+        bars.forEach((bar) => {
+
+            bar.style.animationPlayState =
+                "paused";
 
         });
 
@@ -1600,38 +773,47 @@ playBtn.addEventListener("click", () => {
 });
 
 
-/* ================= RANDOM AUDIO MOTION ================= */
 
-setInterval(()=>{
+/* -----------------------------------------
+   RANDOM WAVEFORM MOVEMENT
+----------------------------------------- */
 
-    if(!playing) return;
+setInterval(() => {
 
-    bars.forEach(bar=>{
+    if (!playing) return;
+
+
+    bars.forEach((bar) => {
 
         const height =
-            Math.floor(Math.random()*25)+5;
+            Math.floor(Math.random() * 25) + 5;
+
 
         bar.style.height =
-            height+"px";
+            height + "px";
 
     });
 
-},180);
+}, 180);
 
 
-/* ================= NAV SCROLL ================= */
 
-window.addEventListener("scroll",()=>{
+/* -----------------------------------------
+   NAVIGATION BACKGROUND
+----------------------------------------- */
+
+window.addEventListener("scroll", () => {
 
     const nav =
         document.querySelector(".navbar");
 
-    if(window.scrollY > 60){
+
+    if (window.scrollY > 60) {
 
         nav.style.background =
-            "rgba(8,9,11,.9)";
+            "rgba(8,9,11,.92)";
 
-    }else{
+    } else {
 
         nav.style.background =
             "rgba(8,9,11,.65)";
