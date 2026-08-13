@@ -200,7 +200,7 @@ body:before{
     box-shadow:0 10px 30px rgba(125,182,214,.2);
 }
 
-/* ================= HERO ================= */
+/* ================= HERO & PARALLAX ================= */
 .hero{
     min-height:100vh;
     position:relative;
@@ -228,6 +228,7 @@ body:before{
     background-size:cover;
     background-position:center;
     opacity:.78;
+    will-change: transform;
     mask-image:linear-gradient(
         to right,
         transparent 0%,
@@ -240,6 +241,7 @@ body:before{
     position:relative;
     z-index:2;
     max-width:700px;
+    will-change: transform;
 }
 
 .eyebrow{
@@ -334,7 +336,7 @@ body:before{
     transform:translateY(-3px);
 }
 
-/* ================= AUDIO VISUALIZER ================= */
+/* ================= AUDIO PLAYER & VISUALIZER ================= */
 .audio-player{
     position:absolute;
     bottom:45px;
@@ -373,7 +375,7 @@ body:before{
 }
 
 .play:hover {
-    scale: 1.08;
+    transform: scale(1.08);
     background: #ffffff;
 }
 
@@ -408,7 +410,7 @@ body:before{
 
 .bar{
     width:3px;
-    height:10px;
+    height:6px;
     border-radius:4px;
     background:#8bc5df;
     transition: height 0.1s ease;
@@ -1300,8 +1302,8 @@ footer{
 
 <!-- ================= HERO ================= -->
 <header class="hero">
-    <div class="hero-image"></div>
-    <div class="hero-content reveal">
+    <div class="hero-image" id="heroImage"></div>
+    <div class="hero-content reveal" id="heroContent">
         <div class="eyebrow">
             <span class="live-dot"></span>
             SAAT INI SEDANG MEMBUKA LOWONGAN UNTUK TENAGA AHLI AUDIO.
@@ -1386,7 +1388,6 @@ footer{
                     <div class="calc-trigger-info">
                         <label>2. Jarak Lokasi Acara (KM dari Basecamp)</label>
                     </div>
-                    <!-- BATAS MIN & MAX (0 - 1500) -->
                     <input type="number" id="jarakKM" value="5" min="0" max="1500" placeholder="Masukkan jarak (0 - 1500 KM)" oninput="hitungSewa()" style="margin-top: 8px;">
                 </div>
             </div>
@@ -1692,10 +1693,8 @@ footer{
             <input type="hidden" name="subject" id="emailSubject" value="General Inquiry - SPR Audio">
             <input type="hidden" name="from_name" value="SPR Audio Website">
 
-            <!-- ANTI-SPAM: Web3Forms Captcha Enabled -->
             <input type="checkbox" name="botcheck" class="hidden-honeypot">
             
-            <!-- ANTI-SPAM: Custom Honeypot Field -->
             <div class="hidden-honeypot">
                 <input type="text" name="website_url_check" id="honeyInput" autocomplete="off" tabindex="-1">
             </div>
@@ -1705,7 +1704,6 @@ footer{
                 <input type="text" name="name" id="nameInput" placeholder="Contoh: Budi Santoso" maxlength="60" required />
             </div>
 
-            <!-- PERBAIKAN: DIGANTI MENJADI NOMOR WHATSAPP/HP + PENOLAK HURUF AUTOMATIS -->
             <div class="form-group">
                 <label>Nomor WhatsApp / HP yang Dapat Dihubungi</label>
                 <input 
@@ -1819,7 +1817,6 @@ function hitungSewa() {
     const jarakInput = document.getElementById('jarakKM');
     let jarak = parseInt(jarakInput ? jarakInput.value : 0, 10);
     
-    // Safety check: Mencegah input angka negatif / NaN / melebihi 1500 KM
     if (isNaN(jarak) || jarak < 0) {
         jarak = 0;
         if (jarakInput) jarakInput.value = 0;
@@ -1904,7 +1901,7 @@ function showToast(message, icon = "✓") {
     }, 4500);
 }
 
-/* ================= 4. AUDIO PLAYER ================= */
+/* ================= 4. AUDIO PLAYER & VISUALIZER ================= */
 const audio = new Audio("goth-slowed.mp3");
 audio.loop = true;
 
@@ -1927,30 +1924,57 @@ if (playBtn) {
             audio.pause();
             isPlaying = false;
             playBtn.innerHTML = "▶";
+            resetVisualizer();
         }
     });
 }
 
+// Berhenti otomatis jika lagu habis / selesai
+audio.addEventListener('ended', () => {
+    isPlaying = false;
+    if(playBtn) playBtn.innerHTML = "▶";
+    resetVisualizer();
+});
+
 function animateVisualizer() {
-    if (!isPlaying) {
-        bars.forEach(bar => bar.style.height = "5px");
-        return;
-    }
+    if (!isPlaying) return;
     bars.forEach(bar => {
-        const height = Math.floor(Math.random() * 22) + 5;
+        const height = Math.floor(Math.random() * 26) + 4;
         bar.style.height = height + "px";
     });
-    setTimeout(animateVisualizer, 100);
+    setTimeout(animateVisualizer, 120);
 }
 
-/* ================= 5. AMBIENT LIGHT ================= */
+function resetVisualizer() {
+    bars.forEach(bar => bar.style.height = "6px");
+}
+
+/* ================= 5. AMBIENT LIGHT & PARALLAX EFFECT ================= */
 const ambientLight = document.getElementById('ambientLight');
-if (ambientLight) {
-    window.addEventListener('mousemove', (e) => {
+const heroImage = document.getElementById('heroImage');
+const heroContent = document.getElementById('heroContent');
+
+window.addEventListener('mousemove', (e) => {
+    if (ambientLight) {
         ambientLight.style.left = e.clientX + 'px';
         ambientLight.style.top = e.clientY + 'px';
-    });
-}
+    }
+});
+
+// Efek Paralex Halus berdasarkan Scroll Posisi Layar
+window.addEventListener('scroll', () => {
+    let scrollY = window.pageYOffset;
+    
+    if (heroImage && scrollY <= window.innerHeight) {
+        // Gambar background hero bergerak sedikit lebih lambat ke bawah saat scroll
+        heroImage.style.transform = `translateY(${scrollY * 0.25}px) scale(${1 + scrollY * 0.0003})`;
+    }
+    if (heroContent && scrollY <= window.innerHeight) {
+        // Konten hero bergeser ke atas perlahan
+        heroContent.style.transform = `translateY(${scrollY * 0.15}px)`;
+        heroContent.style.opacity = 1 - (scrollY / 700);
+    }
+});
 
 /* ================= 6. SCROLL REVEAL & COUNTER ================= */
 const observer = new IntersectionObserver((entries) => {
@@ -2073,7 +2097,6 @@ if (modal) {
     });
 }
 
-// Anti-XSS Sanitizer
 function sanitizeText(str) {
     if (!str) return '';
     return String(str)
@@ -2084,7 +2107,6 @@ function sanitizeText(str) {
         .replace(/'/g, '&#x27;');
 }
 
-// Client-side Rate Limiter State
 let lastSubmitTime = 0;
 
 async function handleFormSubmit(e) {
@@ -2093,23 +2115,20 @@ async function handleFormSubmit(e) {
     const form = e.target;
     const submitBtn = document.getElementById('submitBtn');
     
-    // 1. RATE LIMITING: Cegah spam klik (minimal jeda 15 detik)
     const now = Date.now();
     if (now - lastSubmitTime < 15000) {
         showToast("Tunggu 15 detik sebelum mengirim pesan lagi.", "⏱️");
         return;
     }
 
-    // 2. HONEYPOT CHECK: Jika field jebakan diisi, gagalkan diam-diam (bot detector)
     const honeyField = document.getElementById('honeyInput');
     if (honeyField && honeyField.value !== '') {
-        showToast("Pesan terkirim!", "✉️"); // Fake feedback untuk mengecoh bot
+        showToast("Pesan terkirim!", "✉️"); 
         form.reset();
         closeModal();
         return;
     }
 
-    // 3. VALIDASI INPUT KETAT
     const nameVal = document.getElementById('nameInput')?.value.trim();
     const phoneVal = document.getElementById('phoneInput')?.value.trim();
     const msgVal = document.getElementById('messageInput')?.value.trim();
@@ -2119,13 +2138,11 @@ async function handleFormSubmit(e) {
         return;
     }
 
-    // Validasi Format Nomor WA / Telepon (Minimal 9 Angka)
     if (phoneVal.length < 9) {
         showToast("Nomor WhatsApp/HP terlalu pendek. Masukkan nomor yang valid.", "⚠️");
         return;
     }
 
-    // Lock tombol submit
     const originalBtnText = submitBtn ? submitBtn.innerText : "Kirim Pesan";
     if (submitBtn) {
         submitBtn.innerText = "Mengirim...";
