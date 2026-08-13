@@ -69,7 +69,7 @@ body:before{
     url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
 }
 
-/* ================= TOAST NOTIFICATION (BARU) ================= */
+/* ================= TOAST NOTIFICATION ================= */
 .toast-container {
     position: fixed;
     bottom: 30px;
@@ -470,13 +470,12 @@ body:before{
     transition: height 0.1s ease;
 }
 
-/* ================= KALKULATOR PRICELIST (BARU) ================= */
+/* ================= KALKULATOR PRICELIST & CUSTOM SELECT ================= */
 
 .calculator-section {
-    padding: 110px 6vw;
+    padding: 110px 6vw 50px;
     background: var(--bg2);
     border-top: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
 }
 
 .calc-grid {
@@ -494,20 +493,87 @@ body:before{
 }
 
 .calc-group {
-    margin-bottom: 22px;
+    margin-bottom: 24px;
 }
 
 .calc-group label {
     display: block;
     font-size: 12px;
     color: var(--accent2);
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     text-transform: uppercase;
     letter-spacing: 1px;
     font-weight: 700;
 }
 
-.calc-group select, .calc-group input {
+/* Custom Radio Options */
+.custom-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.option-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 18px;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.option-card:hover {
+    border-color: rgba(125, 182, 214, 0.4);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.option-card.active {
+    border-color: var(--accent);
+    background: rgba(125, 182, 214, 0.08);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.option-text strong {
+    display: block;
+    font-size: 14px;
+    color: var(--text);
+    margin-bottom: 2px;
+}
+
+.option-text span {
+    font-size: 12px;
+    color: var(--accent2);
+    font-weight: bold;
+}
+
+.radio-indicator {
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--muted);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s ease;
+    flex-shrink: 0;
+}
+
+.option-card.active .radio-indicator {
+    border-color: var(--accent);
+}
+
+.option-card.active .radio-indicator::after {
+    content: "";
+    width: 8px;
+    height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+}
+
+.calc-group input[type="number"] {
     width: 100%;
     background: var(--bg);
     border: 1px solid var(--line);
@@ -520,7 +586,7 @@ body:before{
     transition: border-color 0.2s;
 }
 
-.calc-group select:focus, .calc-group input:focus {
+.calc-group input[type="number"]:focus {
     border-color: var(--accent);
 }
 
@@ -567,6 +633,121 @@ body:before{
     background: #fff;
     transform: translateY(-2px);
     box-shadow: 0 10px 30px rgba(125,182,214,0.2);
+}
+
+/* ================= SYSTEM NOTICE & FAQ TRANSAKSI ================= */
+
+.transaction-notice-container {
+    padding: 0 6vw 100px;
+    background: var(--bg2);
+    border-bottom: 1px solid var(--line);
+}
+
+.transaction-notice-box {
+    background: rgba(17, 20, 25, 0.6);
+    border: 1px solid rgba(125, 182, 214, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: var(--radius);
+    padding: 35px;
+}
+
+.notice-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--line);
+}
+
+.notice-badge {
+    background: rgba(125, 182, 214, 0.15);
+    color: var(--accent2);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(125, 182, 214, 0.3);
+}
+
+.notice-header h3 {
+    font-family: "Space Grotesk";
+    font-size: 20px;
+    color: var(--text);
+}
+
+.notice-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 35px;
+}
+
+.notice-item h4 {
+    font-size: 14px;
+    color: var(--text);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.notice-item p {
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 1.65;
+}
+
+/* Bagian FAQ Pertanyaan Transaksi */
+.faq-section {
+    border-top: 1px dashed var(--line);
+    padding-top: 25px;
+}
+
+.faq-title {
+    font-size: 12px;
+    color: var(--accent2);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 18px;
+}
+
+.faq-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+}
+
+.faq-item {
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 18px 20px;
+}
+
+.faq-question {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.faq-question::before {
+    content: "❓";
+    font-size: 13px;
+}
+
+.faq-answer {
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 1.6;
+    padding-left: 24px;
 }
 
 /* ================= SECTIONS ================= */
@@ -1227,8 +1408,13 @@ footer{
 
     .job-grid,
     .process-grid,
-    .calc-grid{
+    .calc-grid,
+    .faq-grid {
         grid-template-columns:1fr;
+    }
+
+    .notice-grid {
+        grid-template-columns: 1fr 1fr;
     }
 
     .feature{
@@ -1295,7 +1481,7 @@ footer{
         margin-top:20px;
     }
 
-    .stats{
+    .stats, .notice-grid{
         grid-template-columns:1fr;
     }
 
@@ -1315,7 +1501,7 @@ footer{
 
 <body>
 
-<!-- TOAST CONTAINER (TOAST NOTIFIKASI BARU) -->
+<!-- TOAST CONTAINER -->
 <div class="toast-container" id="toastContainer"></div>
 
 <div class="ambient-light" id="ambientLight"></div>
@@ -1410,7 +1596,7 @@ footer{
 </header>
 
 
-<!-- ================= KALKULATOR PRICELIST (SEKSI BARU) ================= -->
+<!-- ================= KALKULATOR PRICELIST ================= -->
 
 <section class="calculator-section" id="kalkulator">
 
@@ -1423,39 +1609,98 @@ footer{
     </div>
 
     <div class="calc-grid reveal">
-        <!-- FORM PILIHAN -->
+        <!-- FORM PILIHAN CUSTOM -->
         <div class="calc-box">
+            
+            <!-- 1. PAKET SOUND -->
             <div class="calc-group">
                 <label>1. Pilih Paket Sound System</label>
-                <select id="paketSound" onchange="hitungSewa()">
-                    <option value="1500000">Paket Akustik / Indoor (Up to 3.000 Watt) - Rp 1.500.000</option>
-                    <option value="3000000" selected>Paket Medium / Wedding (Up to 5.000 Watt) - Rp 3.000.000</option>
-                    <option value="5500000">Paket Pro Concert / Outdoor (Up to 10.000 Watt) - Rp 5.500.000</option>
-                </select>
+                <div class="custom-options" id="groupPaket">
+                    <div class="option-card" onclick="selectOption('groupPaket', 1500000, 'Paket Akustik / Indoor (3.000W)')">
+                        <div class="option-text">
+                            <strong>Paket Akustik / Indoor (Up to 3.000 W)</strong>
+                            <span>Rp 1.500.000</span>
+                        </div>
+                        <div class="radio-indicator"></div>
+                    </div>
+
+                    <div class="option-card active" onclick="selectOption('groupPaket', 3000000, 'Paket Medium / Pernikahan (5.000W)')">
+                        <div class="option-text">
+                            <strong>Paket Medium / Pernikahan (Up to 5.000 W)</strong>
+                            <span>Rp 3.000.000</span>
+                        </div>
+                        <div class="radio-indicator"></div>
+                    </div>
+
+                    <div class="option-card" onclick="selectOption('groupPaket', 5500000, 'Paket Pro Concert / Outdoor (10.000W)')">
+                        <div class="option-text">
+                            <strong>Paket Pro Concert / Outdoor (Up to 10.000 W)</strong>
+                            <span>Rp 5.500.000</span>
+                        </div>
+                        <div class="radio-indicator"></div>
+                    </div>
+                </div>
             </div>
 
+            <!-- 2. JARAK LOKASI -->
             <div class="calc-group">
                 <label>2. Jarak Lokasi Acara (KM dari Basecamp)</label>
                 <input type="number" id="jarakKM" value="5" min="0" placeholder="Masukkan jarak (KM)" oninput="hitungSewa()">
                 <small style="color:var(--muted); font-size:11px; margin-top:6px; display:block;">*10 KM pertama Gratis Transportasi. Selebihnya Rp 10.000 / KM.</small>
             </div>
 
+            <!-- 3. AKSESIBILITAS MEDAN -->
             <div class="calc-group">
                 <label>3. Aksesibilitas & Medan Tempat</label>
-                <select id="aksesLokasi" onchange="hitungSewa()">
-                    <option value="0">Mudah (Truk/Mobil parkir di samping panggung, jalan rata)</option>
-                    <option value="150000">Sedang (Angkut jalan kaki <50m, naik tangga / Lt 2)</option>
-                    <option value="350000">Ekstrem (Gang sempit, tangga curam, tanah becek/berlumpur)</option>
-                </select>
+                <div class="custom-options" id="groupAkses">
+                    <div class="option-card active" onclick="selectOption('groupAkses', 0, 'Mudah (Akses Jalan Rata)')">
+                        <div class="option-text">
+                            <strong>Mudah</strong>
+                            <small style="color:var(--muted); display:block;">Parkir kendaraan di samping panggung, jalan rata</small>
+                        </div>
+                        <div class="radio-indicator"></div>
+                    </div>
+
+                    <div class="option-card" onclick="selectOption('groupAkses', 150000, 'Sedang (Tangga / Angkut <50m)')">
+                        <div class="option-text">
+                            <strong>Sedang (+ Rp 150.000)</strong>
+                            <small style="color:var(--muted); display:block;">Angkut jalan kaki &lt;50m atau naik tangga lantai 2</small>
+                        </div>
+                        <div class="radio-indicator"></div>
+                    </div>
+
+                    <div class="option-card" onclick="selectOption('groupAkses', 350000, 'Ekstrem (Gang Semplit / Becek)')">
+                        <div class="option-text">
+                            <strong>Ekstrem (+ Rp 350.000)</strong>
+                            <small style="color:var(--muted); display:block;">Gang sempit, tangga curam, atau tanah becek/berlumpur</small>
+                        </div>
+                        <div class="radio-indicator"></div>
+                    </div>
+                </div>
             </div>
 
+            <!-- 4. DURASI ACARA -->
             <div class="calc-group">
                 <label>4. Durasi Pemakaian</label>
-                <select id="durasiAcara" onchange="hitungSewa()">
-                    <option value="0">Standar Acara (Hingga 8 Jam Kerja)</option>
-                    <option value="250000">Full Day / Lembur Overtime (+ Rp 250.000)</option>
-                </select>
+                <div class="custom-options" id="groupDurasi">
+                    <div class="option-card active" onclick="selectOption('groupDurasi', 0, 'Standar (Hingga 8 Jam)')">
+                        <div class="option-text">
+                            <strong>Standar Acara</strong>
+                            <small style="color:var(--muted); display:block;">Pemakaian hingga 8 jam kerja</small>
+                        </div>
+                        <div class="radio-indicator"></div>
+                    </div>
+
+                    <div class="option-card" onclick="selectOption('groupDurasi', 250000, 'Full Day / Overtime')">
+                        <div class="option-text">
+                            <strong>Full Day / Lembur (+ Rp 250.000)</strong>
+                            <small style="color:var(--muted); display:block;">Acara seharian penuh / ekstra overtime</small>
+                        </div>
+                        <div class="radio-indicator"></div>
+                    </div>
+                </div>
             </div>
+
         </div>
 
         <!-- HASIL ESTIMASI -->
@@ -1477,6 +1722,73 @@ footer{
     </div>
 
 </section>
+
+<!-- ================= PEMBERITAHUAN SISTEM TRANSAKSI & FAQ ================= -->
+<div class="transaction-notice-container">
+    <div class="transaction-notice-box reveal">
+        <div class="notice-header">
+            <span class="notice-badge">Pemberitahuan Sistem Transaksi</span>
+            <h3>Aturan & Prosedur Sewa Sound SPR Audio</h3>
+        </div>
+        
+        <!-- Poin Prosedur -->
+        <div class="notice-grid">
+            <div class="notice-item">
+                <h4>🔒 Booking & DP 30%</h4>
+                <p>Jadwal acara dinyatakan mengikat setelah penyewa melakukan DP minimal 30% dari total estimasi kesepakatan.</p>
+            </div>
+            <div class="notice-item">
+                <h4>⏱️ H-1 Loading & Soundcheck</h4>
+                <p>Tim kru SPR Audio melakukan *loading* barang dan *soundcheck* H-1 atau minimal 3 jam sebelum acara dimulai.</p>
+            </div>
+            <div class="notice-item">
+                <h4>⚡ Pasokan Listrik Sesuai</h4>
+                <p>Penyewa wajib menyediakan daya listrik stabil sesuai kebutuhan paket WATT yang dipilih (atau menyewa Genset tambahan).</p>
+            </div>
+            <div class="notice-item">
+                <h4>💳 Pelunasan Biaya</h4>
+                <p>Sisa pembayaran (70%) dilunasi di lokasi saat tim selesai *soundcheck* sebelum acara berjalan.</p>
+            </div>
+        </div>
+
+        <!-- PERTANYAAN UMUM / FAQ TRANSAKSI -->
+        <div class="faq-section">
+            <div class="faq-title">Pertanyaan Sering Diajukan (FAQ)</div>
+            <div class="faq-grid">
+                
+                <div class="faq-item">
+                    <div class="faq-question">Bagaimana kalau sudah DP lalu kita tidak jadi sewa (batal)?</div>
+                    <div class="faq-answer">
+                        Jika pembatalan dilakukan <strong>H-3 sebelum acara</strong>, DP dapat dikembalikan 50% atau jadwal bisa di-reschedule. Namun jika batal pada H-1 atau hari H, DP hangus untuk menutup biaya operasional kru & persiapan barang.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">Apakah harga sewa sudah termasuk operator & kru sound?</div>
+                    <div class="faq-answer">
+                        <strong>Ya, betul!</strong> Semua paket sewa SPR Audio sudah *all-in* termasuk kru pengangkut, teknisi kabel, dan 1 Sound Engineer profesional yang stanby mengawal acara sampai selesai.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">Bagaimana jika terjadi mati listrik atau kendala teknis?</div>
+                    <div class="faq-answer">
+                        Tim kami selalu membawa *stabilizer* dan peralatan cadangan. Namun untuk pemadaman listrik dari pusat, disarankan penyewa menyiapkan Genset cadangan agar acara tetap berjalan lancar.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">Apakah bisa reques instrumen atau mic tambahan di luar paket?</div>
+                    <div class="faq-answer">
+                        Bisa banget. Kamu bisa menginfokan ke tim kami saat konsultasi via WhatsApp/Form untuk penambahan microphone wireless, clip-on, atau monitor panggung tambahan.
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
 
 
 <!-- ================= JOBS ================= -->
@@ -1689,7 +2001,7 @@ footer{
             <button type="submit" class="submit-btn" id="submitBtn">Kirim Pesan</button>
         </form>
 
-        <!-- Konten Ketentuan (Hanya Tampil saat Klik Terms) -->
+        <!-- Konten Ketentuan -->
         <div id="termsContainer" style="display: none;">
             <div class="terms-body">
                 <h4>1. Perjanjian Proyek</h4>
@@ -1735,7 +2047,7 @@ footer{
 </footer>
 
 <script>
-/* ================= 1. TOAST NOTIFICATION SYSTEM (BARU) ================= */
+/* ================= 1. TOAST NOTIFICATION SYSTEM ================= */
 function showToast(message, icon = "✓") {
     const container = document.getElementById('toastContainer');
     const toast = document.createElement('div');
@@ -1756,28 +2068,55 @@ function showToast(message, icon = "✓") {
     }, 4500);
 }
 
-/* ================= 2. KALKULATOR PRICELIST LOGIC (BARU) ================= */
+/* ================= 2. KALKULATOR PRICELIST WITH CUSTOM RADIO ================= */
+let selectedPaket = 3000000;
+let selectedPaketText = "Paket Medium / Pernikahan (5.000W)";
+let selectedAkses = 0;
+let selectedAksesText = "Mudah";
+let selectedDurasi = 0;
+let selectedDurasiText = "Standar (Hingga 8 Jam)";
+
+function selectOption(groupId, value, text) {
+    const group = document.getElementById(groupId);
+    if (!group) return;
+
+    const cards = group.querySelectorAll('.option-card');
+    cards.forEach(card => card.classList.remove('active'));
+
+    event.currentTarget.classList.add('active');
+
+    if (groupId === 'groupPaket') {
+        selectedPaket = value;
+        selectedPaketText = text;
+    } else if (groupId === 'groupAkses') {
+        selectedAkses = value;
+        selectedAksesText = text;
+    } else if (groupId === 'groupDurasi') {
+        selectedDurasi = value;
+        selectedDurasiText = text;
+    }
+
+    hitungSewa();
+}
+
 function hitungSewa() {
-    const hargaPaket = parseInt(document.getElementById('paketSound').value) || 0;
     const jarak = parseInt(document.getElementById('jarakKM').value) || 0;
-    const biayaAkses = parseInt(document.getElementById('aksesLokasi').value) || 0;
-    const biayaDurasi = parseInt(document.getElementById('durasiAcara').value) || 0;
 
     let biayaOngkir = 0;
     if (jarak > 10) {
         biayaOngkir = (jarak - 10) * 10000;
     }
 
-    const total = hargaPaket + biayaOngkir + biayaAkses + biayaDurasi;
+    const total = selectedPaket + biayaOngkir + selectedAkses + selectedDurasi;
     const formatRupiah = (num) => "Rp " + num.toLocaleString('id-ID');
 
     document.getElementById('totalDisplay').innerText = formatRupiah(total);
 
     document.getElementById('breakdownDisplay').innerHTML = `
-        • Paket Sound: ${formatRupiah(hargaPaket)}<br>
+        • Paket: ${selectedPaketText}<br>
         • Transportasi (${jarak} KM): ${biayaOngkir === 0 ? 'Gratis' : formatRupiah(biayaOngkir)}<br>
-        • Medan Akses: ${biayaAkses === 0 ? 'Gratis' : formatRupiah(biayaAkses)}<br>
-        • Extra Durasi: ${biayaDurasi === 0 ? 'Standar' : formatRupiah(biayaDurasi)}
+        • Medan Akses: ${selectedAkses === 0 ? 'Gratis' : formatRupiah(selectedAkses)}<br>
+        • Extra Durasi: ${selectedDurasi === 0 ? 'Standar' : formatRupiah(selectedDurasi)}
     `;
 }
 
@@ -1787,7 +2126,6 @@ function pesanKalkulator() {
     
     openContactModal();
     
-    // Auto-fill pesan di form
     const messageInput = document.getElementById('messageInput');
     if (messageInput) {
         messageInput.value = `Halo SPR Audio, saya ingin booking sewa Sound System dengan rincian berikut:\n\n${breakdown}\n\nTOTAL ESTIMASI: ${total}`;
@@ -1796,7 +2134,6 @@ function pesanKalkulator() {
     showToast(`Rincian sewa dimasukkan ke form kontak!`, '🔊');
 }
 
-// Jalankan kalkulator pertama kali
 hitungSewa();
 
 /* ================= 3. MP3 AUDIO PLAYER ================= */
@@ -1966,7 +2303,6 @@ if (modal) {
     });
 }
 
-// Pengiriman Web3Forms Menggunakan Toast Notif Modern
 async function handleFormSubmit(e) {
     e.preventDefault();
     
@@ -2009,4 +2345,3 @@ async function handleFormSubmit(e) {
 
 </body>
 </html>
-
