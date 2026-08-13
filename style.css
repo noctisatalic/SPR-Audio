@@ -1,0 +1,17 @@
+.brand-logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.brand-logo img {
+    width: 155px;
+    height: auto;
+    display: block;
+    object-fit: contain;
+    transition: .3s ease;
+}
+
+.brand-logo:hover img {
+    transform: scale(1.03);
+}
