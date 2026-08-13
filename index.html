@@ -131,7 +131,7 @@ body:before{
 
     display:flex;
     align-items:center;
-    justify-content:space-between;
+    justify-space-between:space-between;
 
     padding:0 6vw;
 
@@ -427,7 +427,7 @@ body:before{
 }
 
 .play:hover {
-    scale: 1.08;
+    transform: scale(1.08);
     background: #ffffff;
 }
 
@@ -464,7 +464,7 @@ body:before{
 
 .bar{
     width:3px;
-    height:10px;
+    height:5px;
 
     border-radius:4px;
 
@@ -472,7 +472,7 @@ body:before{
     transition: height 0.1s ease;
 }
 
-/* ================= KALKULATOR PRICELIST (COLLAPSIBLE DROPDOWN) ================= */
+/* ================= KALKULATOR PRICELIST ================= */
 
 .calculator-section {
     padding: 100px 6vw;
@@ -506,7 +506,6 @@ body:before{
     border-color: rgba(125, 182, 214, 0.4);
 }
 
-/* Header Penutup Opsi */
 .calc-trigger {
     padding: 18px 20px;
     display: flex;
@@ -543,7 +542,6 @@ body:before{
     color: var(--accent);
 }
 
-/* Container Opsi Muncul Saat Klik */
 .custom-options {
     max-height: 0;
     overflow: hidden;
@@ -678,7 +676,7 @@ body:before{
     box-shadow: 0 10px 30px rgba(125,182,214,0.2);
 }
 
-/* ================= MODERN SYSTEM NOTICE & FAQ ACCORDION ================= */
+/* ================= ACCORDION & FAQ ================= */
 
 .info-section {
     padding: 60px 6vw 100px;
@@ -802,7 +800,7 @@ section{
 .section-head{
     display:flex;
     justify-content:space-between;
-    align-items:end;
+    align-items:flex-end;
 
     margin-bottom:55px;
 }
@@ -1622,7 +1620,7 @@ footer{
 </header>
 
 
-<!-- ================= KALKULATOR PRICELIST (COLLAPSIBLE) ================= -->
+<!-- ================= KALKULATOR PRICELIST ================= -->
 
 <section class="calculator-section" id="kalkulator">
 
@@ -1636,7 +1634,7 @@ footer{
 
     <div class="calc-grid reveal">
         
-        <!-- FORM PILIHAN (KLIK BARU MUNCUL OPSI) -->
+        <!-- FORM PILIHAN -->
         <div class="calc-box">
             
             <!-- 1. PAKET SOUND -->
@@ -1650,7 +1648,7 @@ footer{
                 </div>
 
                 <div class="custom-options">
-                    <div class="option-card" onclick="selectOption('groupPaket', 'valPaket', 1500000, 'Paket Akustik / Indoor', 'Hingga 3.000 Watt')">
+                    <div class="option-card" onclick="selectOption(event, 'groupPaket', 'valPaket', 1500000, 'Paket Akustik / Indoor', 'Hingga 3.000 Watt')">
                         <div class="option-text">
                             <strong>Paket Akustik / Indoor</strong>
                             <span>Kapasitas Hingga 3.000 W</span>
@@ -1658,7 +1656,7 @@ footer{
                         <div class="radio-indicator"></div>
                     </div>
 
-                    <div class="option-card active" onclick="selectOption('groupPaket', 'valPaket', 3000000, 'Paket Medium / Pernikahan', 'Hingga 5.000 Watt')">
+                    <div class="option-card active" onclick="selectOption(event, 'groupPaket', 'valPaket', 3000000, 'Paket Medium / Pernikahan', 'Hingga 5.000 Watt')">
                         <div class="option-text">
                             <strong>Paket Medium / Pernikahan</strong>
                             <span>Kapasitas Hingga 5.000 W</span>
@@ -1666,7 +1664,7 @@ footer{
                         <div class="radio-indicator"></div>
                     </div>
 
-                    <div class="option-card" onclick="selectOption('groupPaket', 'valPaket', 5500000, 'Paket Pro Concert / Outdoor', 'Hingga 10.000 Watt')">
+                    <div class="option-card" onclick="selectOption(event, 'groupPaket', 'valPaket', 5500000, 'Paket Pro Concert / Outdoor', 'Hingga 10.000 Watt')">
                         <div class="option-text">
                             <strong>Paket Pro Concert / Outdoor</strong>
                             <span>Kapasitas Hingga 10.000 W</span>
@@ -1697,7 +1695,7 @@ footer{
                 </div>
 
                 <div class="custom-options">
-                    <div class="option-card active" onclick="selectOption('groupAkses', 'valAkses', 0, 'Akses Rata / Mudah', 'Parkir samping lokasi & jalan rata')">
+                    <div class="option-card active" onclick="selectOption(event, 'groupAkses', 'valAkses', 0, 'Akses Rata / Mudah', 'Parkir samping lokasi & jalan rata')">
                         <div class="option-text">
                             <strong>Akses Rata / Mudah</strong>
                             <span>Parkir samping lokasi & jalan rata</span>
@@ -1705,7 +1703,7 @@ footer{
                         <div class="radio-indicator"></div>
                     </div>
 
-                    <div class="option-card" onclick="selectOption('groupAkses', 'valAkses', 150000, 'Sedang (Naik Tangga/Jalan Kaki)', 'Angkut manual / Naik tangga lantai 2')">
+                    <div class="option-card" onclick="selectOption(event, 'groupAkses', 'valAkses', 150000, 'Sedang (Naik Tangga/Jalan Kaki)', 'Angkut manual / Naik tangga lantai 2')">
                         <div class="option-text">
                             <strong>Sedang</strong>
                             <span>Angkut manual / Naik tangga lantai 2</span>
@@ -1713,7 +1711,7 @@ footer{
                         <div class="radio-indicator"></div>
                     </div>
 
-                    <div class="option-card" onclick="selectOption('groupAkses', 'valAkses', 350000, 'Ekstrem (Gang Sempit/Becek)', 'Gang sempit / Tangga curam / Becek')">
+                    <div class="option-card" onclick="selectOption(event, 'groupAkses', 'valAkses', 350000, 'Ekstrem (Gang Sempit/Becek)', 'Gang sempit / Tangga curam / Becek')">
                         <div class="option-text">
                             <strong>Ekstrem</strong>
                             <span>Gang sempit / Tangga curam / Becek</span>
@@ -1734,7 +1732,7 @@ footer{
                 </div>
 
                 <div class="custom-options">
-                    <div class="option-card active" onclick="selectOption('groupDurasi', 'valDurasi', 0, 'Standar Acara (s.d 8 Jam)', 'Pemakaian standar hingga 8 jam')">
+                    <div class="option-card active" onclick="selectOption(event, 'groupDurasi', 'valDurasi', 0, 'Standar Acara (s.d 8 Jam)', 'Pemakaian standar hingga 8 jam')">
                         <div class="option-text">
                             <strong>Standar Acara</strong>
                             <span>Pemakaian standar hingga 8 jam</span>
@@ -1742,7 +1740,7 @@ footer{
                         <div class="radio-indicator"></div>
                     </div>
 
-                    <div class="option-card" onclick="selectOption('groupDurasi', 'valDurasi', 250000, 'Full Day / Lembur', 'Penggunaan seharian penuh')">
+                    <div class="option-card" onclick="selectOption(event, 'groupDurasi', 'valDurasi', 250000, 'Full Day / Lembur', 'Penggunaan seharian penuh')">
                         <div class="option-text">
                             <strong>Full Day / Lembur</strong>
                             <span>Penggunaan seharian penuh</span>
@@ -1754,7 +1752,7 @@ footer{
 
         </div>
 
-        <!-- HASIL ESTIMASI TRANSPARAN -->
+        <!-- HASIL ESTIMASI -->
         <div class="result-card">
             <div>
                 <span style="font-size:11px; color:var(--accent2); font-weight:bold; letter-spacing:1.5px; text-transform:uppercase;">TOTAL ESTIMASI DEAL</span>
@@ -1775,7 +1773,7 @@ footer{
 </section>
 
 
-<!-- ================= FAQ & ACCORDION SYSTEM TRANSAKSI ================= -->
+<!-- ================= FAQ & ACCORDION TRANSAKSI ================= -->
 
 <div class="info-section">
     <div class="info-container reveal">
@@ -1784,7 +1782,7 @@ footer{
 
         <div class="accordion">
             
-            <!-- ACCORDION 1: PROSEDUR SEWA -->
+            <!-- ACCORDION 1 -->
             <div class="accordion-item active">
                 <div class="accordion-header" onclick="toggleAccordion(this)">
                     <div class="accordion-header-text">
@@ -1815,7 +1813,7 @@ footer{
                 </div>
             </div>
 
-            <!-- ACCORDION 2: FAQ DP & BATAL -->
+            <!-- ACCORDION 2 -->
             <div class="accordion-item">
                 <div class="accordion-header" onclick="toggleAccordion(this)">
                     <div class="accordion-header-text">
@@ -1829,7 +1827,7 @@ footer{
                 </div>
             </div>
 
-            <!-- ACCORDION 3: FAQ TERMASUK KRU -->
+            <!-- ACCORDION 3 -->
             <div class="accordion-item">
                 <div class="accordion-header" onclick="toggleAccordion(this)">
                     <div class="accordion-header-text">
@@ -1843,7 +1841,7 @@ footer{
                 </div>
             </div>
 
-            <!-- ACCORDION 4: KENDALA TEKNIS -->
+            <!-- ACCORDION 4 -->
             <div class="accordion-item">
                 <div class="accordion-header" onclick="toggleAccordion(this)">
                     <div class="accordion-header-text">
@@ -1853,7 +1851,7 @@ footer{
                     <span class="accordion-arrow">▼</span>
                 </div>
                 <div class="accordion-content">
-                    <p>Peralatan kami dilengkapi *stabilizer* untuk mencegah lonjakan arus. Jika pemadaman berasal dari PLN pusat, disarankan lokasi acara menyediakan Genset cadangan agar audio tetap beroperasi lancar.</p>
+                    <p>Peralatan kami dilengkapi <em>stabilizer</em> untuk mencegah lonjakan arus. Jika pemadaman berasal dari PLN pusat, disarankan lokasi acara menyediakan Genset cadangan agar audio tetap beroperasi lancar.</p>
                 </div>
             </div>
 
@@ -2040,13 +2038,12 @@ footer{
 
 <div class="modal-overlay" id="modalOverlay">
     
-    <!-- BOX MODAL UTAMA -->
     <div class="modal-box" id="modalBox">
         <button class="close-modal" onclick="closeModal()">✕</button>
         <h3 class="modal-title" id="modalTitle">Hubungi SPR Audio</h3>
         <p class="modal-desc" id="modalDesc">Isi informasi di bawah ini untuk mengirimkan pesan.</p>
 
-        <!-- Container Form Pendaftaran & Kontak -->
+        <!-- Form Pendaftaran & Kontak -->
         <form id="applyForm" onsubmit="handleFormSubmit(event)">
             <input type="hidden" name="access_key" value="4c3cc0e1-b452-43e7-a8cb-cc54bdec18a2">
             <input type="hidden" name="subject" id="emailSubject" value="General Inquiry - SPR Audio">
@@ -2121,7 +2118,7 @@ footer{
 </footer>
 
 <script>
-/* ================= 1. KALKULATOR PRICELIST (COLLAPSIBLE TOGGLE) ================= */
+/* ================= 1. KALKULATOR PRICELIST ================= */
 let selectedPaket = 3000000;
 let selectedPaketText = "Paket Medium / Pernikahan";
 let selectedAkses = 0;
@@ -2135,7 +2132,6 @@ function toggleCalcGroup(groupId) {
 
     const isOpen = targetGroup.classList.contains('open');
 
-    // Tutup opsi kalkulator lain
     document.querySelectorAll('.calc-group').forEach(group => {
         if (group.querySelector('.custom-options')) {
             group.classList.remove('open');
@@ -2147,16 +2143,18 @@ function toggleCalcGroup(groupId) {
     }
 }
 
-function selectOption(groupId, displayValId, value, nameText, descText) {
+function selectOption(e, groupId, displayValId, value, nameText, descText) {
     const group = document.getElementById(groupId);
     if (!group) return;
 
     const cards = group.querySelectorAll('.option-card');
     cards.forEach(card => card.classList.remove('active'));
 
-    event.currentTarget.classList.add('active');
+    const currentCard = e.currentTarget;
+    if (currentCard) {
+        currentCard.classList.add('active');
+    }
 
-    // Update label text tampilan utama
     document.getElementById(displayValId).innerText = nameText;
 
     if (groupId === 'groupPaket') {
@@ -2170,7 +2168,6 @@ function selectOption(groupId, displayValId, value, nameText, descText) {
         selectedDurasiText = nameText;
     }
 
-    // Tutup dropdown setelah memilih
     group.classList.remove('open');
 
     hitungSewa();
@@ -2269,6 +2266,7 @@ if (playBtn) {
             audio.pause();
             isPlaying = false;
             playBtn.innerHTML = "▶";
+            bars.forEach(bar => bar.style.height = "5px");
         }
     });
 }
@@ -2331,7 +2329,7 @@ function startCounter(el) {
     update();
 }
 
-/* ================= 7. MODAL DINAMIS (FORMS, TERMS) ================= */
+/* ================= 7. MODAL DINAMIS ================= */
 const modal = document.getElementById('modalOverlay');
 const modalBox = document.getElementById('modalBox');
 const modalTitle = document.getElementById('modalTitle');
@@ -2345,8 +2343,6 @@ function openApplyModal(jobTitle) {
     
     if (termsContainer) termsContainer.style.display = 'none';
     if (applyForm) applyForm.style.display = 'block';
-
-    if (modalBox) modalBox.classList.remove('calendar-modal-box');
 
     if (modalTitle) modalTitle.innerText = `Lamar Posisi: ${jobTitle}`;
     if (modalDesc) modalDesc.innerText = `Kirimkan link portofoliomu untuk posisi ${jobTitle}.`;
@@ -2374,8 +2370,6 @@ function openContactModal() {
     if (termsContainer) termsContainer.style.display = 'none';
     if (applyForm) applyForm.style.display = 'block';
 
-    if (modalBox) modalBox.classList.remove('calendar-modal-box');
-
     if (modalTitle) modalTitle.innerText = `Hubungi SPR Audio`;
     if (modalDesc) modalDesc.innerText = `Ada pertanyaan atau penawaran proyek? Tuliskan pesanmu di bawah.`;
     
@@ -2402,8 +2396,6 @@ function openTermsModal() {
 
     if (applyForm) applyForm.style.display = 'none';
     if (termsContainer) termsContainer.style.display = 'block';
-
-    if (modalBox) modalBox.classList.remove('calendar-modal-box');
 
     if (modalTitle) modalTitle.innerText = `Ketentuan Layanan`;
     if (modalDesc) modalDesc.innerText = `Syarat & ketentuan umum dalam bekerja sama dengan SPR Audio.`;
@@ -2444,7 +2436,7 @@ async function handleFormSubmit(e) {
         const data = await response.json();
 
         if (data.success) {
-            showToast("Terima kasih! Pesanmu berhasil terkirim ke email SPR Audio.", "✉️");
+            showToast("Terima kasih! Pesanmu berhasil terkirim.", "✉️");
             form.reset();
             closeModal();
         } else {
