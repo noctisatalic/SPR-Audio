@@ -23,6 +23,9 @@
     --accent:#7db6d6;
     --accent2:#9ed5ef;
     --radius:22px;
+    --danger:#ef4444;
+    --success:#10b981;
+    --warning:#f59e0b;
 }
 
 *{
@@ -64,7 +67,6 @@ body:before{
     pointer-events:none;
     z-index:9999;
     opacity:.035;
-
     background-image:
     url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
 }
@@ -470,10 +472,123 @@ body:before{
     transition: height 0.1s ease;
 }
 
-/* ================= KALKULATOR PRICELIST & CUSTOM SELECT ================= */
+/* ================= KALENDER KETERSEDIAAN TANGGAL ================= */
+.schedule-section {
+    padding: 100px 6vw 50px;
+    background: var(--bg);
+}
+
+.schedule-card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 35px;
+}
+
+.schedule-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.schedule-month {
+    font-family: "Space Grotesk";
+    font-size: 22px;
+    color: var(--text);
+}
+
+.schedule-legend {
+    display: flex;
+    gap: 20px;
+    font-size: 12px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--muted);
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.dot.available { background: var(--success); }
+.dot.booked { background: var(--danger); }
+.dot.limited { background: var(--warning); }
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+    text-align: center;
+}
+
+.calendar-day-head {
+    font-size: 12px;
+    color: var(--accent2);
+    font-weight: 700;
+    padding-bottom: 10px;
+}
+
+.calendar-day {
+    background: var(--bg2);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 14px 8px;
+    font-size: 14px;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    position: relative;
+    transition: 0.2s;
+}
+
+.calendar-day:hover {
+    border-color: rgba(125,182,214,0.4);
+}
+
+.calendar-day.empty {
+    background: transparent;
+    border: none;
+}
+
+.status-tag {
+    font-size: 9px;
+    padding: 2px 6px;
+    border-radius: 6px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.calendar-day.is-available .status-tag {
+    background: rgba(16, 185, 129, 0.15);
+    color: var(--success);
+}
+
+.calendar-day.is-booked .status-tag {
+    background: rgba(239, 68, 68, 0.15);
+    color: var(--danger);
+}
+
+.calendar-day.is-limited .status-tag {
+    background: rgba(245, 158, 11, 0.15);
+    color: var(--warning);
+}
+
+
+/* ================= KALKULATOR PRICELIST ================= */
 
 .calculator-section {
-    padding: 110px 6vw 50px;
+    padding: 100px 6vw;
     background: var(--bg2);
     border-top: 1px solid var(--line);
 }
@@ -482,7 +597,7 @@ body:before{
     display: grid;
     grid-template-columns: 1.2fr 0.8fr;
     gap: 35px;
-    margin-top: 45px;
+    margin-top: 35px;
 }
 
 .calc-box {
@@ -500,13 +615,13 @@ body:before{
     display: block;
     font-size: 12px;
     color: var(--accent2);
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     text-transform: uppercase;
     letter-spacing: 1px;
     font-weight: 700;
 }
 
-/* Custom Radio Options */
+/* Custom Minimalist Radio Options */
 .custom-options {
     display: flex;
     flex-direction: column;
@@ -517,23 +632,22 @@ body:before{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 14px 18px;
+    padding: 16px 20px;
     background: var(--bg);
     border: 1px solid var(--line);
-    border-radius: 12px;
+    border-radius: 14px;
     cursor: pointer;
     transition: all 0.25s ease;
 }
 
 .option-card:hover {
-    border-color: rgba(125, 182, 214, 0.4);
+    border-color: rgba(125, 182, 214, 0.3);
     background: rgba(255, 255, 255, 0.02);
 }
 
 .option-card.active {
     border-color: var(--accent);
-    background: rgba(125, 182, 214, 0.08);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    background: rgba(125, 182, 214, 0.06);
 }
 
 .option-text strong {
@@ -541,12 +655,12 @@ body:before{
     font-size: 14px;
     color: var(--text);
     margin-bottom: 2px;
+    font-weight: 600;
 }
 
 .option-text span {
     font-size: 12px;
-    color: var(--accent2);
-    font-weight: bold;
+    color: var(--muted);
 }
 
 .radio-indicator {
@@ -591,8 +705,8 @@ body:before{
 }
 
 .result-card {
-    background: linear-gradient(145deg, rgba(125, 182, 214, 0.1), rgba(255,255,255,0.02));
-    border: 1px solid rgba(125, 182, 214, 0.3);
+    background: linear-gradient(145deg, rgba(125, 182, 214, 0.08), rgba(255,255,255,0.01));
+    border: 1px solid rgba(125, 182, 214, 0.25);
     padding: 35px;
     border-radius: var(--radius);
     display: flex;
@@ -610,7 +724,7 @@ body:before{
 .price-breakdown {
     font-size: 13px;
     color: var(--muted);
-    line-height: 1.8;
+    line-height: 1.9;
     margin-bottom: 25px;
     border-top: 1px dashed var(--line);
     padding-top: 20px;
@@ -635,119 +749,119 @@ body:before{
     box-shadow: 0 10px 30px rgba(125,182,214,0.2);
 }
 
-/* ================= SYSTEM NOTICE & FAQ TRANSAKSI ================= */
+/* ================= MODERN SYSTEM NOTICE & FAQ ACCORDION ================= */
 
-.transaction-notice-container {
-    padding: 0 6vw 100px;
+.info-section {
+    padding: 60px 6vw 100px;
     background: var(--bg2);
     border-bottom: 1px solid var(--line);
 }
 
-.transaction-notice-box {
-    background: rgba(17, 20, 25, 0.6);
-    border: 1px solid rgba(125, 182, 214, 0.2);
-    backdrop-filter: blur(10px);
-    border-radius: var(--radius);
-    padding: 35px;
+.info-container {
+    max-width: 900px;
+    margin: 0 auto;
 }
 
-.notice-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 25px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid var(--line);
-}
-
-.notice-badge {
-    background: rgba(125, 182, 214, 0.15);
-    color: var(--accent2);
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    padding: 6px 12px;
-    border-radius: 20px;
-    border: 1px solid rgba(125, 182, 214, 0.3);
-}
-
-.notice-header h3 {
+.info-tabs-title {
+    text-align: center;
     font-family: "Space Grotesk";
-    font-size: 20px;
-    color: var(--text);
-}
-
-.notice-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
+    font-size: 28px;
     margin-bottom: 35px;
 }
 
-.notice-item h4 {
-    font-size: 14px;
-    color: var(--text);
-    margin-bottom: 8px;
+.accordion {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.accordion-item {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: border-color 0.3s ease;
+}
+
+.accordion-item.active {
+    border-color: rgba(125, 182, 214, 0.4);
+}
+
+.accordion-header {
+    padding: 22px 26px;
     display: flex;
     align-items: center;
-    gap: 8px;
+    justify-content: space-between;
+    cursor: pointer;
+    user-select: none;
 }
 
-.notice-item p {
-    font-size: 12.5px;
-    color: var(--muted);
-    line-height: 1.65;
-}
-
-/* Bagian FAQ Pertanyaan Transaksi */
-.faq-section {
-    border-top: 1px dashed var(--line);
-    padding-top: 25px;
-}
-
-.faq-title {
-    font-size: 12px;
-    color: var(--accent2);
+.accordion-header-text {
+    display: flex;
+    align-items: center;
+    gap: 14px;
     font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 18px;
+    font-size: 15px;
+    color: var(--text);
 }
 
-.faq-grid {
+.accordion-icon-tag {
+    width: 32px;
+    height: 32px;
+    background: rgba(125, 182, 214, 0.1);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+    font-size: 14px;
+}
+
+.accordion-arrow {
+    font-size: 14px;
+    color: var(--muted);
+    transition: transform 0.3s ease;
+}
+
+.accordion-item.active .accordion-arrow {
+    transform: rotate(180deg);
+    color: var(--accent);
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s cubic-bezier(0, 1, 0, 1);
+    padding: 0 26px;
+    color: var(--muted);
+    font-size: 13.5px;
+    line-height: 1.7;
+}
+
+.accordion-item.active .accordion-content {
+    max-height: 500px;
+    padding-bottom: 24px;
+    transition: max-height 0.35s ease-in-out;
+}
+
+.rules-list {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 18px;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 10px;
 }
 
-.faq-item {
+.rule-card {
     background: var(--bg);
     border: 1px solid var(--line);
-    border-radius: 14px;
-    padding: 18px 20px;
+    padding: 16px;
+    border-radius: 12px;
 }
 
-.faq-question {
-    font-size: 13.5px;
-    font-weight: 700;
-    color: var(--text);
-    margin-bottom: 6px;
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
-}
-
-.faq-question::before {
-    content: "❓";
+.rule-card h5 {
+    color: var(--accent2);
     font-size: 13px;
-}
-
-.faq-answer {
-    font-size: 12.5px;
-    color: var(--muted);
-    line-height: 1.6;
-    padding-left: 24px;
+    margin-bottom: 5px;
 }
 
 /* ================= SECTIONS ================= */
@@ -1409,12 +1523,8 @@ footer{
     .job-grid,
     .process-grid,
     .calc-grid,
-    .faq-grid {
+    .rules-list {
         grid-template-columns:1fr;
-    }
-
-    .notice-grid {
-        grid-template-columns: 1fr 1fr;
     }
 
     .feature{
@@ -1481,8 +1591,22 @@ footer{
         margin-top:20px;
     }
 
-    .stats, .notice-grid{
+    .stats {
         grid-template-columns:1fr;
+    }
+
+    .calendar-grid {
+        gap: 5px;
+    }
+
+    .calendar-day {
+        padding: 8px 4px;
+        font-size: 11px;
+    }
+
+    .status-tag {
+        font-size: 8px;
+        padding: 1px 4px;
     }
 
     footer{
@@ -1515,10 +1639,10 @@ footer{
 </a>
 
     <div class="nav-links">
+        <a href="#jadwal">Jadwal Realtime</a>
         <a href="#kalkulator">Hitung Sewa</a>
         <a href="#jobs">Lowongan Kerja</a>
         <a href="#process">Proses</a>
-        <a href="#about">Tentang Kami</a>
     </div>
 
     <div class="nav-actions">
@@ -1596,46 +1720,76 @@ footer{
 </header>
 
 
+<!-- ================= KALENDER JADWAL REALTIME ================= -->
+
+<section class="schedule-section" id="jadwal">
+
+    <div class="section-head reveal" style="margin-bottom: 25px;">
+        <div>
+            <div class="section-label">Jadwal Tanggal Terbuka</div>
+            <h2>Ketersediaan Realtime.</h2>
+        </div>
+        <p>Cek ketersediaan tanggal acara kamu secara langsung sebelum melakukan pemesanan sound system.</p>
+    </div>
+
+    <div class="schedule-card reveal">
+        <div class="schedule-header">
+            <div class="schedule-month" id="currentMonthYear">Agustus 2026</div>
+            <div class="schedule-legend">
+                <div class="legend-item"><span class="dot available"></span> Kosong (Tersedia)</div>
+                <div class="legend-item"><span class="dot limited"></span> Terbatas</div>
+                <div class="legend-item"><span class="dot booked"></span> Penuh (Booked)</div>
+            </div>
+        </div>
+
+        <div class="calendar-grid" id="calendarGrid">
+            <!-- Kalender di-generate via JavaScript -->
+        </div>
+    </div>
+
+</section>
+
+
 <!-- ================= KALKULATOR PRICELIST ================= -->
 
 <section class="calculator-section" id="kalkulator">
 
     <div class="section-head reveal" style="margin-bottom: 20px;">
         <div>
-            <div class="section-label">Fitur Transparansi Harga</div>
+            <div class="section-label">Simulasi Biaya Cepat</div>
             <h2>Kalkulator Sewa<br>Sound System.</h2>
         </div>
-        <p>Hitung estimasi total biaya sewa berdasarkan kapasitas alat, jarak pengiriman, hingga tingkat kesulitan medan lokasi acara.</p>
+        <p>Pilih konfigurasi kebutuhan kamu di bawah ini untuk melihat estimasi transparan secara otomatis.</p>
     </div>
 
     <div class="calc-grid reveal">
-        <!-- FORM PILIHAN CUSTOM -->
+        <!-- FORM PILIHAN CUSTOM SIMPLE & ELEGAN -->
         <div class="calc-box">
             
             <!-- 1. PAKET SOUND -->
             <div class="calc-group">
                 <label>1. Pilih Paket Sound System</label>
                 <div class="custom-options" id="groupPaket">
-                    <div class="option-card" onclick="selectOption('groupPaket', 1500000, 'Paket Akustik / Indoor (3.000W)')">
+                    <div class="option-card" onclick="selectOption('groupPaket', 1500000, 'Paket Akustik / Indoor', 'Hingga 3.000 Watt')">
                         <div class="option-text">
-                            <strong>Paket Akustik / Indoor (Up to 3.000 W)</strong>
-                            <span>Rp 1.500.000</span>
+                            <strong>Paket Akustik / Indoor</strong>
+                            <span>Kapasitas Hingga 3.000 W</span>
                         </div>
                         <div class="radio-indicator"></div>
                     </div>
 
-                    <div class="option-card active" onclick="selectOption('groupPaket', 3000000, 'Paket Medium / Pernikahan (5.000W)')">
+                    <div class="option-card active" onclick="selectOption('groupPaket', 3000000, 'Paket Medium / Pernikahan', 'Hingga 5.000 Watt')">
                         <div class="option-text">
-                            <strong>Paket Medium / Pernikahan (Up to 5.000 W)</strong>
-                            <span>Rp 3.000.000</span>
+                            <strong>Paket Medium / Pernikahan</strong>
+                            <span>Kapasitas Hingga 5.000 W</span>
                         </div>
                         <div class="radio-indicator"></div>
                     </div>
 
-                    <div class="option-card" onclick="selectOption('groupPaket', 5500000, 'Paket Pro Concert / Outdoor (10.000W)')">
+                    <div class="option-card" onclick="selectOption('groupPaket', 5500000, 'Paket Pro Concert / Outdoor', 'Hingga 10.000 Watt')">
                         <div class="option-text">
-                            <strong>Paket Pro Concert / Outdoor (Up to 10.000 W)</strong>
-                            <span>Rp 5.500.000</span>
+                            <strong>Paket Pro Concert / Outdoor</strong>
+                            <span>Kapasitas Hingga 10.000 W</span>
                         </div>
                         <div class="radio-indicator"></div>
                     </div>
@@ -1646,33 +1800,32 @@ footer{
             <div class="calc-group">
                 <label>2. Jarak Lokasi Acara (KM dari Basecamp)</label>
                 <input type="number" id="jarakKM" value="5" min="0" placeholder="Masukkan jarak (KM)" oninput="hitungSewa()">
-                <small style="color:var(--muted); font-size:11px; margin-top:6px; display:block;">*10 KM pertama Gratis Transportasi. Selebihnya Rp 10.000 / KM.</small>
             </div>
 
             <!-- 3. AKSESIBILITAS MEDAN -->
             <div class="calc-group">
-                <label>3. Aksesibilitas & Medan Tempat</label>
+                <label>3. Aksesibilitas Medan Lokasi</label>
                 <div class="custom-options" id="groupAkses">
-                    <div class="option-card active" onclick="selectOption('groupAkses', 0, 'Mudah (Akses Jalan Rata)')">
+                    <div class="option-card active" onclick="selectOption('groupAkses', 0, 'Mudah', 'Akses jalan rata, parkir samping panggung')">
                         <div class="option-text">
-                            <strong>Mudah</strong>
-                            <small style="color:var(--muted); display:block;">Parkir kendaraan di samping panggung, jalan rata</small>
+                            <strong>Akses Rata / Mudah</strong>
+                            <span>Parkir samping lokasi & jalan rata</span>
                         </div>
                         <div class="radio-indicator"></div>
                     </div>
 
-                    <div class="option-card" onclick="selectOption('groupAkses', 150000, 'Sedang (Tangga / Angkut <50m)')">
+                    <div class="option-card" onclick="selectOption('groupAkses', 150000, 'Sedang', 'Angkut jalan kaki &lt;50m / Naik tangga')">
                         <div class="option-text">
-                            <strong>Sedang (+ Rp 150.000)</strong>
-                            <small style="color:var(--muted); display:block;">Angkut jalan kaki &lt;50m atau naik tangga lantai 2</small>
+                            <strong>Sedang</strong>
+                            <span>Angkut manual / Naik tangga lantai 2</span>
                         </div>
                         <div class="radio-indicator"></div>
                     </div>
 
-                    <div class="option-card" onclick="selectOption('groupAkses', 350000, 'Ekstrem (Gang Semplit / Becek)')">
+                    <div class="option-card" onclick="selectOption('groupAkses', 350000, 'Ekstrem', 'Gang sempit / Medan becek & berlumpur')">
                         <div class="option-text">
-                            <strong>Ekstrem (+ Rp 350.000)</strong>
-                            <small style="color:var(--muted); display:block;">Gang sempit, tangga curam, atau tanah becek/berlumpur</small>
+                            <strong>Ekstrem</strong>
+                            <span>Gang sempit / Tangga curam / Becek</span>
                         </div>
                         <div class="radio-indicator"></div>
                     </div>
@@ -1683,18 +1836,18 @@ footer{
             <div class="calc-group">
                 <label>4. Durasi Pemakaian</label>
                 <div class="custom-options" id="groupDurasi">
-                    <div class="option-card active" onclick="selectOption('groupDurasi', 0, 'Standar (Hingga 8 Jam)')">
+                    <div class="option-card active" onclick="selectOption('groupDurasi', 0, 'Standar', 'Maksimal 8 Jam Kerja')">
                         <div class="option-text">
                             <strong>Standar Acara</strong>
-                            <small style="color:var(--muted); display:block;">Pemakaian hingga 8 jam kerja</small>
+                            <span>Pemakaian standar hingga 8 jam</span>
                         </div>
                         <div class="radio-indicator"></div>
                     </div>
 
-                    <div class="option-card" onclick="selectOption('groupDurasi', 250000, 'Full Day / Overtime')">
+                    <div class="option-card" onclick="selectOption('groupDurasi', 250000, 'Full Day / Lembur', 'Lebih dari 8 Jam Kerja')">
                         <div class="option-text">
-                            <strong>Full Day / Lembur (+ Rp 250.000)</strong>
-                            <small style="color:var(--muted); display:block;">Acara seharian penuh / ekstra overtime</small>
+                            <strong>Full Day / Lembur</strong>
+                            <span>Penggunaan seharian penuh</span>
                         </div>
                         <div class="radio-indicator"></div>
                     </div>
@@ -1706,14 +1859,14 @@ footer{
         <!-- HASIL ESTIMASI -->
         <div class="result-card">
             <div>
-                <span style="font-size:11px; color:var(--accent2); font-weight:bold; letter-spacing:1.5px; text-transform:uppercase;">ESTIMASI KESEPAKATAN BIAYA</span>
+                <span style="font-size:11px; color:var(--accent2); font-weight:bold; letter-spacing:1.5px; text-transform:uppercase;">TOTAL ESTIMASI KESEPAKATAN</span>
                 <div class="total-price" id="totalDisplay">Rp 3.000.000</div>
                 
                 <div class="price-breakdown" id="breakdownDisplay">
-                    • Paket Sound: Rp 3.000.000<br>
+                    • Paket: Paket Medium / Pernikahan (Rp 3.000.000)<br>
                     • Transportasi (5 KM): Gratis<br>
-                    • Medan Lokasi: Gratis<br>
-                    • Durasi Pemakaian: Standar
+                    • Medan Akses: Mudah (Gratis)<br>
+                    • Durasi Pemakaian: Standar (Gratis)
                 </div>
             </div>
 
@@ -1723,68 +1876,89 @@ footer{
 
 </section>
 
-<!-- ================= PEMBERITAHUAN SISTEM TRANSAKSI & FAQ ================= -->
-<div class="transaction-notice-container">
-    <div class="transaction-notice-box reveal">
-        <div class="notice-header">
-            <span class="notice-badge">Pemberitahuan Sistem Transaksi</span>
-            <h3>Aturan & Prosedur Sewa Sound SPR Audio</h3>
-        </div>
+
+<!-- ================= FAQ & ACCORDION SYSTEM TRANSAKSI ================= -->
+
+<div class="info-section">
+    <div class="info-container reveal">
         
-        <!-- Poin Prosedur -->
-        <div class="notice-grid">
-            <div class="notice-item">
-                <h4>🔒 Booking & DP 30%</h4>
-                <p>Jadwal acara dinyatakan mengikat setelah penyewa melakukan DP minimal 30% dari total estimasi kesepakatan.</p>
-            </div>
-            <div class="notice-item">
-                <h4>⏱️ H-1 Loading & Soundcheck</h4>
-                <p>Tim kru SPR Audio melakukan *loading* barang dan *soundcheck* H-1 atau minimal 3 jam sebelum acara dimulai.</p>
-            </div>
-            <div class="notice-item">
-                <h4>⚡ Pasokan Listrik Sesuai</h4>
-                <p>Penyewa wajib menyediakan daya listrik stabil sesuai kebutuhan paket WATT yang dipilih (atau menyewa Genset tambahan).</p>
-            </div>
-            <div class="notice-item">
-                <h4>💳 Pelunasan Biaya</h4>
-                <p>Sisa pembayaran (70%) dilunasi di lokasi saat tim selesai *soundcheck* sebelum acara berjalan.</p>
-            </div>
-        </div>
+        <h3 class="info-tabs-title">Aturan Transaksi & FAQ</h3>
 
-        <!-- PERTANYAAN UMUM / FAQ TRANSAKSI -->
-        <div class="faq-section">
-            <div class="faq-title">Pertanyaan Sering Diajukan (FAQ)</div>
-            <div class="faq-grid">
-                
-                <div class="faq-item">
-                    <div class="faq-question">Bagaimana kalau sudah DP lalu kita tidak jadi sewa (batal)?</div>
-                    <div class="faq-answer">
-                        Jika pembatalan dilakukan <strong>H-3 sebelum acara</strong>, DP dapat dikembalikan 50% atau jadwal bisa di-reschedule. Namun jika batal pada H-1 atau hari H, DP hangus untuk menutup biaya operasional kru & persiapan barang.
+        <div class="accordion">
+            
+            <!-- ACCORDION 1: PROSEDUR SEWA -->
+            <div class="accordion-item active">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <div class="accordion-header-text">
+                        <div class="accordion-icon-tag">📋</div>
+                        <span>Prosedur & Alur Pemesanan</span>
+                    </div>
+                    <span class="accordion-arrow">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="rules-list">
+                        <div class="rule-card">
+                            <h5>1. Lock Tanggal DP 30%</h5>
+                            Jadwal dinyatakan resmi terikat setelah penyewa membayar DP 30%.
+                        </div>
+                        <div class="rule-card">
+                            <h5>2. Loading H-1</h5>
+                            Loading dan soundcheck dilakukan H-1 atau 3 jam sebelum acara.
+                        </div>
+                        <div class="rule-card">
+                            <h5>3. Pasokan Listrik</h5>
+                            Listrik stabil disiapkan penyewa sesuai kapasitas WATT yang dipilih.
+                        </div>
+                        <div class="rule-card">
+                            <h5>4. Pelunasan di Lokasi</h5>
+                            Sisa pembayaran (70%) dilunasi di tempat setelah tes suara selesai.
+                        </div>
                     </div>
                 </div>
-
-                <div class="faq-item">
-                    <div class="faq-question">Apakah harga sewa sudah termasuk operator & kru sound?</div>
-                    <div class="faq-answer">
-                        <strong>Ya, betul!</strong> Semua paket sewa SPR Audio sudah *all-in* termasuk kru pengangkut, teknisi kabel, dan 1 Sound Engineer profesional yang stanby mengawal acara sampai selesai.
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <div class="faq-question">Bagaimana jika terjadi mati listrik atau kendala teknis?</div>
-                    <div class="faq-answer">
-                        Tim kami selalu membawa *stabilizer* dan peralatan cadangan. Namun untuk pemadaman listrik dari pusat, disarankan penyewa menyiapkan Genset cadangan agar acara tetap berjalan lancar.
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <div class="faq-question">Apakah bisa reques instrumen atau mic tambahan di luar paket?</div>
-                    <div class="faq-answer">
-                        Bisa banget. Kamu bisa menginfokan ke tim kami saat konsultasi via WhatsApp/Form untuk penambahan microphone wireless, clip-on, atau monitor panggung tambahan.
-                    </div>
-                </div>
-
             </div>
+
+            <!-- ACCORDION 2: FAQ DP & BATAL -->
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <div class="accordion-header-text">
+                        <div class="accordion-icon-tag">❓</div>
+                        <span>Bagaimana kalau sudah DP lalu acara batal?</span>
+                    </div>
+                    <span class="accordion-arrow">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <p>Pembatalan yang diinfokan <strong>paling lambat H-3 sebelum acara</strong>, uang DP dapat dikembalikan sebesar 50% atau dialihkan ke jadwal baru. Namun jika batal pada H-1 atau hari H, DP hangus untuk menutupi biaya operasional persiapan kru.</p>
+                </div>
+            </div>
+
+            <!-- ACCORDION 3: FAQ TERMASUK KRU -->
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <div class="accordion-header-text">
+                        <div class="accordion-icon-tag">🎧</div>
+                        <span>Apakah harga sudah termasuk operator & kru sound?</span>
+                    </div>
+                    <span class="accordion-arrow">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <p><strong>Ya, sepenuhnya All-In!</strong> Kamu tidak perlu repot. Semua paket sewa SPR Audio sudah mencakup tim pengangkut, teknisi kabel, dan Sound Engineer berpengalaman yang bertugas mengawal kualitas suara dari awal hingga acara selesai.</p>
+                </div>
+            </div>
+
+            <!-- ACCORDION 4: KENDALA TEKNIS -->
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <div class="accordion-header-text">
+                        <div class="accordion-icon-tag">⚡</div>
+                        <span>Bagaimana jika terjadi mati listrik saat acara?</span>
+                    </div>
+                    <span class="accordion-arrow">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <p>Peralatan kami dilengkapi *stabilizer* untuk mencegah lonjakan arus. Jika pemadaman berasal dari PLN pusat, disarankan lokasi acara menyediakan Genset cadangan agar audio tetap beroperasi lancar.</p>
+                </div>
+            </div>
+
         </div>
 
     </div>
@@ -2047,7 +2221,77 @@ footer{
 </footer>
 
 <script>
-/* ================= 1. TOAST NOTIFICATION SYSTEM ================= */
+/* ================= 1. GENERATE KALENDER KETERSEDIAAN ================= */
+function renderCalendar() {
+    const grid = document.getElementById('calendarGrid');
+    if (!grid) return;
+
+    // Header Nama Hari
+    const days = ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
+    days.forEach(day => {
+        const head = document.createElement('div');
+        head.className = 'calendar-day-head';
+        head.innerText = day;
+        grid.appendChild(head);
+    });
+
+    // Simulasi status tanggal bulan Agustus 2026 (31 Hari)
+    // Tanggal 1 Agustus 2026 dimulai hari Sabtu (Index 6)
+    const firstDayOffset = 6; 
+    const totalDays = 31;
+
+    // Data simulasi booking (Bisa disesuaikan manual tanggalnya)
+    const bookedDays = [8, 15, 17, 22, 29]; // Tanggal Penuh
+    const limitedDays = [5, 12, 25];         // Tanggal Terbatas
+
+    // Kotak kosong sebelum tanggal 1
+    for (let i = 0; i < firstDayOffset; i++) {
+        const empty = document.createElement('div');
+        empty.className = 'calendar-day empty';
+        grid.appendChild(empty);
+    }
+
+    // Mengisi tanggal 1-31
+    for (let d = 1; d <= totalDays; d++) {
+        const dayBox = document.createElement('div');
+        dayBox.className = 'calendar-day';
+
+        let statusClass = 'is-available';
+        let statusText = 'Kosong';
+
+        if (bookedDays.includes(d)) {
+            statusClass = 'is-booked';
+            statusText = 'Penuh';
+        } else if (limitedDays.includes(d)) {
+            statusClass = 'is-limited';
+            statusText = 'Terbatas';
+        }
+
+        dayBox.classList.add(statusClass);
+        dayBox.innerHTML = `
+            <span>${d}</span>
+            <span class="status-tag">${statusText}</span>
+        `;
+        grid.appendChild(dayBox);
+    }
+}
+renderCalendar();
+
+/* ================= 2. ACCORDION FAQ ================= */
+function toggleAccordion(header) {
+    const item = header.parentElement;
+    const isActive = item.classList.contains('active');
+    
+    // Tutup accordion lain
+    document.querySelectorAll('.accordion-item').forEach(el => el.classList.remove('active'));
+
+    // Toggle item diklik
+    if (!isActive) {
+        item.classList.add('active');
+    }
+}
+
+/* ================= 3. TOAST NOTIFICATION SYSTEM ================= */
 function showToast(message, icon = "✓") {
     const container = document.getElementById('toastContainer');
     const toast = document.createElement('div');
@@ -2068,15 +2312,15 @@ function showToast(message, icon = "✓") {
     }, 4500);
 }
 
-/* ================= 2. KALKULATOR PRICELIST WITH CUSTOM RADIO ================= */
+/* ================= 4. KALKULATOR PRICELIST ELEGANT ================= */
 let selectedPaket = 3000000;
-let selectedPaketText = "Paket Medium / Pernikahan (5.000W)";
+let selectedPaketText = "Paket Medium / Pernikahan";
 let selectedAkses = 0;
-let selectedAksesText = "Mudah";
+let selectedAksesText = "Akses Rata / Mudah";
 let selectedDurasi = 0;
-let selectedDurasiText = "Standar (Hingga 8 Jam)";
+let selectedDurasiText = "Standar Acara";
 
-function selectOption(groupId, value, text) {
+function selectOption(groupId, value, nameText, descText) {
     const group = document.getElementById(groupId);
     if (!group) return;
 
@@ -2087,13 +2331,13 @@ function selectOption(groupId, value, text) {
 
     if (groupId === 'groupPaket') {
         selectedPaket = value;
-        selectedPaketText = text;
+        selectedPaketText = nameText;
     } else if (groupId === 'groupAkses') {
         selectedAkses = value;
-        selectedAksesText = text;
+        selectedAksesText = nameText;
     } else if (groupId === 'groupDurasi') {
         selectedDurasi = value;
-        selectedDurasiText = text;
+        selectedDurasiText = nameText;
     }
 
     hitungSewa();
@@ -2113,10 +2357,10 @@ function hitungSewa() {
     document.getElementById('totalDisplay').innerText = formatRupiah(total);
 
     document.getElementById('breakdownDisplay').innerHTML = `
-        • Paket: ${selectedPaketText}<br>
+        • Paket: ${selectedPaketText} (${formatRupiah(selectedPaket)})<br>
         • Transportasi (${jarak} KM): ${biayaOngkir === 0 ? 'Gratis' : formatRupiah(biayaOngkir)}<br>
-        • Medan Akses: ${selectedAkses === 0 ? 'Gratis' : formatRupiah(selectedAkses)}<br>
-        • Extra Durasi: ${selectedDurasi === 0 ? 'Standar' : formatRupiah(selectedDurasi)}
+        • Medan Akses: ${selectedAksesText} (${selectedAkses === 0 ? 'Gratis' : formatRupiah(selectedAkses)})<br>
+        • Extra Durasi: ${selectedDurasiText} (${selectedDurasi === 0 ? 'Gratis' : formatRupiah(selectedDurasi)})
     `;
 }
 
@@ -2136,7 +2380,7 @@ function pesanKalkulator() {
 
 hitungSewa();
 
-/* ================= 3. MP3 AUDIO PLAYER ================= */
+/* ================= 5. MP3 AUDIO PLAYER ================= */
 const audio = new Audio("goth-slowed.mp3");
 audio.loop = true;
 
@@ -2175,7 +2419,7 @@ function animateVisualizer() {
     setTimeout(animateVisualizer, 100);
 }
 
-/* ================= 4. AMBIENT LIGHT ================= */
+/* ================= 6. AMBIENT LIGHT ================= */
 const ambientLight = document.getElementById('ambientLight');
 if (ambientLight) {
     window.addEventListener('mousemove', (e) => {
@@ -2184,7 +2428,7 @@ if (ambientLight) {
     });
 }
 
-/* ================= 5. SCROLL REVEAL & STATS COUNTER ================= */
+/* ================= 7. SCROLL REVEAL & STATS COUNTER ================= */
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if(entry.isIntersecting){
@@ -2221,7 +2465,7 @@ function startCounter(el) {
     update();
 }
 
-/* ================= 6. MODAL DINAMIS & WEB3FORMS ================= */
+/* ================= 8. MODAL DINAMIS & WEB3FORMS ================= */
 const modal = document.getElementById('modalOverlay');
 const modalTitle = document.getElementById('modalTitle');
 const modalDesc = document.getElementById('modalDesc');
@@ -2345,3 +2589,4 @@ async function handleFormSubmit(e) {
 
 </body>
 </html>
+
