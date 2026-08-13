@@ -1653,41 +1653,42 @@ footer{
 <div class="modal-overlay" id="modalOverlay">
     <div class="modal-box">
         <button class="close-modal" onclick="closeModal()">✕</button>
-        <h3 class="modal-title" id="modalTitle">Apply Position</h3>
-        <p class="modal-desc" id="modalDesc">Fill in your information to join this production.</p>
+        <h3 class="modal-title" id="modalTitle">Contact SPR Audio</h3>
+        <p class="modal-desc" id="modalDesc">Fill in your information to send us a message.</p>
         
         <form id="applyForm" onsubmit="handleFormSubmit(event)">
-    <!-- Access Key dari Web3Forms -->
-    <input type="hidden" name="access_key" value="4c3cc0e1-b452-43e7-a8cb-cc54bdec18a2">
-    
-    <!-- Judul Subjek Email yang Akan Kamu Terima -->
-    <input type="hidden" name="subject" id="emailSubject" value="New Application - SPR Audio">
-    
-    <!-- Nama Pengirim (Diisi Otomatis) -->
-    <input type="hidden" name="from_name" value="SPR Audio Website">
+            <!-- Access Key dari Web3Forms -->
+            <input type="hidden" name="access_key" value="4c3cc0e1-b452-43e7-a8cb-cc54bdec18a2">
+            
+            <!-- Judul Subjek Email -->
+            <input type="hidden" name="subject" id="emailSubject" value="General Inquiry - SPR Audio">
+            
+            <!-- Nama Pengirim -->
+            <input type="hidden" name="from_name" value="SPR Audio Website">
 
-    <div class="form-group">
-        <label>Your Name</label>
-        <input type="text" name="name" placeholder="John Doe" required />
-    </div>
+            <div class="form-group">
+                <label>Your Name</label>
+                <input type="text" name="name" placeholder="John Doe" required />
+            </div>
 
-    <div class="form-group">
-        <label>Email Address</label>
-        <input type="email" name="email" placeholder="john@example.com" required />
-    </div>
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" name="email" placeholder="john@example.com" required />
+            </div>
 
-    <div class="form-group">
-        <label>Portfolio Link (Soundcloud / Drive / Spotify)</label>
-        <input type="url" name="portfolio" placeholder="https://..." required />
-    </div>
+            <!-- Input Portofolio (Bisa disembunyikan / dimunculkan lewat JS) -->
+            <div class="form-group" id="portfolioGroup" style="display: none;">
+                <label>Portfolio Link (Soundcloud / Drive / Spotify)</label>
+                <input type="url" name="portfolio" id="portfolioInput" placeholder="https://..." />
+            </div>
 
-    <div class="form-group">
-        <label>Short Pitch / Note</label>
-        <textarea name="message" rows="3" placeholder="Tell us about your experience..."></textarea>
-    </div>
+            <div class="form-group">
+                <label id="messageLabel">Message / Project Details</label>
+                <textarea name="message" rows="3" placeholder="Tell us about your inquiry or project details..." required></textarea>
+            </div>
 
-    <button type="submit" class="submit-btn" id="submitBtn">Submit Application</button>
-</form>
+            <button type="submit" class="submit-btn" id="submitBtn">Send Message</button>
+        </form>
 
     </div>
 </div>
@@ -1805,24 +1806,53 @@ function startCounter(el) {
     update();
 }
 
-/* ================= 4. MODAL & KIRIM EMAIL (WEB3FORMS) ================= */
+/* ================= 4. MODAL DINAMIS & WEB3FORMS ================= */
 const modal = document.getElementById('modalOverlay');
 const modalTitle = document.getElementById('modalTitle');
 const modalDesc = document.getElementById('modalDesc');
 
+// Fungsi Modal Khusus Melamar Lowongan Kerja
 function openApplyModal(jobTitle) {
     if (!modal) return;
-    if (modalTitle) modalTitle.innerText = `Apply: ${jobTitle}`;
+    if (modalTitle) modalTitle.innerText = `Apply Position: ${jobTitle}`;
     if (modalDesc) modalDesc.innerText = `Send us your portfolio link for the ${jobTitle} position.`;
+    
+    const portfolioGroup = document.getElementById('portfolioGroup');
+    const portfolioInput = document.getElementById('portfolioInput');
+    const messageLabel = document.getElementById('messageLabel');
+    const submitBtn = document.getElementById('submitBtn');
+    
+    if (portfolioGroup && portfolioInput) {
+        portfolioGroup.style.display = 'block';
+        portfolioInput.required = true;
+    }
+    if (messageLabel) messageLabel.innerText = 'Short Pitch / Note';
+    if (submitBtn) submitBtn.innerText = 'Submit Application';
+
     const subjectInput = document.getElementById('emailSubject');
     if (subjectInput) subjectInput.value = `New Application: ${jobTitle} - SPR Audio`;
     modal.classList.add('active');
 }
 
+// Fungsi Modal Khusus Kontak Biasa / Sewa Jasa (Portfolio Dihilangkan)
 function openContactModal() {
     if (!modal) return;
     if (modalTitle) modalTitle.innerText = `Contact SPR Audio`;
     if (modalDesc) modalDesc.innerText = `Have a general question or custom project proposal? Drop us a message.`;
+    
+    const portfolioGroup = document.getElementById('portfolioGroup');
+    const portfolioInput = document.getElementById('portfolioInput');
+    const messageLabel = document.getElementById('messageLabel');
+    const submitBtn = document.getElementById('submitBtn');
+
+    if (portfolioGroup && portfolioInput) {
+        portfolioGroup.style.display = 'none';
+        portfolioInput.required = false;
+        portfolioInput.value = ''; // Reset isi input
+    }
+    if (messageLabel) messageLabel.innerText = 'Message / Project Details';
+    if (submitBtn) submitBtn.innerText = 'Send Message';
+
     const subjectInput = document.getElementById('emailSubject');
     if (subjectInput) subjectInput.value = `General Inquiry - SPR Audio`;
     modal.classList.add('active');
@@ -1845,7 +1875,7 @@ async function handleFormSubmit(e) {
     const form = e.target;
     const submitBtn = document.getElementById('submitBtn');
     
-    const originalBtnText = submitBtn ? submitBtn.innerText : "Submit Application";
+    const originalBtnText = submitBtn ? submitBtn.innerText : "Send Message";
     if (submitBtn) {
         submitBtn.innerText = "Sending...";
         submitBtn.disabled = true;
@@ -1881,3 +1911,4 @@ async function handleFormSubmit(e) {
 
 </body>
 </html>
+
