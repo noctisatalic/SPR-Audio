@@ -1333,6 +1333,10 @@ footer .op-hours{
     footer{ flex-direction:column; gap:20px; }
     .brand-logo img{ width:125px; }
 }
+
+.date-theme{margin-top:18px}
+.date-theme label{display:block;margin-bottom:10px;font-weight:700}
+
 </style>
 </head>
 
@@ -1425,7 +1429,7 @@ footer .op-hours{
                 </div>
 
                 <div class="custom-options">
-                    <div class="option-card" onclick="selectOption(event, 'groupPaket', 'valPaket', 800000, 'Paket 1.000 Watt')"><div class="option-text"><strong>Paket 1.000 Watt</strong><span>Kapasitas Hingga 1.000 W</span></div><div class="radio-indicator"></div></div>
+                    <div class="option-card" onclick="selectOption(event, 'groupPaket', 'valPaket', 800000, 'Paket Mini')"><div class="option-text"><strong>Paket Mini</strong><span>Kapasitas Hingga 1.000 W</span></div><div class="radio-indicator"></div></div>
                     <div class="option-card" onclick="selectOption(event, 'groupPaket', 'valPaket', 1300000, 'Paket Akustik / Indoor')">
                         <div class="option-text">
                             <strong>Paket Akustik / Indoor</strong>
@@ -1548,8 +1552,8 @@ footer .op-hours{
             </div>
 
             
-<div class="date-box">
-<label for="tanggalAcara"><strong>Tanggal Acara</strong></label>
+<div class="date-theme">
+<label for="tanggalAcara">📅 Tanggal Acara</label>
 <input type="date" id="tanggalAcara" style="width:100%;padding:14px;border-radius:14px;font-size:16px;">
 </div>
 <button class="btn-book" onclick="pesanKalkulator()">Pesan & Deal Harga Ini via WhatsApp</button>
