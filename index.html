@@ -13,22 +13,21 @@
 <!-- hCaptcha Script -->
 <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
 
-<!-- GSAP & ScrollTrigger CDN -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-
 <style>
 :root{
-    --bg:#030406;
-    --panel:rgba(18, 22, 31, 0.45);
-    --panel2:rgba(22, 27, 38, 0.65);
+    --bg:#08090b;
+    --bg2:#0d0f12;
+    --panel:#111419;
+    --panel2:#15181d;
     --text:#f4f5f7;
-    --muted:#9aa0a6;
-    --line:rgba(255,255,255,.12);
-    --glass-border:rgba(255,255,255,.16);
+    --muted:#8c929b;
+    --line:rgba(255,255,255,.08);
     --accent:#7db6d6;
     --accent2:#9ed5ef;
-    --radius:24px;
+    --radius:22px;
+    --danger:#ef4444;
+    --success:#10b981;
+    --warning:#f59e0b;
 }
 
 *{
@@ -46,83 +45,6 @@ body{
     color:var(--text);
     font-family:"DM Sans",sans-serif;
     overflow-x:hidden;
-    position:relative;
-}
-
-/* ================= MOTION ABSTRACT DARK BACKGROUND & INTERACTIVE TOUCH ================= */
-.motion-bg-container {
-    position: fixed;
-    inset: 0;
-    z-index: -10;
-    overflow: hidden;
-    pointer-events: none;
-    background: #030406;
-}
-
-.blob {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(140px);
-    opacity: 0.5;
-    will-change: transform;
-    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-.blob-1 {
-    width: 650px;
-    height: 650px;
-    background: rgba(25, 90, 140, 0.4);
-    top: -10%;
-    left: -10%;
-    animation: moveBlob1 16s ease-in-out infinite alternate;
-}
-
-.blob-2 {
-    width: 750px;
-    height: 750px;
-    background: rgba(75, 40, 120, 0.35);
-    bottom: -15%;
-    right: -10%;
-    animation: moveBlob2 20s ease-in-out infinite alternate;
-}
-
-.blob-3 {
-    width: 550px;
-    height: 550px;
-    background: rgba(15, 120, 100, 0.3);
-    top: 35%;
-    left: 25%;
-    animation: moveBlob3 22s ease-in-out infinite alternate;
-}
-
-@keyframes moveBlob1 {
-    0% { transform: translate(0, 0) scale(1); }
-    50% { transform: translate(220px, 160px) scale(1.15); }
-    100% { transform: translate(80px, 350px) scale(0.9); }
-}
-
-@keyframes moveBlob2 {
-    0% { transform: translate(0, 0) scale(1); }
-    50% { transform: translate(-260px, -200px) scale(1.2); }
-    100% { transform: translate(-120px, -400px) scale(0.85); }
-}
-
-@keyframes moveBlob3 {
-    0% { transform: translate(0, 0) scale(0.9); }
-    50% { transform: translate(180px, -220px) scale(1.15); }
-    100% { transform: translate(-200px, 180px) scale(1); }
-}
-
-/* Noise texture overlay for high-end cinematic grain */
-body:before{
-    content:"";
-    position:fixed;
-    inset:0;
-    pointer-events:none;
-    z-index:9998;
-    opacity:.025;
-    background-image:
-    url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
 }
 
 /* Ambient Cursor Light Effect */
@@ -130,23 +52,25 @@ body:before{
     position: fixed;
     top: 0;
     left: 0;
-    width: 500px;
-    height: 500px;
-    background: radial-gradient(circle, rgba(125, 182, 214, 0.09) 0%, rgba(0,0,0,0) 70%);
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(125, 182, 214, 0.06) 0%, rgba(0,0,0,0) 70%);
     border-radius: 50%;
     pointer-events: none;
-    z-index: -1;
+    z-index: 1;
     transform: translate(-50%, -50%);
     transition: width 0.3s, height 0.3s;
 }
 
-/* ================= IOS IGLASSMORPHISM DESIGN SYSTEM ================= */
-.ios-glass {
-    background: var(--panel);
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px);
-    border: 1px solid var(--glass-border);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+body:before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:9999;
+    opacity:.035;
+    background-image:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
 }
 
 /* ================= TOAST NOTIFICATION ================= */
@@ -162,14 +86,13 @@ body:before{
 }
 
 .toast {
-    background: rgba(18, 22, 31, 0.85);
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
-    border: 1px solid rgba(125, 182, 214, 0.4);
+    background: rgba(21, 24, 29, 0.95);
+    border: 1px solid var(--accent);
+    backdrop-filter: blur(12px);
     color: var(--text);
     padding: 16px 24px;
-    border-radius: 18px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.2);
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
     display: flex;
     align-items: center;
     gap: 12px;
@@ -190,7 +113,7 @@ body:before{
     width: 24px;
     height: 24px;
     background: var(--accent);
-    color: #030406;
+    color: #08090b;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -199,41 +122,33 @@ body:before{
     flex-shrink: 0;
 }
 
-/* ================= IOS LIQUID FLOATING NAVBAR ================= */
+/* ================= NAV ================= */
 .navbar{
     position:fixed;
-    top:20px;
-    left:50%;
-    transform:translateX(-50%);
-    width:90%;
-    max-width:1200px;
-    height:74px;
+    top:0;
+    left:0;
+    width:100%;
+    height:82px;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:0 25px;
+    padding:0 6vw;
     z-index:1000;
-    background: rgba(10, 13, 19, 0.45);
-    backdrop-filter: blur(35px);
-    -webkit-backdrop-filter: blur(35px);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 37px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.15);
+    background:rgba(8,9,11,.75);
+    backdrop-filter:blur(18px);
+    border-bottom:1px solid rgba(255,255,255,.04);
+    transition:.35s ease;
 }
 
 .brand-logo{
     display:flex;
     align-items:center;
     text-decoration:none;
-    color: white;
-    font-family: 'Space Grotesk';
-    font-weight: 700;
-    font-size: 20px;
-    letter-spacing: -0.5px;
 }
 
 .brand-logo img{
-    height:30px;
+    width:155px;
+    height:auto;
     display:block;
     object-fit:contain;
     transition:.3s ease;
@@ -243,84 +158,49 @@ body:before{
     transform:scale(1.03);
 }
 
-/* LIQUID SLIDING PILL CONTAINER */
 .nav-links{
-    position: relative;
-    display: flex;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 30px;
-    padding: 5px;
-    gap: 4px;
+    display:flex;
+    gap:34px;
 }
 
-.nav-pill-bg {
-    position: absolute;
-    top: 5px;
-    left: 5px;
-    height: calc(100% - 10px);
-    background: rgba(125, 182, 214, 0.18);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(125, 182, 214, 0.4);
-    border-radius: 24px;
-    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-    box-shadow: 0 4px 15px rgba(125, 182, 214, 0.2);
-    pointer-events: none;
-    z-index: 1;
+.nav-links a{
+    color:#aeb3ba;
+    text-decoration:none;
+    font-size:14px;
+    transition:.25s;
 }
 
-.nav-links a {
-    position: relative;
-    z-index: 2;
-    color: #b8bec5;
-    text-decoration: none;
-    font-size: 13.5px;
-    font-weight: 500;
-    padding: 8px 18px;
-    border-radius: 24px;
-    transition: color 0.3s ease;
-}
-
-.nav-links a:hover, .nav-links a.active {
-    color: #ffffff;
+.nav-links a:hover{
+    color:white;
 }
 
 .nav-actions{
     display:flex;
     align-items:center;
-    gap:16px;
+    gap:18px;
 }
 
 .signin{
-    color:#b8bec5;
+    color:#aaa;
     text-decoration:none;
     font-size:14px;
     cursor: pointer;
-    font-weight: 500;
-    transition: color 0.2s;
-}
-
-.signin:hover {
-    color: white;
 }
 
 .btn-small{
-    padding:10px 20px;
-    border-radius:20px;
-    color:#030406;
-    background:rgba(231, 245, 252, 0.95);
-    backdrop-filter: blur(10px);
+    padding:11px 18px;
+    border-radius:10px;
+    color:#071017;
+    background:#e7f5fc;
     text-decoration:none;
     font-size:13px;
     font-weight:700;
     transition:.3s;
-    box-shadow: 0 4px 15px rgba(125,182,214,0.3);
 }
 
 .btn-small:hover{
     transform:translateY(-2px);
-    background:#ffffff;
-    box-shadow:0 8px 25px rgba(125,182,214,0.5);
+    box-shadow:0 10px 30px rgba(125,182,214,.2);
 }
 
 /* ================= HERO ================= */
@@ -329,14 +209,40 @@ body:before{
     position:relative;
     display:flex;
     align-items:center;
-    padding:150px 6vw 80px;
+    padding:130px 6vw 80px;
     overflow:hidden;
+}
+
+.hero-image{
+    position:absolute;
+    right:0;
+    top:0;
+    width:58%;
+    height:100%;
+    background:
+        linear-gradient(
+            90deg,
+            var(--bg) 0%,
+            rgba(8,9,11,.75) 15%,
+            rgba(8,9,11,.15) 55%,
+            rgba(8,9,11,.25)
+        ),
+        url("https://images.unsplash.com/photo-1714347738034-f8280c00e97b?auto=format&fit=crop&w=2200&q=85");
+    background-size:cover;
+    background-position:center;
+    opacity:.78;
+    mask-image:linear-gradient(
+        to right,
+        transparent 0%,
+        black 20%,
+        black 100%
+    );
 }
 
 .hero-content{
     position:relative;
     z-index:2;
-    max-width:750px;
+    max-width:700px;
 }
 
 .eyebrow{
@@ -349,11 +255,6 @@ body:before{
     font-weight:700;
     text-transform:uppercase;
     letter-spacing:2px;
-    background: rgba(125,182,214,0.08);
-    padding: 8px 16px;
-    border-radius: 20px;
-    border: 1px solid rgba(125,182,214,0.2);
-    backdrop-filter: blur(10px);
 }
 
 .live-dot{
@@ -376,19 +277,18 @@ body:before{
     font-family:"Space Grotesk";
     font-size:clamp(55px,7vw,100px);
     line-height:.94;
-    letter-spacing:-4px;
-    max-width:800px;
+    letter-spacing:-5px;
+    max-width:780px;
     margin-bottom:30px;
 }
 
 .hero h1 span{
     color:#8fc8e4;
-    text-shadow: 0 0 30px rgba(143,200,228,0.4);
 }
 
 .hero-description{
     max-width:570px;
-    color:#b1b6be;
+    color:#a4a9b0;
     font-size:17px;
     line-height:1.75;
     margin-bottom:38px;
@@ -403,11 +303,11 @@ body:before{
 .btn-primary,
 .btn-secondary{
     height:52px;
-    padding:0 26px;
+    padding:0 23px;
     display:flex;
     align-items:center;
     justify-content:center;
-    border-radius:26px;
+    border-radius:12px;
     text-decoration:none;
     font-size:14px;
     font-weight:700;
@@ -416,49 +316,43 @@ body:before{
 }
 
 .btn-primary{
-    background:rgba(233, 246, 252, 0.92);
-    backdrop-filter: blur(15px);
-    color:#030406;
-    box-shadow: 0 10px 30px rgba(125,182,214,0.25);
-    border: 1px solid rgba(255,255,255,0.4);
+    background:#e9f6fc;
+    color:#081015;
 }
 
 .btn-primary:hover{
     transform:translateY(-3px);
-    background:#ffffff;
-    box-shadow:0 15px 40px rgba(125,182,214,0.4);
+    box-shadow:0 18px 40px rgba(125,182,214,.2);
 }
 
 .btn-secondary{
-    color:#e1e6eb;
-    border:1px solid rgba(255,255,255,0.18);
-    background:rgba(255,255,255,0.04);
-    backdrop-filter: blur(15px);
+    color:#dce1e5;
+    border:1px solid rgba(255,255,255,.15);
+    background:rgba(255,255,255,.025);
 }
 
 .btn-secondary:hover{
     border-color:rgba(159,212,237,.5);
-    background:rgba(159,212,237,.08);
+    background:rgba(159,212,237,.06);
     transform:translateY(-3px);
 }
 
-/* ================= AUDIO VISUALIZER (IOS GLASS) ================= */
+/* ================= AUDIO VISUALIZER ================= */
 .audio-player{
     position:absolute;
     bottom:45px;
     right:6vw;
     width:380px;
-    padding:16px 20px;
+    padding:15px 18px;
     display:flex;
     align-items:center;
     gap:15px;
-    background:rgba(15, 19, 28, 0.45);
-    backdrop-filter: blur(35px);
-    -webkit-backdrop-filter: blur(35px);
-    border:1px solid rgba(255, 255, 255, 0.12);
-    border-radius:22px;
+    background:rgba(16,18,22,.72);
+    backdrop-filter:blur(20px);
+    border:1px solid rgba(255,255,255,.09);
+    border-radius:16px;
     z-index:5;
-    box-shadow:0 20px 50px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,0.12);
+    box-shadow:0 20px 70px rgba(0,0,0,.35);
     transition: transform 0.3s ease;
 }
 
@@ -467,19 +361,18 @@ body:before{
 }
 
 .play{
-    width:40px;
-    height:40px;
+    width:38px;
+    height:38px;
     border:none;
     border-radius:50%;
     display:grid;
     place-items:center;
-    background:rgba(234, 247, 252, 0.95);
-    color:#030406;
+    background:#eaf7fc;
+    color:#0a1116;
     cursor:pointer;
     font-size:13px;
     transition: 0.2s;
     flex-shrink: 0;
-    box-shadow: 0 4px 15px rgba(125,182,214,0.3);
 }
 
 .play:hover {
@@ -492,7 +385,7 @@ body:before{
 }
 
 .track-info small{
-    color:#8b939e;
+    color:#777e87;
     display:block;
     font-size:10px;
     text-transform:uppercase;
@@ -524,9 +417,10 @@ body:before{
     transition: height 0.1s ease;
 }
 
-/* ================= KALKULATOR PRICELIST (IOS GLASS) ================= */
+/* ================= KALKULATOR PRICELIST ================= */
 .calculator-section {
-    padding: 120px 6vw;
+    padding: 100px 6vw;
+    background: var(--bg2);
 }
 
 .calc-grid {
@@ -537,32 +431,27 @@ body:before{
 }
 
 .calc-box {
-    background: rgba(15, 19, 28, 0.35);
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--panel);
+    border: 1px solid var(--line);
     padding: 35px;
     border-radius: var(--radius);
-    box-shadow: 0 25px 50px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1);
 }
 
 .calc-group {
     margin-bottom: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 18px;
-    background: rgba(10, 13, 19, 0.3);
-    backdrop-filter: blur(15px);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: var(--bg);
     overflow: hidden;
-    transition: border-color 0.3s ease, background 0.3s ease;
+    transition: border-color 0.3s ease;
 }
 
 .calc-group.open {
-    border-color: rgba(125, 182, 214, 0.45);
-    background: rgba(15, 20, 30, 0.55);
+    border-color: rgba(125, 182, 214, 0.4);
 }
 
 .calc-trigger {
-    padding: 20px 22px;
+    padding: 18px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -575,13 +464,13 @@ body:before{
     font-size: 11px;
     color: var(--accent2);
     text-transform: uppercase;
-    letter-spacing: 1.2px;
+    letter-spacing: 1px;
     font-weight: 700;
-    margin-bottom: 3px;
+    margin-bottom: 2px;
 }
 
 .calc-selected-val {
-    font-size: 14.5px;
+    font-size: 14px;
     font-weight: 600;
     color: var(--text);
 }
@@ -601,7 +490,7 @@ body:before{
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.35s ease, padding 0.35s ease;
-    padding: 0 18px;
+    padding: 0 16px;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -609,47 +498,45 @@ body:before{
 
 .calc-group.open .custom-options {
     max-height: 400px;
-    padding: 0 18px 18px 18px;
+    padding: 0 16px 16px 16px;
 }
 
 .option-card {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 15px 18px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 14px;
+    padding: 14px 18px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 12px;
     cursor: pointer;
-    transition: all 0.25s ease;
+    transition: all 0.2s ease;
 }
 
 .option-card:hover {
-    border-color: rgba(125, 182, 214, 0.4);
-    background: rgba(125, 182, 214, 0.05);
+    border-color: rgba(125, 182, 214, 0.3);
 }
 
 .option-card.active {
     border-color: var(--accent);
-    background: rgba(125, 182, 214, 0.1);
-    box-shadow: 0 5px 20px rgba(125,182,214,0.15);
+    background: rgba(125, 182, 214, 0.08);
 }
 
 .option-text strong {
     display: block;
-    font-size: 14px;
+    font-size: 13.5px;
     color: var(--text);
-    margin-bottom: 3px;
+    margin-bottom: 2px;
 }
 
 .option-text span {
-    font-size: 12px;
+    font-size: 11.5px;
     color: var(--muted);
 }
 
 .radio-indicator {
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
     border: 2px solid var(--muted);
     border-radius: 50%;
     display: flex;
@@ -661,23 +548,22 @@ body:before{
 
 .option-card.active .radio-indicator {
     border-color: var(--accent);
-    background: rgba(125,182,214,0.2);
 }
 
 .option-card.active .radio-indicator::after {
     content: "";
-    width: 8px;
-    height: 8px;
+    width: 7px;
+    height: 7px;
     background: var(--accent);
     border-radius: 50%;
 }
 
 .calc-group input[type="number"] {
     width: 100%;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 14px;
-    padding: 14px 18px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 12px 16px;
     color: var(--text);
     font-family: inherit;
     font-size: 14px;
@@ -687,62 +573,58 @@ body:before{
 
 .calc-group input[type="number"]:focus {
     border-color: var(--accent);
-    box-shadow: 0 0 15px rgba(125,182,214,0.2);
 }
 
 .result-card {
-    background: linear-gradient(145deg, rgba(125, 182, 214, 0.1), rgba(15, 19, 28, 0.45));
-    backdrop-filter: blur(35px);
-    -webkit-backdrop-filter: blur(35px);
+    background: linear-gradient(145deg, rgba(125, 182, 214, 0.08), rgba(255,255,255,0.01));
     border: 1px solid rgba(125, 182, 214, 0.25);
     padding: 35px;
     border-radius: var(--radius);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    box-shadow: 0 25px 50px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.15);
 }
 
 .total-price {
     font-family: "Space Grotesk";
-    font-size: 44px;
+    font-size: 42px;
     color: #fff;
     margin: 15px 0;
-    text-shadow: 0 0 25px rgba(125,182,214,0.4);
 }
 
 .price-breakdown {
-    font-size: 13.5px;
+    font-size: 13px;
     color: var(--muted);
     line-height: 1.9;
     margin-bottom: 25px;
-    border-top: 1px dashed rgba(255,255,255,0.12);
+    border-top: 1px dashed var(--line);
     padding-top: 20px;
 }
 
 .btn-book {
     width: 100%;
-    height: 54px;
+    height: 52px;
     background: var(--accent);
-    color: #030406;
+    color: #08090b;
     border: none;
-    border-radius: 20px;
+    border-radius: 12px;
     font-weight: 700;
     cursor: pointer;
     transition: 0.3s;
-    font-size: 14.5px;
-    box-shadow: 0 10px 30px rgba(125,182,214,0.3);
+    font-size: 14px;
 }
 
 .btn-book:hover {
     background: #fff;
     transform: translateY(-2px);
-    box-shadow: 0 15px 40px rgba(125,182,214,0.5);
+    box-shadow: 0 10px 30px rgba(125,182,214,0.2);
 }
 
-/* ================= FAQ & ACCORDION (IOS GLASS) ================= */
+/* ================= FAQ & ACCORDION ================= */
 .info-section {
     padding: 60px 6vw 100px;
+    background: var(--bg2);
+    border-bottom: 1px solid var(--line);
 }
 
 .info-container {
@@ -753,31 +635,26 @@ body:before{
 .info-tabs-title {
     text-align: center;
     font-family: "Space Grotesk";
-    font-size: 32px;
-    margin-bottom: 40px;
-    letter-spacing: -1px;
+    font-size: 28px;
+    margin-bottom: 35px;
 }
 
 .accordion {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 14px;
 }
 
 .accordion-item {
-    background: rgba(15, 19, 28, 0.35);
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 20px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 16px;
     overflow: hidden;
-    transition: border-color 0.3s ease, background 0.3s ease;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    transition: border-color 0.3s ease;
 }
 
 .accordion-item.active {
     border-color: rgba(125, 182, 214, 0.4);
-    background: rgba(20, 26, 38, 0.5);
 }
 
 .accordion-header {
@@ -799,11 +676,10 @@ body:before{
 }
 
 .accordion-icon-tag {
-    width: 34px;
-    height: 34px;
+    width: 32px;
+    height: 32px;
     background: rgba(125, 182, 214, 0.1);
-    border: 1px solid rgba(125, 182, 214, 0.2);
-    border-radius: 12px;
+    border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -828,13 +704,13 @@ body:before{
     transition: max-height 0.35s cubic-bezier(0, 1, 0, 1);
     padding: 0 26px;
     color: var(--muted);
-    font-size: 14px;
+    font-size: 13.5px;
     line-height: 1.7;
 }
 
 .accordion-item.active .accordion-content {
     max-height: 500px;
-    padding-bottom: 26px;
+    padding-bottom: 24px;
     transition: max-height 0.35s ease-in-out;
 }
 
@@ -842,21 +718,20 @@ body:before{
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 16px;
-    margin-top: 12px;
+    margin-top: 10px;
 }
 
 .rule-card {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    padding: 18px;
-    border-radius: 16px;
-    backdrop-filter: blur(10px);
+    background: var(--bg);
+    border: 1px solid var(--line);
+    padding: 16px;
+    border-radius: 12px;
 }
 
 .rule-card h5 {
     color: var(--accent2);
-    font-size: 13.5px;
-    margin-bottom: 6px;
+    font-size: 13px;
+    margin-bottom: 5px;
 }
 
 /* ================= SECTIONS ================= */
@@ -873,82 +748,78 @@ section{
 
 .section-label{
     color:var(--accent);
-    font-size:11.5px;
+    font-size:11px;
     font-weight:700;
     text-transform:uppercase;
     letter-spacing:2px;
     margin-bottom:14px;
-    background: rgba(125,182,214,0.08);
-    padding: 6px 14px;
-    border-radius: 16px;
-    width: max-content;
-    border: 1px solid rgba(125,182,214,0.2);
 }
 
 .section-head h2{
     font-family:"Space Grotesk";
     font-size:clamp(36px,5vw,65px);
     line-height:1;
-    letter-spacing:-2.5px;
+    letter-spacing:-3px;
 }
 
 .section-head p{
     max-width:380px;
-    color:#9298a0;
+    color:#858b94;
     line-height:1.7;
 }
 
-/* ================= JOBS (IOS GLASS CARDS) ================= */
+/* ================= JOBS ================= */
 .jobs{
-    background: transparent;
+    background:#0b0d10;
 }
 
 .job-grid{
     display:grid;
     grid-template-columns:repeat(3,1fr);
-    gap:22px;
+    gap:18px;
 }
 
 .job-card{
     position:relative;
-    padding:32px;
-    min-height:300px;
-    background: rgba(15, 19, 28, 0.35);
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: var(--radius);
+    padding:28px;
+    min-height:290px;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.055),
+            rgba(255,255,255,.018)
+        );
+    border:1px solid var(--line);
+    border-radius:var(--radius);
     overflow:hidden;
-    transition:.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition:.4s ease;
     cursor: pointer;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
 }
 
 .job-card:before{
     content:"";
     position:absolute;
-    width:220px;
-    height:220px;
-    top:-110px;
-    right:-110px;
+    width:200px;
+    height:200px;
+    top:-100px;
+    right:-100px;
     background:#7db6d6;
-    opacity:.05;
+    opacity:.08;
     border-radius:50%;
     filter:blur(50px);
     transition: 0.4s ease;
 }
 
 .job-card:hover:before {
-    opacity: 0.2;
-    width: 280px;
-    height: 280px;
+    opacity: 0.25;
+    width: 250px;
+    height: 250px;
 }
 
 .job-card:hover{
     transform:translateY(-8px);
-    border-color:rgba(150,210,235,.35);
-    background: rgba(22, 28, 40, 0.55);
-    box-shadow: 0 30px 60px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,0.15);
+    border-color:rgba(150,210,235,.3);
+    box-shadow: 0 30px 80px rgba(0,0,0,.25);
 }
 
 .job-top{
@@ -958,55 +829,53 @@ section{
 }
 
 .status{
-    padding:7px 12px;
+    padding:7px 10px;
     border-radius:30px;
-    font-size:10.5px;
+    font-size:10px;
     color:#9bd6ef;
-    background:rgba(126,190,220,.08);
-    border:1px solid rgba(126,190,220,.18);
+    background:rgba(126,190,220,.09);
+    border:1px solid rgba(126,190,220,.14);
     text-transform:uppercase;
     letter-spacing:1px;
-    backdrop-filter: blur(10px);
 }
 
 .job-type{
-    color:#7a828d;
-    font-size:11.5px;
+    color:#686f77;
+    font-size:11px;
 }
 
 .job-card h3{
     font-family:"Space Grotesk";
-    font-size:24px;
+    font-size:23px;
     margin-bottom:12px;
-    letter-spacing:-.5px;
+    letter-spacing:-.7px;
 }
 
 .job-card p{
-    color:#8e959f;
-    font-size:13.5px;
+    color:#818791;
+    font-size:13px;
     line-height:1.65;
     max-width:360px;
 }
 
 .job-bottom{
     position:absolute;
-    left:32px;
-    right:32px;
-    bottom:28px;
+    left:28px;
+    right:28px;
+    bottom:25px;
     display:flex;
     justify-content:space-between;
     align-items:center;
 }
 
 .budget{
-    font-size:13.5px;
-    color:#e2e7ec;
-    font-weight: 600;
+    font-size:13px;
+    color:#dce2e7;
 }
 
 .view-job{
     color:#9bcfe6;
-    font-size:12.5px;
+    font-size:12px;
     font-weight:700;
     text-decoration:none;
     transition:.25s;
@@ -1020,58 +889,65 @@ section{
 /* ================= FEATURE ================= */
 .feature{
     display:grid;
-    grid-template-columns:1fr 1fr;
-    min-height:580px;
-    padding:60px 6vw;
-    background:transparent;
-    gap: 40px;
-    align-items: center;
+    grid-template-columns:1.1fr .9fr;
+    min-height:620px;
+    padding:0;
+    background:#0b0d10;
 }
 
-.feature-glass-box {
-    background: rgba(15, 19, 28, 0.4);
-    backdrop-filter: blur(35px);
-    -webkit-backdrop-filter: blur(35px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 45px;
-    border-radius: var(--radius);
-    box-shadow: 0 25px 50px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.12);
+.feature-image{
+    min-height:620px;
+    background:
+        linear-gradient(
+            90deg,
+            transparent 55%,
+            #0b0d10 100%
+        ),
+        url("https://images.unsplash.com/photo-1483412033650-1015ddeb83d1?auto=format&fit=crop&w=1800&q=85");
+    background-size:cover;
+    background-position:center;
+}
+
+.feature-content{
+    padding:100px 8vw 100px 4vw;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
 }
 
 .feature-content h2{
     font-family:"Space Grotesk";
-    font-size:clamp(35px,4.5vw,58px);
-    line-height:1.05;
-    letter-spacing:-2.5px;
-    margin-bottom:20px;
+    font-size:clamp(40px,5vw,70px);
+    line-height:.98;
+    letter-spacing:-3px;
+    margin-bottom:25px;
 }
 
 .feature-content p{
-    color: #9399a2;
-    line-height:1.75;
-    font-size: 15px;
-    margin-bottom:30px;
+    color:#8c929a;
+    line-height:1.8;
+    max-width:500px;
+    margin-bottom:35px;
 }
 
 .feature-list{
     display:grid;
     gap:14px;
-    margin-bottom:30px;
+    margin-bottom:35px;
 }
 
 .feature-item{
     display:flex;
     align-items:center;
     gap:12px;
-    color:#d0d5dc;
-    font-size:13.5px;
+    color:#c4c9cf;
+    font-size:13px;
 }
 
 .check{
-    width:24px;
-    height:24px;
-    border:1px solid rgba(140,205,230,.35);
-    background: rgba(140,205,230,0.08);
+    width:22px;
+    height:22px;
+    border:1px solid rgba(140,205,230,.3);
     border-radius:50%;
     display:grid;
     place-items:center;
@@ -1079,21 +955,19 @@ section{
     font-size:11px;
 }
 
-/* ================= STATS (IOS GLASS) ================= */
+/* ================= STATS ================= */
 .stats{
     display:grid;
     grid-template-columns:repeat(4,1fr);
-    border-top:1px solid rgba(255,255,255,0.06);
-    border-bottom:1px solid rgba(255,255,255,0.06);
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
     padding-top:70px;
     padding-bottom:70px;
-    background: rgba(10, 13, 19, 0.25);
-    backdrop-filter: blur(20px);
 }
 
 .stat{
     padding:10px 35px;
-    border-right:1px solid rgba(255,255,255,0.06);
+    border-right:1px solid var(--line);
 }
 
 .stat:last-child{
@@ -1103,59 +977,52 @@ section{
 .stat strong{
     display:block;
     font-family:"Space Grotesk";
-    font-size:52px;
-    letter-spacing:-2.5px;
+    font-size:48px;
+    letter-spacing:-3px;
     margin-bottom:8px;
-    text-shadow: 0 0 20px rgba(125,182,214,0.3);
 }
 
 .stat span{
-    color:#858d98;
-    font-size:12.5px;
+    color:#777e87;
+    font-size:12px;
 }
 
-/* ================= PROCESS (IOS GLASS) ================= */
+/* ================= PROCESS ================= */
 .process-grid{
     display:grid;
     grid-template-columns:repeat(3,1fr);
-    gap:20px;
+    gap:18px;
 }
 
 .process{
-    padding:38px 32px;
-    border:1px solid rgba(255,255,255,0.08);
-    border-radius:24px;
-    background: rgba(15, 19, 28, 0.35);
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
-    transition: 0.35s ease;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    padding:35px 30px;
+    border:1px solid var(--line);
+    border-radius:20px;
+    background:#0d0f12;
+    transition: 0.3s ease;
 }
 
 .process:hover {
-    border-color: rgba(125,182,214,.35);
-    background: rgba(22, 28, 40, 0.55);
+    border-color: rgba(125,182,214,.3);
     transform: translateY(-5px);
-    box-shadow: 0 25px 50px rgba(0,0,0,0.4);
 }
 
 .number{
     font-family:"Space Grotesk";
-    color:#707884;
+    color:#59616a;
     font-size:12px;
-    margin-bottom:50px;
-    letter-spacing:1px;
+    margin-bottom:55px;
 }
 
 .process h3{
     font-family:"Space Grotesk";
-    font-size:24px;
+    font-size:23px;
     margin-bottom:14px;
 }
 
 .process p{
-    color:#8b939e;
-    font-size:13.5px;
+    color:#7d848c;
+    font-size:13px;
     line-height:1.7;
 }
 
@@ -1164,7 +1031,7 @@ section{
     position:relative;
     text-align:center;
     overflow:hidden;
-    padding:160px 6vw;
+    padding:150px 6vw;
 }
 
 .cta:before{
@@ -1176,17 +1043,17 @@ section{
     top:50%;
     transform:translate(-50%,-50%);
     background:#70b6d6;
-    opacity:.06;
-    filter:blur(120px);
+    opacity:.07;
+    filter:blur(100px);
     border-radius:50%;
 }
 
 .cta h2{
     position:relative;
     font-family:"Space Grotesk";
-    font-size:clamp(45px,6.5vw,90px);
-    line-height:.95;
-    letter-spacing:-4px;
+    font-size:clamp(50px,7vw,100px);
+    line-height:.9;
+    letter-spacing:-5px;
     margin-bottom:30px;
 }
 
@@ -1194,24 +1061,23 @@ section{
     position:relative;
     max-width:500px;
     margin:auto auto 35px;
-    color:#8b939e;
+    color:#838a92;
     line-height:1.7;
 }
 
-/* ================= MODAL / POPUP (IOS GLASS) ================= */
+/* ================= MODAL / POPUP ================= */
 .modal-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(2, 3, 5, 0.75);
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(10px);
     z-index: 2000;
     display: flex;
     align-items: center;
     justify-content: center;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.35s ease;
+    transition: opacity 0.3s ease;
 }
 
 .modal-overlay.active {
@@ -1220,20 +1086,17 @@ section{
 }
 
 .modal-box {
-    background: rgba(18, 23, 33, 0.82);
-    backdrop-filter: blur(35px);
-    -webkit-backdrop-filter: blur(35px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 28px;
+    background: var(--panel2);
+    border: 1px solid var(--line);
+    border-radius: 20px;
     width: 90%;
     max-width: 480px;
-    padding: 38px;
+    padding: 35px;
     position: relative;
-    transform: scale(0.92);
-    transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
     max-height: 90vh;
     overflow-y: auto;
-    box-shadow: 0 30px 80px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.15);
 }
 
 .modal-overlay.active .modal-box {
@@ -1242,37 +1105,28 @@ section{
 
 .close-modal {
     position: absolute;
-    top: 22px;
-    right: 22px;
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.1);
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
     color: var(--muted);
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
+    font-size: 20px;
     cursor: pointer;
-    transition: 0.2s;
 }
 
 .close-modal:hover {
     color: white;
-    background: rgba(255,255,255,0.15);
 }
 
 .modal-title {
     font-family: "Space Grotesk";
-    font-size: 26px;
+    font-size: 24px;
     margin-bottom: 8px;
-    letter-spacing: -0.5px;
 }
 
 .modal-desc {
     color: var(--muted);
-    font-size: 13.5px;
+    font-size: 13px;
     margin-bottom: 25px;
 }
 
@@ -1287,29 +1141,27 @@ section{
     margin-bottom: 6px;
     text-transform: uppercase;
     letter-spacing: 1px;
-    font-weight: 700;
 }
 
 .form-group input,
 .form-group textarea {
     width: 100%;
-    background: rgba(10, 13, 19, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 16px;
-    padding: 14px 18px;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 12px 15px;
     color: var(--text);
     font-family: inherit;
     font-size: 14px;
     outline: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
     border-color: var(--accent);
-    box-shadow: 0 0 15px rgba(125,182,214,0.25);
 }
 
+/* ANTI-SPAM: Hidden Honeypot Field */
 .hidden-honeypot {
     display: none !important;
     visibility: hidden !important;
@@ -1319,28 +1171,30 @@ section{
 
 .submit-btn {
     width: 100%;
-    height: 50px;
-    background: rgba(233, 246, 252, 0.95);
-    color: #030406;
+    height: 48px;
+    background: #e9f6fc;
+    color: #081015;
     border: none;
-    border-radius: 18px;
+    border-radius: 10px;
     font-weight: 700;
     cursor: pointer;
-    transition: 0.25s;
+    transition: 0.2s;
     margin-top: 10px;
-    box-shadow: 0 10px 30px rgba(125,182,214,0.3);
 }
 
 .submit-btn:hover {
     background: #ffffff;
-    box-shadow: 0 15px 40px rgba(125,182,214,0.5);
-    transform: translateY(-2px);
+}
+
+.submit-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 .terms-body {
-    font-size: 13.5px;
+    font-size: 13px;
     color: var(--muted);
-    line-height: 1.7;
+    line-height: 1.6;
     max-height: 280px;
     overflow-y: auto;
     padding-right: 8px;
@@ -1349,92 +1203,99 @@ section{
 
 .terms-body h4 {
     color: var(--text);
-    font-size: 14.5px;
-    margin-top: 16px;
-    margin-bottom: 6px;
+    font-size: 14px;
+    margin-top: 15px;
+    margin-bottom: 5px;
 }
 
 /* ================= FOOTER ================= */
 footer{
-    padding:40px 6vw;
-    border-top:1px solid rgba(255,255,255,0.06);
+    padding:35px 6vw;
+    border-top:1px solid var(--line);
     display:flex;
     justify-content:space-between;
-    color:#757d87;
-    font-size:12.5px;
-    background: rgba(8, 11, 16, 0.3);
-    backdrop-filter: blur(20px);
+    color:#646b73;
+    font-size:12px;
 }
 
 .footer-links{
     display:flex;
-    gap:28px;
+    gap:25px;
 }
 
 .footer-links a{
-    color:#8b939e;
+    color:#777e86;
     text-decoration:none;
     cursor: pointer;
-    transition: 0.2s;
 }
 
-.footer-links a:hover {
-    color: white;
+/* ================= SCROLL ANIMATION ================= */
+.reveal{
+    opacity:0;
+    transform:translateY(45px);
+    transition:
+        opacity .9s ease,
+        transform .9s cubic-bezier(.16,1,.3,1);
+}
+
+.reveal.active{
+    opacity:1;
+    transform:translateY(0);
 }
 
 /* ================= RESPONSIVE ================= */
 @media(max-width:900px){
-    .navbar { width: 92%; top: 15px; padding: 0 18px; }
     .nav-links{ display:none; }
-    .hero{ min-height:850px; }
+    .hero{ min-height:900px; }
+    .hero-image{
+        width:100%;
+        opacity:.45;
+        mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 70%, transparent 100%);
+    }
+    .hero h1{ letter-spacing:-3px; }
     .audio-player{ left:6vw; right:6vw; width:auto; }
-    .job-grid, .process-grid, .calc-grid, .rules-list, .feature { grid-template-columns:1fr; }
+    .job-grid, .process-grid, .calc-grid, .rules-list { grid-template-columns:1fr; }
+    .feature{ grid-template-columns:1fr; }
+    .feature-image{ min-height:400px; }
+    .feature-content{ padding:80px 6vw; }
     .stats{ grid-template-columns:1fr 1fr; }
-    .stat{ padding:25px; border-right:none; border-bottom:1px solid rgba(255,255,255,0.06); }
+    .stat{ padding:25px; border-right:none; border-bottom:1px solid var(--line); }
 }
 
 @media(max-width:600px){
+    .navbar{ padding:0 5vw; }
     .signin{ display:none; }
-    .btn-small{ padding:9px 16px; }
+    .btn-small{ padding:10px 14px; }
     section{ padding:90px 5vw; }
     .hero{ padding-left:5vw; padding-right:5vw; }
-    .hero h1{ font-size:48px; letter-spacing:-2px; }
+    .hero h1{ font-size:57px; }
     .hero-description{ font-size:15px; }
     .section-head{ display:block; }
     .section-head p{ margin-top:20px; }
     .stats { grid-template-columns:1fr; }
     footer{ flex-direction:column; gap:20px; }
-    .brand-logo img{ width:110px; }
+    .brand-logo img{ width:125px; }
 }
 </style>
 </head>
 
 <body>
 
-<!-- MOTION ABSTRACT DARK BACKGROUND BLOBS -->
-<div class="motion-bg-container" id="motionBgContainer">
-    <div class="blob blob-1" id="blob1"></div>
-    <div class="blob blob-2" id="blob2"></div>
-    <div class="blob blob-3" id="blob3"></div>
-</div>
-
 <!-- TOAST CONTAINER -->
 <div class="toast-container" id="toastContainer"></div>
 
 <div class="ambient-light" id="ambientLight"></div>
 
-<!-- ================= IOS LIQUID FLOATING NAV ================= -->
+<!-- ================= NAV ================= -->
 <nav class="navbar">
     <a href="#" class="brand-logo">
-        <!-- Logo gambar diganti dengan text atau dummy logo untuk tes -->
-        SPR AUDIO
+        <img src="spr-audio-logo.png" alt="SPR Audio">
     </a>
 
-    <div class="nav-links" id="navLinksContainer">
-        <div class="nav-pill-bg" id="navPillBg"></div>
-        <a href="#kalkulator" onclick="moveNavPill(this)">Hitung Sewa</a>
-        <a href="#jobs" onclick="moveNavPill(this)">Lowongan Kerja</a>
-        <a href="#process" onclick="moveNavPill(this)">Proses</a>
+    <div class="nav-links">
+        <a href="#kalkulator">Hitung Sewa</a>
+        <a href="#jobs">Lowongan Kerja</a>
+        <a href="#process">Proses</a>
     </div>
 
     <div class="nav-actions">
@@ -1445,7 +1306,8 @@ footer{
 
 <!-- ================= HERO ================= -->
 <header class="hero">
-    <div class="hero-content">
+    <div class="hero-image"></div>
+    <div class="hero-content reveal">
         <div class="eyebrow">
             <span class="live-dot"></span>
             SAAT INI SEDANG MEMBUKA LOWONGAN UNTUK TENAGA AHLI AUDIO.
@@ -1464,7 +1326,7 @@ footer{
         <button class="play" id="playBtn" aria-label="Putar Audio Demo">▶</button>
         <div class="track-info">
             <small>Sedang Diputar</small>
-            <strong title="Audio Demo">Audio Demo Berjalan</strong>
+            <strong title="Goth (Slowed + Reverb)">Goth (Slowed + Reverb)</strong>
         </div>
         <div class="wave">
             <span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span>
@@ -1477,7 +1339,7 @@ footer{
 
 <!-- ================= KALKULATOR PRICELIST ================= -->
 <section class="calculator-section" id="kalkulator">
-    <div class="section-head" style="margin-bottom: 20px;">
+    <div class="section-head reveal" style="margin-bottom: 20px;">
         <div>
             <div class="section-label">Simulasi Biaya Cepat</div>
             <h2>Kalkulator Sewa<br>Sound System.</h2>
@@ -1485,7 +1347,7 @@ footer{
         <p>Klik opsi di bawah ini untuk memilih konfigurasi acara kamu dan dapatkan rincian harganya secara transparan.</p>
     </div>
 
-    <div class="calc-grid">
+    <div class="calc-grid reveal">
         <div class="calc-box">
             <!-- 1. PAKET SOUND -->
             <div class="calc-group" id="groupPaket">
@@ -1530,6 +1392,7 @@ footer{
                     <div class="calc-trigger-info">
                         <label>2. Jarak Lokasi Acara (KM dari Basecamp)</label>
                     </div>
+                    <!-- BATAS MIN & MAX (0 - 1500) -->
                     <input type="number" id="jarakKM" value="5" min="0" max="1500" placeholder="Masukkan jarak (0 - 1500 KM)" oninput="hitungSewa()" style="margin-top: 8px;">
                 </div>
             </div>
@@ -1620,7 +1483,7 @@ footer{
 
 <!-- ================= FAQ ACCORDION ================= -->
 <div class="info-section">
-    <div class="info-container">
+    <div class="info-container reveal">
         <h3 class="info-tabs-title">Aturan Transaksi & FAQ</h3>
         <div class="accordion">
             <div class="accordion-item active">
@@ -1697,7 +1560,7 @@ footer{
 
 <!-- ================= JOBS ================= -->
 <section class="jobs" id="jobs">
-    <div class="section-head">
+    <div class="section-head reveal">
         <div>
             <div class="section-label">Posisi Terbuka</div>
             <h2>Proyek<br>Saat Ini.</h2>
@@ -1706,7 +1569,7 @@ footer{
     </div>
 
     <div class="job-grid">
-        <article class="job-card" onclick="openApplyModal('Mixing Engineer')">
+        <article class="job-card reveal" onclick="openApplyModal('Mixing Engineer')">
             <div class="job-top">
                 <span class="status">Terbuka</span>
                 <span class="job-type">Remote</span>
@@ -1719,7 +1582,7 @@ footer{
             </div>
         </article>
 
-        <article class="job-card" onclick="openApplyModal('Vocal Producer')">
+        <article class="job-card reveal" onclick="openApplyModal('Vocal Producer')">
             <div class="job-top">
                 <span class="status">Terbuka</span>
                 <span class="job-type">Remote</span>
@@ -1732,7 +1595,7 @@ footer{
             </div>
         </article>
 
-        <article class="job-card" onclick="openApplyModal('Mastering Engineer')">
+        <article class="job-card reveal" onclick="openApplyModal('Mastering Engineer')">
             <div class="job-top">
                 <span class="status">Terbuka</span>
                 <span class="job-type">Proyek</span>
@@ -1749,7 +1612,8 @@ footer{
 
 <!-- ================= FEATURE ================= -->
 <section class="feature" id="about">
-    <div class="feature-glass-box feature-content">
+    <div class="feature-image reveal"></div>
+    <div class="feature-content reveal">
         <div class="section-label">Filosofi Kami</div>
         <h2>Suara hebat dimulai dari orang-orang hebat.</h2>
         <p>SPR Audio percaya bahwa produksi terbaik diciptakan ketika individu kreatif memiliki kebebasan, alat, dan lingkungan yang tepat untuk fokus pada keahlian mereka.</p>
@@ -1761,29 +1625,23 @@ footer{
         </div>
         <a href="#jobs" class="btn-secondary" style="width:max-content;">Lihat Lowongan Terbuka</a>
     </div>
-
-    <div class="feature-glass-box" style="display: flex; flex-direction: column; justify-content: center; gap: 20px;">
-        <span style="font-size: 13px; color: var(--accent2); font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Standar Kualitas iGlass</span>
-        <h3 style="font-family: 'Space Grotesk'; font-size: 28px; letter-spacing: -1px;">Transparansi & Kejernihan Akustik</h3>
-        <p style="color: var(--muted); font-size: 14px; line-height: 1.7;">Setiap perangkat sound system diuji menggunakan instrumen kalibrasi digital mutakhir untuk memastikan setiap decibel suara sampai ke telinga audiens dengan jernih tanpa distorsi.</p>
-    </div>
 </section>
 
 <!-- ================= STATS ================= -->
 <section class="stats">
-    <div class="stat">
+    <div class="stat reveal">
         <strong class="counter" data-target="12" data-suffix="+">0</strong>
         <span>Proyek Aktif</span>
     </div>
-    <div class="stat">
+    <div class="stat reveal">
         <strong class="counter" data-target="28">0</strong>
         <span>Profesional Audio</span>
     </div>
-    <div class="stat">
+    <div class="stat reveal">
         <strong class="counter" data-target="6" data-prefix="0">0</strong>
         <span>Kategori Musik</span>
     </div>
-    <div class="stat">
+    <div class="stat reveal">
         <strong>24/7</strong>
         <span>Kolaborasi Kreatif</span>
     </div>
@@ -1791,7 +1649,7 @@ footer{
 
 <!-- ================= PROCESS ================= -->
 <section id="process">
-    <div class="section-head">
+    <div class="section-head reveal">
         <div>
             <div class="section-label">Cara Kerja</div>
             <h2>Sederhana.<br>Fokus.</h2>
@@ -1800,17 +1658,17 @@ footer{
     </div>
 
     <div class="process-grid">
-        <div class="process">
+        <div class="process reveal">
             <div class="number">01 — TEMUKAN</div>
             <h3>Cari Proyek</h3>
             <p>Jelajahi proyek audio aktif dan temukan yang sesuai dengan keahlianmu.</p>
         </div>
-        <div class="process">
+        <div class="process reveal">
             <div class="number">02 — LAMAR</div>
             <h3>Kirim Karya</h3>
             <p>Kirimkan portofolio, pengalaman, serta penawaran hargamu.</p>
         </div>
-        <div class="process">
+        <div class="process reveal">
             <div class="number">03 — KARYA</div>
             <h3>Mulai Berkarya</h3>
             <p>Kandidat terpilih akan dihubungi langsung untuk mendiskusikan rincian proyek.</p>
@@ -1820,7 +1678,7 @@ footer{
 
 <!-- ================= CTA ================= -->
 <section class="cta">
-    <div>
+    <div class="reveal">
         <div class="section-label">Bekerja Bersama SPR Audio</div>
         <h2>Buat karya yang layak didengar.</h2>
         <p>Proyek baru terus bermunculan. Jelajahi peluang saat ini dan jadilah bagian dari produksi selanjutnya.</p>
@@ -1907,69 +1765,6 @@ footer{
 </footer>
 
 <script>
-/* ================= 120 FPS BUTTERY SMOOTH GSAP PARALLAX ================= */
-gsap.registerPlugin(ScrollTrigger);
-
-ScrollTrigger.config({
-    syncInterval: 1
-});
-
-// Parallax 120fps super halus menggunakan GSAP Scrub 0.5
-gsap.utils.toArray("section, header").forEach((sec) => {
-    gsap.from(sec.querySelectorAll('.section-head, .calc-grid, .job-card, .process, .info-container, .feature-glass-box'), {
-        y: 40,
-        opacity: 0,
-        duration: 1.2,
-        ease: "power3.out",
-        stagger: 0.08,
-        scrollTrigger: {
-            trigger: sec,
-            start: "top 85%",
-            toggleActions: "play none none reverse"
-        }
-    });
-});
-
-/* ================= INTERACTIVE TOUCH BACKGROUND (LIQUID ABSOLUTE) ================= */
-const motionBg = document.getElementById('motionBgContainer');
-const blob1 = document.getElementById('blob1');
-const blob2 = document.getElementById('blob2');
-const blob3 = document.getElementById('blob3');
-
-window.addEventListener('pointermove', (e) => {
-    const xPos = (e.clientX / window.innerWidth - 0.5) * 60;
-    const yPos = (e.clientY / window.innerHeight - 0.5) * 60;
-
-    if(blob1) blob1.style.transform = `translate(${xPos * 1.2}px, ${yPos * 1.2}px)`;
-    if(blob2) blob2.style.transform = `translate(${-xPos * 1.5}px, ${-yPos * 1.5}px)`;
-    if(blob3) blob3.style.transform = `translate(${xPos * 0.8}px, ${-yPos * 0.8}px)`;
-});
-
-/* ================= NAV LIQUID SLIDING PILL ================= */
-const navLinksContainer = document.getElementById('navLinksContainer');
-const navPillBg = document.getElementById('navPillBg');
-const defaultNavLink = navLinksContainer ? navLinksContainer.querySelector('a') : null;
-
-function moveNavPill(el) {
-    if (!navPillBg || !el) return;
-    navPillBg.style.width = el.offsetWidth + 'px';
-    navPillBg.style.left = el.offsetLeft + 'px';
-    
-    navLinksContainer.querySelectorAll('a').forEach(a => a.classList.remove('active'));
-    el.classList.add('active');
-}
-
-if (defaultNavLink && navPillBg) {
-    moveNavPill(defaultNavLink);
-}
-
-// Window resize listener untuk menjaga posisi pill akurat
-window.addEventListener('resize', () => {
-    const activeLink = navLinksContainer ? navLinksContainer.querySelector('a.active') : null;
-    if (activeLink) moveNavPill(activeLink);
-});
-
-
 /* ================= 1. KALKULATOR PRICELIST ================= */
 let selectedPaket = 3000000;
 let selectedPaketText = "Paket Medium / Pernikahan";
@@ -2116,8 +1911,7 @@ function showToast(message, icon = "✓") {
 }
 
 /* ================= 4. AUDIO PLAYER ================= */
-// AUDIO KITA UBAH JADI LINK ONLINE AGAR LANGSUNG AKTIF BUAT DEMO
-const audio = new Audio("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3");
+const audio = new Audio("goth-slowed.mp3");
 audio.loop = true;
 
 let isPlaying = false;
@@ -2133,7 +1927,7 @@ if (playBtn) {
                 animateVisualizer();
                 showToast("Memutar audio demo", "🎵");
             }).catch(() => {
-                showToast("Sistem gagal memutar audio (diblokir browser/CORS)", "⚠️");
+                showToast("Gagal memutar audio, file goth-slowed.mp3 tidak ditemukan", "⚠️");
             });
         } else {
             audio.pause();
@@ -2164,10 +1958,11 @@ if (ambientLight) {
     });
 }
 
-/* ================= 6. COUNTER ANIMATION ================= */
+/* ================= 6. SCROLL REVEAL & COUNTER ================= */
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if(entry.isIntersecting){
+            entry.target.classList.add("active");
             const counters = entry.target.querySelectorAll('.counter');
             counters.forEach(counter => {
                 if(!counter.classList.contains('counted')) {
@@ -2179,7 +1974,7 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, { threshold: 0.15 });
 
-document.querySelectorAll(".stats").forEach(el => observer.observe(el));
+document.querySelectorAll(".reveal, .stats").forEach(el => observer.observe(el));
 
 function startCounter(el) {
     const target = +el.getAttribute('data-target');
@@ -2330,6 +2125,7 @@ async function handleFormSubmit(e) {
         return;
     }
 
+    // Validasi hCaptcha Response
     const hCaptchaResponse = form.querySelector('textarea[name="h-captcha-response"]');
     if (hCaptchaResponse && !hCaptchaResponse.value) {
         showToast("Mohon selesaikan verifikasi hCaptcha terlebih dahulu.", "⚠️");
