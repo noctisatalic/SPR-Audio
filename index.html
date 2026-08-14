@@ -10,8 +10,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
 
-<!-- hCaptcha Script -->
-<script src="https://js.hcaptcha.com/1/api.js" async defer></script>
+<!-- hCaptcha Script: render eksplisit agar bisa dikontrol kapan widget siap -->
+<script src="https://js.hcaptcha.com/1/api.js?onload=onHcaptchaLoad&render=explicit" async defer></script>
 
 <style>
 :root{
@@ -1731,9 +1731,9 @@ footer{
                 <textarea name="message" id="messageInput" rows="3" placeholder="Tuliskan pesan atau detail pertanyaanmu..." maxlength="1000" required></textarea>
             </div>
 
-            <!-- hCaptcha Widget Integration -->
+            <!-- hCaptcha Widget: render eksplisit lewat JS, bukan otomatis via class -->
             <div class="form-group" style="display: flex; justify-content: center; margin: 15px 0;">
-                <div class="h-captcha" data-sitekey="50b2fe65-b00b-4b9e-ad62-3ba471098be2"></div>
+                <div id="hcaptchaContainer"></div>
             </div>
 
             <button type="submit" class="submit-btn" id="submitBtn">Kirim Pesan</button>
@@ -1995,7 +1995,39 @@ function startCounter(el) {
     update();
 }
 
-/* ================= 7. MODAL & SECURITY HANDLERS ================= */
+/* ================= 7. HCAPTCHA (render eksplisit, sumber kebenaran = token JS) ================= */
+let hcaptchaWidgetID = null;
+let hcaptchaToken = '';
+const HCAPTCHA_SITEKEY = '50b2fe65-b00b-4b9e-ad62-3ba471098be2';
+
+// Dipanggil otomatis oleh script hCaptcha lewat parameter ?onload=onHcaptchaLoad
+function onHcaptchaLoad() {
+    const container = document.getElementById('hcaptchaContainer');
+    if (!container || typeof hcaptcha === 'undefined') return;
+
+    hcaptchaWidgetID = hcaptcha.render(container, {
+        sitekey: HCAPTCHA_SITEKEY,
+        callback: function (token) {
+            hcaptchaToken = token;
+        },
+        'expired-callback': function () {
+            hcaptchaToken = '';
+        },
+        'error-callback': function () {
+            hcaptchaToken = '';
+            showToast("Verifikasi hCaptcha gagal dimuat, coba refresh halaman.", "⚠️");
+        }
+    });
+}
+
+function resetHcaptcha() {
+    hcaptchaToken = '';
+    if (typeof hcaptcha !== 'undefined' && hcaptchaWidgetID !== null) {
+        hcaptcha.reset(hcaptchaWidgetID);
+    }
+}
+
+/* ================= 8. MODAL & SECURITY HANDLERS ================= */
 const modal = document.getElementById('modalOverlay');
 const modalBox = document.getElementById('modalBox');
 const modalTitle = document.getElementById('modalTitle');
@@ -2125,9 +2157,9 @@ async function handleFormSubmit(e) {
         return;
     }
 
-    // PERBAIKAN 1: Validasi hCaptcha yang lebih ketat & aman
-    const hCaptchaResponse = form.querySelector('[name="h-captcha-response"]');
-    if (!hCaptchaResponse || !hCaptchaResponse.value) {
+    // Validasi hCaptcha berdasarkan token dari callback JS, bukan DOM query,
+    // jadi tidak lagi tergantung timing render otomatis.
+    if (!hcaptchaToken) {
         showToast("Mohon selesaikan verifikasi hCaptcha terlebih dahulu.", "⚠️");
         return;
     }
@@ -2138,41 +2170,48 @@ async function handleFormSubmit(e) {
         submitBtn.disabled = true;
     }
 
-    // PERBAIKAN 2: Ubah form menjadi format JSON agar sesuai standar API Web3Forms
     const formData = new FormData(form);
     const object = Object.fromEntries(formData);
+    object['h-captcha-response'] = hcaptchaToken;
     const json = JSON.stringify(object);
 
+    // Batas waktu 10 detik agar tombol tidak menggantung lama jika koneksi lambat
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000);
+
     try {
-        // PERBAIKAN 3: Mengirim dengan request JSON + Accept & Content-Type Headers
         const response = await fetch("https://api.web3forms.com/submit", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json"
             },
-            body: json
+            body: json,
+            signal: controller.signal
         });
 
+        clearTimeout(timeoutId);
         const data = await response.json();
 
         if (response.status === 200 && data.success) {
             lastSubmitTime = Date.now();
             showToast("Terima kasih! Pesanmu berhasil terkirim ke SPR Audio.", "✉️");
             form.reset();
-            
-            // Reset hCaptcha jika ada
-            if (typeof hcaptcha !== 'undefined') {
-                hcaptcha.reset();
-            }
+            resetHcaptcha();
             closeModal();
         } else {
-            // Menampilkan error dari server (Misal: Captcha expired, dll)
             showToast(data.message || "Terjadi kesalahan sistem. Silakan coba lagi.", "❌");
+            resetHcaptcha();
         }
     } catch (error) {
+        clearTimeout(timeoutId);
         console.error(error);
-        showToast("Gagal mengirim. Periksa koneksi internetmu.", "🌐");
+        if (error.name === 'AbortError') {
+            showToast("Pengiriman terlalu lama dan dibatalkan. Coba lagi.", "⏱️");
+        } else {
+            showToast("Gagal mengirim. Periksa koneksi internetmu.", "🌐");
+        }
+        resetHcaptcha();
     } finally {
         if (submitBtn) {
             submitBtn.innerText = originalBtnText;
@@ -2183,5 +2222,4 @@ async function handleFormSubmit(e) {
 </script>
 
 </body>
-</html>
-
+    </html>
