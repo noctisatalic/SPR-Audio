@@ -13,21 +13,19 @@
 <!-- hCaptcha Script -->
 <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
 
-<!-- GSAP, ScrollTrigger & Lenis (Smooth Scroll) CDN -->
+<!-- GSAP & ScrollTrigger CDN -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 
 <style>
 :root{
     --bg:#030406;
-    --bg2:rgba(13, 16, 23, 0.45);
-    --panel:rgba(18, 22, 31, 0.55);
-    --panel2:rgba(22, 27, 38, 0.75);
+    --panel:rgba(18, 22, 31, 0.45);
+    --panel2:rgba(22, 27, 38, 0.65);
     --text:#f4f5f7;
     --muted:#9aa0a6;
     --line:rgba(255,255,255,.12);
-    --glass-border:rgba(255,255,255,.18);
+    --glass-border:rgba(255,255,255,.16);
     --accent:#7db6d6;
     --accent2:#9ed5ef;
     --radius:24px;
@@ -39,9 +37,8 @@
     box-sizing:border-box;
 }
 
-/* Dihapus scroll-behavior:smooth karena sudah digantikan Lenis agar tidak bentrok */
 html{
-    background: var(--bg);
+    scroll-behavior:smooth;
 }
 
 body{
@@ -52,7 +49,7 @@ body{
     position:relative;
 }
 
-/* ================= MOTION ABSTRACT DARK BACKGROUND ================= */
+/* ================= MOTION ABSTRACT DARK BACKGROUND & INTERACTIVE TOUCH ================= */
 .motion-bg-container {
     position: fixed;
     inset: 0;
@@ -62,59 +59,58 @@ body{
     background: #030406;
 }
 
-/* HARDWARE ACCELERATION: Gunakan translate3d & will-change */
 .blob {
     position: absolute;
     border-radius: 50%;
-    filter: blur(120px);
-    opacity: 0.45;
+    filter: blur(140px);
+    opacity: 0.5;
     will-change: transform;
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .blob-1 {
-    width: 600px;
-    height: 600px;
-    background: rgba(30, 95, 140, 0.35);
+    width: 650px;
+    height: 650px;
+    background: rgba(25, 90, 140, 0.4);
     top: -10%;
     left: -10%;
-    animation: moveBlob1 18s ease-in-out infinite alternate;
+    animation: moveBlob1 16s ease-in-out infinite alternate;
 }
 
 .blob-2 {
-    width: 700px;
-    height: 700px;
-    background: rgba(85, 45, 120, 0.28);
-    bottom: -20%;
+    width: 750px;
+    height: 750px;
+    background: rgba(75, 40, 120, 0.35);
+    bottom: -15%;
     right: -10%;
-    animation: moveBlob2 22s ease-in-out infinite alternate;
+    animation: moveBlob2 20s ease-in-out infinite alternate;
 }
 
 .blob-3 {
-    width: 500px;
-    height: 500px;
-    background: rgba(20, 130, 110, 0.22);
-    top: 40%;
-    left: 30%;
-    animation: moveBlob3 25s ease-in-out infinite alternate;
+    width: 550px;
+    height: 550px;
+    background: rgba(15, 120, 100, 0.3);
+    top: 35%;
+    left: 25%;
+    animation: moveBlob3 22s ease-in-out infinite alternate;
 }
 
-/* Menggunakan translate3d agar diproses langsung oleh GPU */
 @keyframes moveBlob1 {
-    0% { transform: translate3d(0, 0, 0) scale(1); }
-    50% { transform: translate3d(250px, 180px, 0) scale(1.15); }
-    100% { transform: translate3d(100px, 400px, 0) scale(0.9); }
+    0% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(220px, 160px) scale(1.15); }
+    100% { transform: translate(80px, 350px) scale(0.9); }
 }
 
 @keyframes moveBlob2 {
-    0% { transform: translate3d(0, 0, 0) scale(1); }
-    50% { transform: translate3d(-300px, -220px, 0) scale(1.25); }
-    100% { transform: translate3d(-150px, -450px, 0) scale(0.85); }
+    0% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-260px, -200px) scale(1.2); }
+    100% { transform: translate(-120px, -400px) scale(0.85); }
 }
 
 @keyframes moveBlob3 {
-    0% { transform: translate3d(0, 0, 0) scale(0.9); }
-    50% { transform: translate3d(200px, -250px, 0) scale(1.2); }
-    100% { transform: translate3d(-250px, 200px, 0) scale(1); }
+    0% { transform: translate(0, 0) scale(0.9); }
+    50% { transform: translate(180px, -220px) scale(1.15); }
+    100% { transform: translate(-200px, 180px) scale(1); }
 }
 
 /* Noise texture overlay for high-end cinematic grain */
@@ -124,43 +120,33 @@ body:before{
     inset:0;
     pointer-events:none;
     z-index:9998;
-    opacity:.03;
+    opacity:.025;
     background-image:
     url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
 }
 
-/* Ambient Cursor Light Effect - CPU Optimized */
+/* Ambient Cursor Light Effect */
 .ambient-light {
     position: fixed;
     top: 0;
     left: 0;
-    width: 450px;
-    height: 450px;
-    margin-top: -225px; /* Offset to center */
-    margin-left: -225px;
-    background: radial-gradient(circle, rgba(125, 182, 214, 0.08) 0%, rgba(0,0,0,0) 70%);
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(125, 182, 214, 0.09) 0%, rgba(0,0,0,0) 70%);
     border-radius: 50%;
     pointer-events: none;
     z-index: -1;
-    will-change: transform;
-    /* Dihapus transition agar animasi lerp dari JS 120fps murni */
+    transform: translate(-50%, -50%);
+    transition: width 0.3s, height 0.3s;
 }
 
-/* ================= IOS GLASSMORPHISM DESIGN SYSTEM ================= */
+/* ================= IOS IGLASSMORPHISM DESIGN SYSTEM ================= *
 .ios-glass {
     background: var(--panel);
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
     border: 1px solid var(--glass-border);
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.15);
-}
-
-.ios-glass-card {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.12);
 }
 
 /* ================= TOAST NOTIFICATION ================= */
@@ -189,15 +175,14 @@ body:before{
     gap: 12px;
     font-size: 14px;
     min-width: 300px;
-    transform: translate3d(0, 100px, 0); /* Hardware Acceleration */
+    transform: translateY(100px);
     opacity: 0;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     pointer-events: all;
-    will-change: transform, opacity;
 }
 
 .toast.show {
-    transform: translate3d(0, 0, 0);
+    transform: translateY(0);
     opacity: 1;
 }
 
@@ -214,28 +199,26 @@ body:before{
     flex-shrink: 0;
 }
 
-/* ================= IOS FLOATING NAVBAR & AIR LENTUR ================= */
+/* ================= IOS LIQUID FLOATING NAVBAR ================= */
 .navbar{
     position:fixed;
     top:20px;
     left:50%;
-    transform:translate3d(-50%, 0, 0);
+    transform:translateX(-50%);
     width:90%;
     max-width:1200px;
     height:74px;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:0 30px;
+    padding:0 25px;
     z-index:1000;
-    background: rgba(10, 13, 19, 0.55);
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px);
+    background: rgba(10, 13, 19, 0.45);
+    backdrop-filter: blur(35px);
+    -webkit-backdrop-filter: blur(35px);
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 37px;
     box-shadow: 0 20px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.15);
-    transition: transform .35s ease;
-    will-change: transform;
 }
 
 .brand-logo{
@@ -245,61 +228,57 @@ body:before{
 }
 
 .brand-logo img{
-    width:140px;
+    width:130px;
     height:auto;
     display:block;
     object-fit:contain;
-    transition: transform .3s ease;
-    will-change: transform;
+    transition:.3s ease;
 }
 
 .brand-logo:hover img{
-    transform:scale(1.03) translateZ(0);
+    transform:scale(1.03);
 }
 
+/* LIQUID SLIDING PILL CONTAINER */
 .nav-links{
     position: relative;
-    display:flex;
-    align-items: center;
-    gap:8px;
-    padding: 4px;
+    display: flex;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 30px;
+    padding: 5px;
+    gap: 4px;
 }
 
-.nav-links a{
+.nav-pill-bg {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    height: calc(100% - 10px);
+    background: rgba(125, 182, 214, 0.18);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(125, 182, 214, 0.4);
+    border-radius: 24px;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    box-shadow: 0 4px 15px rgba(125, 182, 214, 0.2);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.nav-links a {
     position: relative;
     z-index: 2;
-    padding: 8px 16px;
-    color:#b8bec5;
-    text-decoration:none;
-    font-size:14px;
+    color: #b8bec5;
+    text-decoration: none;
+    font-size: 13.5px;
     font-weight: 500;
-    transition: color .25s;
+    padding: 8px 18px;
+    border-radius: 24px;
+    transition: color 0.3s ease;
 }
 
-.nav-links a:hover, .nav-links a.active{
-    color:white;
-    text-shadow: 0 0 10px rgba(125,182,214,0.6);
-}
-
-/* NAV INDIKATOR AIR LENTUR */
-.nav-indicator {
-    position: absolute;
-    top: 4px;
-    left: 0;
-    height: calc(100% - 8px);
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 20px;
-    z-index: 1;
-    pointer-events: none;
-    opacity: 0;
-    /* Animasi Bouncy Cubic Bezier 120fps */
-    transition: transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1), 
-                width 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), 
-                opacity 0.3s ease;
-    will-change: transform, width;
+.nav-links a:hover, .nav-links a.active {
+    color: #ffffff;
 }
 
 .nav-actions{
@@ -314,6 +293,11 @@ body:before{
     font-size:14px;
     cursor: pointer;
     font-weight: 500;
+    transition: color 0.2s;
+}
+
+.signin:hover {
+    color: white;
 }
 
 .btn-small{
@@ -325,13 +309,12 @@ body:before{
     text-decoration:none;
     font-size:13px;
     font-weight:700;
-    transition: transform .3s, box-shadow .3s, background .3s;
+    transition:.3s;
     box-shadow: 0 4px 15px rgba(125,182,214,0.3);
-    will-change: transform;
 }
 
 .btn-small:hover{
-    transform:translate3d(0, -2px, 0);
+    transform:translateY(-2px);
     background:#ffffff;
     box-shadow:0 8px 25px rgba(125,182,214,0.5);
 }
@@ -346,39 +329,10 @@ body:before{
     overflow:hidden;
 }
 
-.hero-image{
-    position:absolute;
-    right:0;
-    top:-10%;
-    width:58%;
-    height:120%;
-    will-change: transform;
-    transform: translate3d(0,0,0);
-    background:
-        linear-gradient(
-            90deg,
-            var(--bg) 0%,
-            rgba(3,4,6,.65) 15%,
-            rgba(3,4,6,.15) 55%,
-            rgba(3,4,6,.25)
-        ),
-        url("https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=2200&q=85");
-    background-size:cover;
-    background-position:center;
-    opacity:.75;
-    mask-image:linear-gradient(
-        to right,
-        transparent 0%,
-        black 20%,
-        black 100%
-    );
-}
-
 .hero-content{
     position:relative;
     z-index:2;
-    max-width:700px;
-    will-change: transform, opacity;
+    max-width:750px;
 }
 
 .eyebrow{
@@ -418,8 +372,8 @@ body:before{
     font-family:"Space Grotesk";
     font-size:clamp(55px,7vw,100px);
     line-height:.94;
-    letter-spacing:-5px;
-    max-width:780px;
+    letter-spacing:-4px;
+    max-width:800px;
     margin-bottom:30px;
 }
 
@@ -453,9 +407,8 @@ body:before{
     text-decoration:none;
     font-size:14px;
     font-weight:700;
-    transition: transform .3s, box-shadow .3s, background .3s;
+    transition:.3s;
     cursor: pointer;
-    will-change: transform;
 }
 
 .btn-primary{
@@ -467,7 +420,7 @@ body:before{
 }
 
 .btn-primary:hover{
-    transform:translate3d(0, -3px, 0);
+    transform:translateY(-3px);
     background:#ffffff;
     box-shadow:0 15px 40px rgba(125,182,214,0.4);
 }
@@ -482,7 +435,7 @@ body:before{
 .btn-secondary:hover{
     border-color:rgba(159,212,237,.5);
     background:rgba(159,212,237,.08);
-    transform:translate3d(0, -3px, 0);
+    transform:translateY(-3px);
 }
 
 /* ================= AUDIO VISUALIZER (IOS GLASS) ================= */
@@ -495,19 +448,18 @@ body:before{
     display:flex;
     align-items:center;
     gap:15px;
-    background:rgba(15, 19, 28, 0.65);
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px);
-    border:1px solid rgba(255, 255, 255, 0.15);
+    background:rgba(15, 19, 28, 0.45);
+    backdrop-filter: blur(35px);
+    -webkit-backdrop-filter: blur(35px);
+    border:1px solid rgba(255, 255, 255, 0.12);
     border-radius:22px;
     z-index:5;
-    box-shadow:0 20px 50px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,0.15);
+    box-shadow:0 20px 50px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,0.12);
     transition: transform 0.3s ease;
-    will-change: transform;
 }
 
 .audio-player:hover {
-    transform: translate3d(0, -3px, 0);
+    transform: translateY(-3px);
 }
 
 .play{
@@ -521,14 +473,13 @@ body:before{
     color:#030406;
     cursor:pointer;
     font-size:13px;
-    transition: transform 0.2s, background 0.2s;
+    transition: 0.2s;
     flex-shrink: 0;
     box-shadow: 0 4px 15px rgba(125,182,214,0.3);
-    will-change: transform;
 }
 
 .play:hover {
-    transform: scale(1.08) translateZ(0);
+    scale: 1.08;
     background: #ffffff;
 }
 
@@ -567,7 +518,6 @@ body:before{
     border-radius:4px;
     background:#8bc5df;
     transition: height 0.1s ease;
-    will-change: height;
 }
 
 /* ================= KALKULATOR PRICELIST (IOS GLASS) ================= */
@@ -583,28 +533,28 @@ body:before{
 }
 
 .calc-box {
-    background: rgba(15, 19, 28, 0.5);
+    background: rgba(15, 19, 28, 0.35);
     backdrop-filter: blur(30px);
     -webkit-backdrop-filter: blur(30px);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     padding: 35px;
     border-radius: var(--radius);
-    box-shadow: 0 25px 50px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.12);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1);
 }
 
 .calc-group {
     margin-bottom: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 18px;
-    background: rgba(10, 13, 19, 0.4);
+    background: rgba(10, 13, 19, 0.3);
     backdrop-filter: blur(15px);
     overflow: hidden;
     transition: border-color 0.3s ease, background 0.3s ease;
 }
 
 .calc-group.open {
-    border-color: rgba(125, 182, 214, 0.5);
-    background: rgba(15, 20, 30, 0.65);
+    border-color: rgba(125, 182, 214, 0.45);
+    background: rgba(15, 20, 30, 0.55);
 }
 
 .calc-trigger {
@@ -639,7 +589,7 @@ body:before{
 }
 
 .calc-group.open .calc-arrow {
-    transform: rotate(180deg) translateZ(0);
+    transform: rotate(180deg);
     color: var(--accent);
 }
 
@@ -664,7 +614,7 @@ body:before{
     justify-content: space-between;
     padding: 15px 18px;
     background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: 14px;
     cursor: pointer;
     transition: all 0.25s ease;
@@ -677,7 +627,7 @@ body:before{
 
 .option-card.active {
     border-color: var(--accent);
-    background: rgba(125, 182, 214, 0.12);
+    background: rgba(125, 182, 214, 0.1);
     box-shadow: 0 5px 20px rgba(125,182,214,0.15);
 }
 
@@ -720,8 +670,8 @@ body:before{
 
 .calc-group input[type="number"] {
     width: 100%;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 14px;
     padding: 14px 18px;
     color: var(--text);
@@ -737,16 +687,16 @@ body:before{
 }
 
 .result-card {
-    background: linear-gradient(145deg, rgba(125, 182, 214, 0.12), rgba(15, 19, 28, 0.6));
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px);
-    border: 1px solid rgba(125, 182, 214, 0.3);
+    background: linear-gradient(145deg, rgba(125, 182, 214, 0.1), rgba(15, 19, 28, 0.45));
+    backdrop-filter: blur(35px);
+    -webkit-backdrop-filter: blur(35px);
+    border: 1px solid rgba(125, 182, 214, 0.25);
     padding: 35px;
     border-radius: var(--radius);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    box-shadow: 0 25px 50px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.2);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.15);
 }
 
 .total-price {
@@ -762,7 +712,7 @@ body:before{
     color: var(--muted);
     line-height: 1.9;
     margin-bottom: 25px;
-    border-top: 1px dashed rgba(255,255,255,0.15);
+    border-top: 1px dashed rgba(255,255,255,0.12);
     padding-top: 20px;
 }
 
@@ -775,15 +725,14 @@ body:before{
     border-radius: 20px;
     font-weight: 700;
     cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+    transition: 0.3s;
     font-size: 14.5px;
     box-shadow: 0 10px 30px rgba(125,182,214,0.3);
-    will-change: transform;
 }
 
 .btn-book:hover {
     background: #fff;
-    transform: translate3d(0, -2px, 0);
+    transform: translateY(-2px);
     box-shadow: 0 15px 40px rgba(125,182,214,0.5);
 }
 
@@ -812,10 +761,10 @@ body:before{
 }
 
 .accordion-item {
-    background: rgba(15, 19, 28, 0.45);
+    background: rgba(15, 19, 28, 0.35);
     backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(25px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 20px;
     overflow: hidden;
     transition: border-color 0.3s ease, background 0.3s ease;
@@ -823,8 +772,8 @@ body:before{
 }
 
 .accordion-item.active {
-    border-color: rgba(125, 182, 214, 0.45);
-    background: rgba(20, 26, 38, 0.65);
+    border-color: rgba(125, 182, 214, 0.4);
+    background: rgba(20, 26, 38, 0.5);
 }
 
 .accordion-header {
@@ -848,7 +797,7 @@ body:before{
 .accordion-icon-tag {
     width: 34px;
     height: 34px;
-    background: rgba(125, 182, 214, 0.12);
+    background: rgba(125, 182, 214, 0.1);
     border: 1px solid rgba(125, 182, 214, 0.2);
     border-radius: 12px;
     display: flex;
@@ -865,7 +814,7 @@ body:before{
 }
 
 .accordion-item.active .accordion-arrow {
-    transform: rotate(180deg) translateZ(0);
+    transform: rotate(180deg);
     color: var(--accent);
 }
 
@@ -893,8 +842,8 @@ body:before{
 }
 
 .rule-card {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
     padding: 18px;
     border-radius: 16px;
     backdrop-filter: blur(10px);
@@ -936,7 +885,7 @@ section{
     font-family:"Space Grotesk";
     font-size:clamp(36px,5vw,65px);
     line-height:1;
-    letter-spacing:-3px;
+    letter-spacing:-2.5px;
 }
 
 .section-head p{
@@ -960,16 +909,15 @@ section{
     position:relative;
     padding:32px;
     min-height:300px;
-    background: rgba(15, 19, 28, 0.45);
+    background: rgba(15, 19, 28, 0.35);
     backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(25px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: var(--radius);
     overflow:hidden;
-    transition: transform .4s cubic-bezier(0.165, 0.84, 0.44, 1), border-color .4s, background .4s, box-shadow .4s;
+    transition:.4s cubic-bezier(0.165, 0.84, 0.44, 1);
     cursor: pointer;
     box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-    will-change: transform;
 }
 
 .job-card:before{
@@ -980,23 +928,23 @@ section{
     top:-110px;
     right:-110px;
     background:#7db6d6;
-    opacity:.06;
+    opacity:.05;
     border-radius:50%;
     filter:blur(50px);
-    transition: all 0.4s ease;
+    transition: 0.4s ease;
 }
 
 .job-card:hover:before {
-    opacity: 0.22;
+    opacity: 0.2;
     width: 280px;
     height: 280px;
 }
 
 .job-card:hover{
-    transform:translate3d(0, -8px, 0);
-    border-color:rgba(150,210,235,.4);
-    background: rgba(22, 28, 40, 0.65);
-    box-shadow: 0 30px 60px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,0.2);
+    transform:translateY(-8px);
+    border-color:rgba(150,210,235,.35);
+    background: rgba(22, 28, 40, 0.55);
+    box-shadow: 0 30px 60px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,0.15);
 }
 
 .job-top{
@@ -1010,8 +958,8 @@ section{
     border-radius:30px;
     font-size:10.5px;
     color:#9bd6ef;
-    background:rgba(126,190,220,.1);
-    border:1px solid rgba(126,190,220,.2);
+    background:rgba(126,190,220,.08);
+    border:1px solid rgba(126,190,220,.18);
     text-transform:uppercase;
     letter-spacing:1px;
     backdrop-filter: blur(10px);
@@ -1026,7 +974,7 @@ section{
     font-family:"Space Grotesk";
     font-size:24px;
     margin-bottom:12px;
-    letter-spacing:-.7px;
+    letter-spacing:-.5px;
 }
 
 .job-card p{
@@ -1057,69 +1005,54 @@ section{
     font-size:12.5px;
     font-weight:700;
     text-decoration:none;
-    transition: transform .25s, color .25s;
-    will-change: transform;
+    transition:.25s;
 }
 
 .job-card:hover .view-job{
     color:white;
-    transform: translate3d(4px, 0, 0);
+    transform: translateX(4px);
 }
 
 /* ================= FEATURE ================= */
 .feature{
     display:grid;
-    grid-template-columns:1.1fr .9fr;
-    min-height:620px;
-    padding:0;
+    grid-template-columns:1fr 1fr;
+    min-height:580px;
+    padding:60px 6vw;
     background:transparent;
-    overflow: hidden;
+    gap: 40px;
+    align-items: center;
 }
 
-.feature-image{
-    position: relative;
-    min-height:620px;
-    height: 120%;
-    top: -10%;
-    will-change: transform;
-    transform: translate3d(0,0,0);
-    background:
-        linear-gradient(
-            90deg,
-            transparent 55%,
-            #030406 100%
-        ),
-        url("https://images.unsplash.com/photo-1483412033650-1015ddeb83d1?auto=format&fit=crop&w=1800&q=85");
-    background-size:cover;
-    background-position:center;
-}
-
-.feature-content{
-    padding:100px 8vw 100px 4vw;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
+.feature-glass-box {
+    background: rgba(15, 19, 28, 0.4);
+    backdrop-filter: blur(35px);
+    -webkit-backdrop-filter: blur(35px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 45px;
+    border-radius: var(--radius);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.12);
 }
 
 .feature-content h2{
     font-family:"Space Grotesk";
-    font-size:clamp(40px,5vw,70px);
-    line-height:.98;
-    letter-spacing:-3px;
-    margin-bottom:25px;
+    font-size:clamp(35px,4.5vw,58px);
+    line-height:1.05;
+    letter-spacing:-2.5px;
+    margin-bottom:20px;
 }
 
 .feature-content p{
     color: #9399a2;
-    line-height:1.8;
-    max-width:500px;
-    margin-bottom:35px;
+    line-height:1.75;
+    font-size: 15px;
+    margin-bottom:30px;
 }
 
 .feature-list{
     display:grid;
     gap:14px;
-    margin-bottom:35px;
+    margin-bottom:30px;
 }
 
 .feature-item{
@@ -1133,7 +1066,7 @@ section{
 .check{
     width:24px;
     height:24px;
-    border:1px solid rgba(140,205,230,.4);
+    border:1px solid rgba(140,205,230,.35);
     background: rgba(140,205,230,0.08);
     border-radius:50%;
     display:grid;
@@ -1146,17 +1079,17 @@ section{
 .stats{
     display:grid;
     grid-template-columns:repeat(4,1fr);
-    border-top:1px solid rgba(255,255,255,0.08);
-    border-bottom:1px solid rgba(255,255,255,0.08);
+    border-top:1px solid rgba(255,255,255,0.06);
+    border-bottom:1px solid rgba(255,255,255,0.06);
     padding-top:70px;
     padding-bottom:70px;
-    background: rgba(10, 13, 19, 0.3);
+    background: rgba(10, 13, 19, 0.25);
     backdrop-filter: blur(20px);
 }
 
 .stat{
     padding:10px 35px;
-    border-right:1px solid rgba(255,255,255,0.08);
+    border-right:1px solid rgba(255,255,255,0.06);
 }
 
 .stat:last-child{
@@ -1167,7 +1100,7 @@ section{
     display:block;
     font-family:"Space Grotesk";
     font-size:52px;
-    letter-spacing:-3px;
+    letter-spacing:-2.5px;
     margin-bottom:8px;
     text-shadow: 0 0 20px rgba(125,182,214,0.3);
 }
@@ -1186,20 +1119,19 @@ section{
 
 .process{
     padding:38px 32px;
-    border:1px solid rgba(255,255,255,0.1);
+    border:1px solid rgba(255,255,255,0.08);
     border-radius:24px;
-    background: rgba(15, 19, 28, 0.45);
+    background: rgba(15, 19, 28, 0.35);
     backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(25px);
-    transition: transform 0.35s ease, border-color 0.35s ease, background 0.35s ease, box-shadow 0.35s ease;
+    transition: 0.35s ease;
     box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-    will-change: transform;
 }
 
 .process:hover {
-    border-color: rgba(125,182,214,.4);
-    background: rgba(22, 28, 40, 0.65);
-    transform: translate3d(0, -5px, 0);
+    border-color: rgba(125,182,214,.35);
+    background: rgba(22, 28, 40, 0.55);
+    transform: translateY(-5px);
     box-shadow: 0 25px 50px rgba(0,0,0,0.4);
 }
 
@@ -1238,9 +1170,9 @@ section{
     height:500px;
     left:50%;
     top:50%;
-    transform:translate3d(-50%,-50%,0);
+    transform:translate(-50%,-50%);
     background:#70b6d6;
-    opacity:.08;
+    opacity:.06;
     filter:blur(120px);
     border-radius:50%;
 }
@@ -1248,9 +1180,9 @@ section{
 .cta h2{
     position:relative;
     font-family:"Space Grotesk";
-    font-size:clamp(50px,7vw,100px);
-    line-height:.9;
-    letter-spacing:-5px;
+    font-size:clamp(45px,6.5vw,90px);
+    line-height:.95;
+    letter-spacing:-4px;
     margin-bottom:30px;
 }
 
@@ -1276,7 +1208,6 @@ section{
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.35s ease;
-    will-change: opacity;
 }
 
 .modal-overlay.active {
@@ -1288,22 +1219,21 @@ section{
     background: rgba(18, 23, 33, 0.82);
     backdrop-filter: blur(35px);
     -webkit-backdrop-filter: blur(35px);
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 28px;
     width: 90%;
     max-width: 480px;
     padding: 38px;
     position: relative;
-    transform: scale(0.92) translateZ(0);
+    transform: scale(0.92);
     transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     max-height: 90vh;
     overflow-y: auto;
-    box-shadow: 0 30px 80px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.2);
-    will-change: transform;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.15);
 }
 
 .modal-overlay.active .modal-box {
-    transform: scale(1) translateZ(0);
+    transform: scale(1);
 }
 
 .close-modal {
@@ -1360,7 +1290,7 @@ section{
 .form-group textarea {
     width: 100%;
     background: rgba(10, 13, 19, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 16px;
     padding: 14px 18px;
     color: var(--text);
@@ -1376,7 +1306,6 @@ section{
     box-shadow: 0 0 15px rgba(125,182,214,0.25);
 }
 
-/* ANTI-SPAM: Hidden Honeypot Field */
 .hidden-honeypot {
     display: none !important;
     visibility: hidden !important;
@@ -1393,22 +1322,15 @@ section{
     border-radius: 18px;
     font-weight: 700;
     cursor: pointer;
-    transition: transform 0.25s, box-shadow 0.25s, background 0.25s;
+    transition: 0.25s;
     margin-top: 10px;
     box-shadow: 0 10px 30px rgba(125,182,214,0.3);
-    will-change: transform;
 }
 
 .submit-btn:hover {
     background: #ffffff;
     box-shadow: 0 15px 40px rgba(125,182,214,0.5);
-    transform: translate3d(0, -2px, 0);
-}
-
-.submit-btn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    transform: none;
+    transform: translateY(-2px);
 }
 
 .terms-body {
@@ -1431,12 +1353,12 @@ section{
 /* ================= FOOTER ================= */
 footer{
     padding:40px 6vw;
-    border-top:1px solid rgba(255,255,255,0.08);
+    border-top:1px solid rgba(255,255,255,0.06);
     display:flex;
     justify-content:space-between;
     color:#757d87;
     font-size:12.5px;
-    background: rgba(8, 11, 16, 0.4);
+    background: rgba(8, 11, 16, 0.3);
     backdrop-filter: blur(20px);
 }
 
@@ -1449,7 +1371,7 @@ footer{
     color:#8b939e;
     text-decoration:none;
     cursor: pointer;
-    transition: color 0.2s;
+    transition: 0.2s;
 }
 
 .footer-links a:hover {
@@ -1458,22 +1380,13 @@ footer{
 
 /* ================= RESPONSIVE ================= */
 @media(max-width:900px){
-    .navbar { width: 92%; top: 15px; padding: 0 20px; }
+    .navbar { width: 92%; top: 15px; padding: 0 18px; }
     .nav-links{ display:none; }
-    .hero{ min-height:900px; }
-    .hero-image{
-        width:100%;
-        opacity:.4;
-        mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 70%, transparent 100%);
-    }
-    .hero h1{ letter-spacing:-3px; }
+    .hero{ min-height:850px; }
     .audio-player{ left:6vw; right:6vw; width:auto; }
-    .job-grid, .process-grid, .calc-grid, .rules-list { grid-template-columns:1fr; }
-    .feature{ grid-template-columns:1fr; }
-    .feature-image{ min-height:400px; }
-    .feature-content{ padding:80px 6vw; }
+    .job-grid, .process-grid, .calc-grid, .rules-list, .feature { grid-template-columns:1fr; }
     .stats{ grid-template-columns:1fr 1fr; }
-    .stat{ padding:25px; border-right:none; border-bottom:1px solid rgba(255,255,255,0.08); }
+    .stat{ padding:25px; border-right:none; border-bottom:1px solid rgba(255,255,255,0.06); }
 }
 
 @media(max-width:600px){
@@ -1481,13 +1394,13 @@ footer{
     .btn-small{ padding:9px 16px; }
     section{ padding:90px 5vw; }
     .hero{ padding-left:5vw; padding-right:5vw; }
-    .hero h1{ font-size:55px; }
+    .hero h1{ font-size:48px; letter-spacing:-2px; }
     .hero-description{ font-size:15px; }
     .section-head{ display:block; }
     .section-head p{ margin-top:20px; }
     .stats { grid-template-columns:1fr; }
     footer{ flex-direction:column; gap:20px; }
-    .brand-logo img{ width:120px; }
+    .brand-logo img{ width:110px; }
 }
 </style>
 </head>
@@ -1495,29 +1408,28 @@ footer{
 <body>
 
 <!-- MOTION ABSTRACT DARK BACKGROUND BLOBS -->
-<div class="motion-bg-container">
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-    <div class="blob blob-3"></div>
+<div class="motion-bg-container" id="motionBgContainer">
+    <div class="blob blob-1" id="blob1"></div>
+    <div class="blob blob-2" id="blob2"></div>
+    <div class="blob blob-3" id="blob3"></div>
 </div>
 
 <!-- TOAST CONTAINER -->
 <div class="toast-container" id="toastContainer"></div>
 
-<!-- AMBIENT LIGHT LAYER -->
 <div class="ambient-light" id="ambientLight"></div>
 
-<!-- ================= IOS FLOATING NAV ================= -->
+<!-- ================= IOS LIQUID FLOATING NAV ================= -->
 <nav class="navbar">
     <a href="#" class="brand-logo">
         <img src="spr-audio-logo.png" alt="SPR Audio">
     </a>
 
-    <div class="nav-links">
-        <div class="nav-indicator"></div>
-        <a href="#kalkulator" class="nav-item">Hitung Sewa</a>
-        <a href="#jobs" class="nav-item">Lowongan Kerja</a>
-        <a href="#process" class="nav-item">Proses</a>
+    <div class="nav-links" id="navLinksContainer">
+        <div class="nav-pill-bg" id="navPillBg"></div>
+        <a href="#kalkulator" onclick="moveNavPill(this)">Hitung Sewa</a>
+        <a href="#jobs" onclick="moveNavPill(this)">Lowongan Kerja</a>
+        <a href="#process" onclick="moveNavPill(this)">Proses</a>
     </div>
 
     <div class="nav-actions">
@@ -1527,8 +1439,7 @@ footer{
 </nav>
 
 <!-- ================= HERO ================= -->
-<header class="hero" id="home">
-    <div class="hero-image"></div>
+<header class="hero">
     <div class="hero-content">
         <div class="eyebrow">
             <span class="live-dot"></span>
@@ -1833,8 +1744,7 @@ footer{
 
 <!-- ================= FEATURE ================= -->
 <section class="feature" id="about">
-    <div class="feature-image"></div>
-    <div class="feature-content">
+    <div class="feature-glass-box feature-content">
         <div class="section-label">Filosofi Kami</div>
         <h2>Suara hebat dimulai dari orang-orang hebat.</h2>
         <p>SPR Audio percaya bahwa produksi terbaik diciptakan ketika individu kreatif memiliki kebebasan, alat, dan lingkungan yang tepat untuk fokus pada keahlian mereka.</p>
@@ -1845,6 +1755,12 @@ footer{
             <div class="feature-item"><span class="check">✓</span> Kerja Sama Jangka Panjang</div>
         </div>
         <a href="#jobs" class="btn-secondary" style="width:max-content;">Lihat Lowongan Terbuka</a>
+    </div>
+
+    <div class="feature-glass-box" style="display: flex; flex-direction: column; justify-content: center; gap: 20px;">
+        <span style="font-size: 13px; color: var(--accent2); font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Standar Kualitas iGlass</span>
+        <h3 style="font-family: 'Space Grotesk'; font-size: 28px; letter-spacing: -1px;">Transparansi & Kejernihan Akustik</h3>
+        <p style="color: var(--muted); font-size: 14px; line-height: 1.7;">Setiap perangkat sound system diuji menggunakan instrumen kalibrasi digital mutakhir untuk memastikan setiap decibel suara sampai ke telinga audiens dengan jernih tanpa distorsi.</p>
     </div>
 </section>
 
@@ -1986,148 +1902,70 @@ footer{
 </footer>
 
 <script>
-/* ================= 1. SMOOTH SCROLL LENIS (120fps) ================= */
-const lenis = new Lenis({
-    duration: 1.2,
-    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    direction: 'vertical',
-    gestureDirection: 'vertical',
-    smooth: true,
-    mouseMultiplier: 1,
-    smoothTouch: false,
-    touchMultiplier: 2,
-    infinite: false,
-});
-
-lenis.on('scroll', ScrollTrigger.update);
-
-gsap.ticker.add((time) => {
-    lenis.raf(time * 1000);
-});
-gsap.ticker.lagSmoothing(0);
-
-// Lenis Anchor Clicks (supaya href="#id" scrollingnya halus)
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            lenis.scrollTo(target, { offset: -80 }); // Offset header
-        }
-    });
-});
-
-
-/* ================= 2. GSAP PARALLAX SETUP ================= */
+/* ================= 120 FPS BUTTERY SMOOTH GSAP PARALLAX ================= */
 gsap.registerPlugin(ScrollTrigger);
 
 ScrollTrigger.config({
-    syncInterval: 3
+    syncInterval: 1
 });
 
-// Hero Background Parallax super halus & buttery smooth
-gsap.to(".hero-image", {
-    yPercent: 20,
-    ease: "power1.out",
-    scrollTrigger: {
-        trigger: ".hero",
-        start: "top top",
-        end: "bottom top",
-        scrub: 1.2,
-        invalidateOnRefresh: true
-    }
-});
-
-// Hero Content Smooth Fade & Slide
-gsap.from(".hero-content", {
-    y: 40,
-    opacity: 0,
-    duration: 1.4,
-    ease: "power3.out"
-});
-
-// General Section Elements Animasi Masuk Super Mulus
-gsap.utils.toArray(".section-head, .calc-grid, .job-card, .process, .info-container").forEach((el) => {
-    gsap.from(el, {
-        y: 35,
+// Parallax 120fps super halus menggunakan GSAP Scrub 0.5
+gsap.utils.toArray("section, header").forEach((sec) => {
+    gsap.from(sec.querySelectorAll('.section-head, .calc-grid, .job-card, .process, .info-container, .feature-glass-box'), {
+        y: 40,
         opacity: 0,
-        duration: 1,
-        ease: "power2.out",
+        duration: 1.2,
+        ease: "power3.out",
+        stagger: 0.08,
         scrollTrigger: {
-            trigger: el,
-            start: "top 88%",
+            trigger: sec,
+            start: "top 85%",
             toggleActions: "play none none reverse"
         }
     });
 });
 
-// Feature Section Image Parallax
-gsap.to(".feature-image", {
-    yPercent: 12,
-    ease: "power1.out",
-    scrollTrigger: {
-        trigger: ".feature",
-        start: "top bottom",
-        end: "bottom top",
-        scrub: 1.2,
-        invalidateOnRefresh: true
-    }
+/* ================= INTERACTIVE TOUCH BACKGROUND (LIQUID ABSOLUTE) ================= */
+const motionBg = document.getElementById('motionBgContainer');
+const blob1 = document.getElementById('blob1');
+const blob2 = document.getElementById('blob2');
+const blob3 = document.getElementById('blob3');
+
+window.addEventListener('pointermove', (e) => {
+    const xPos = (e.clientX / window.innerWidth - 0.5) * 60;
+    const yPos = (e.clientY / window.innerHeight - 0.5) * 60;
+
+    if(blob1) blob1.style.transform = `translate(${xPos * 1.2}px, ${yPos * 1.2}px)`;
+    if(blob2) blob2.style.transform = `translate(${-xPos * 1.5}px, ${-yPos * 1.5}px)`;
+    if(blob3) blob3.style.transform = `translate(${xPos * 0.8}px, ${-yPos * 0.8}px)`;
 });
 
+/* ================= NAV LIQUID SLIDING PILL ================= */
+const navLinksContainer = document.getElementById('navLinksContainer');
+const navPillBg = document.getElementById('navPillBg');
+const defaultNavLink = navLinksContainer ? navLinksContainer.querySelector('a') : null;
 
-/* ================= 3. NAVBAR AIR LENTUR (LIQUID INDICATOR) ================= */
-const navLinks = document.querySelectorAll('.nav-links .nav-item');
-const indicator = document.querySelector('.nav-indicator');
-const navContainer = document.querySelector('.nav-links');
-
-function moveIndicator(el) {
-    if(!el) return;
-    const navRect = navContainer.getBoundingClientRect();
-    const linkRect = el.getBoundingClientRect();
+function moveNavPill(el) {
+    if (!navPillBg || !el) return;
+    navPillBg.style.width = el.offsetWidth + 'px';
+    navPillBg.style.left = el.offsetLeft + 'px';
     
-    indicator.style.opacity = '1';
-    indicator.style.width = `${linkRect.width}px`;
-    // Hardware acceleration transform
-    indicator.style.transform = `translate3d(${linkRect.left - navRect.left}px, 0, 0)`;
-
-    // Set active class untuk efek glow teks
-    navLinks.forEach(link => link.classList.remove('active'));
+    navLinksContainer.querySelectorAll('a').forEach(a => a.classList.remove('active'));
     el.classList.add('active');
 }
 
-navLinks.forEach(link => {
-    link.addEventListener('click', (e) => {
-        moveIndicator(e.currentTarget);
-    });
-});
-
-
-/* ================= 4. AMBIENT LIGHT (120FPS LERP MOUSE TRACKER) ================= */
-const ambientLight = document.getElementById('ambientLight');
-let mouseX = window.innerWidth / 2;
-let mouseY = window.innerHeight / 2;
-let lightX = mouseX;
-let lightY = mouseY;
-
-window.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-});
-
-// Gunakan requestAnimationFrame untuk interpolasi (lerp) pergerakan yang sangat mulus
-function animateLight() {
-    lightX += (mouseX - lightX) * 0.12;
-    lightY += (mouseY - lightY) * 0.12;
-    
-    if (ambientLight) {
-        ambientLight.style.transform = `translate3d(${lightX}px, ${lightY}px, 0)`;
-    }
-    requestAnimationFrame(animateLight);
+if (defaultNavLink && navPillBg) {
+    moveNavPill(defaultNavLink);
 }
-animateLight();
+
+// Window resize listener untuk menjaga posisi pill akurat
+window.addEventListener('resize', () => {
+    const activeLink = navLinksContainer ? navLinksContainer.querySelector('a.active') : null;
+    if (activeLink) moveNavPill(activeLink);
+});
 
 
-/* ================= 5. KALKULATOR PRICELIST ================= */
+/* ================= 1. KALKULATOR PRICELIST ================= */
 let selectedPaket = 3000000;
 let selectedPaketText = "Paket Medium / Pernikahan";
 let selectedAkses = 0;
@@ -2237,7 +2075,7 @@ function pesanKalkulator() {
 
 hitungSewa();
 
-/* ================= 6. ACCORDION FAQ ================= */
+/* ================= 2. ACCORDION FAQ ================= */
 function toggleAccordion(header) {
     if (!header) return;
     const item = header.parentElement;
@@ -2250,7 +2088,7 @@ function toggleAccordion(header) {
     }
 }
 
-/* ================= 7. TOAST SYSTEM ================= */
+/* ================= 3. TOAST SYSTEM ================= */
 function showToast(message, icon = "✓") {
     const container = document.getElementById('toastContainer');
     if (!container) return;
@@ -2264,13 +2102,7 @@ function showToast(message, icon = "✓") {
     `;
     
     container.appendChild(toast);
-    
-    // Hardware accelerated display
-    requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-            toast.classList.add('show');
-        });
-    });
+    setTimeout(() => toast.classList.add('show'), 10);
     
     setTimeout(() => {
         toast.classList.remove('show');
@@ -2278,7 +2110,7 @@ function showToast(message, icon = "✓") {
     }, 4500);
 }
 
-/* ================= 8. AUDIO PLAYER ================= */
+/* ================= 4. AUDIO PLAYER ================= */
 const audio = new Audio("goth-slowed.mp3");
 audio.loop = true;
 
@@ -2317,7 +2149,16 @@ function animateVisualizer() {
     setTimeout(animateVisualizer, 100);
 }
 
-/* ================= 9. COUNTER ANIMATION ================= */
+/* ================= 5. AMBIENT LIGHT ================= */
+const ambientLight = document.getElementById('ambientLight');
+if (ambientLight) {
+    window.addEventListener('mousemove', (e) => {
+        ambientLight.style.left = e.clientX + 'px';
+        ambientLight.style.top = e.clientY + 'px';
+    });
+}
+
+/* ================= 6. COUNTER ANIMATION ================= */
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if(entry.isIntersecting){
@@ -2353,7 +2194,7 @@ function startCounter(el) {
     update();
 }
 
-/* ================= 10. MODAL & SECURITY HANDLERS ================= */
+/* ================= 7. MODAL & SECURITY HANDLERS ================= */
 const modal = document.getElementById('modalOverlay');
 const modalBox = document.getElementById('modalBox');
 const modalTitle = document.getElementById('modalTitle');
