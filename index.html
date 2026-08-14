@@ -220,9 +220,11 @@ body:before{
 .hero-image{
     position:absolute;
     right:0;
-    top:-10%;
+    top:-15%;
     width:58%;
-    height:120%;
+    height:130%;
+    will-change: transform;
+    transform: translateZ(0);
     background:
         linear-gradient(
             90deg,
@@ -905,6 +907,8 @@ section{
     min-height:620px;
     height: 120%;
     top: -10%;
+    will-change: transform;
+    transform: translateZ(0);
     background:
         linear-gradient(
             90deg,
@@ -1762,36 +1766,42 @@ footer{
 /* ================= GSAP PARALLAX & ANIMATIONS SETUP ================= */
 gsap.registerPlugin(ScrollTrigger);
 
-// 1. Hero Background Parallax
+// Optimalisasi render engine untuk kelancaran ekstrem naik-turun scroll
+ScrollTrigger.config({
+    syncInterval: 5
+});
+
+// 1. Hero Background Parallax dengan Inertia Scrub Super Halus
 gsap.to(".hero-image", {
-    yPercent: 25,
+    yPercent: 22,
     ease: "none",
     scrollTrigger: {
         trigger: ".hero",
         start: "top top",
         end: "bottom top",
-        scrub: 1
+        scrub: 0.8, // Nilai scrub halus agar transisi scroll naik & turun bebas macet
+        invalidateOnRefresh: true
     }
 });
 
 // 2. Hero Content Smooth Fade & Slide
 gsap.from(".hero-content", {
-    y: 60,
+    y: 50,
     opacity: 0,
     duration: 1.2,
-    ease: "power3.out"
+    ease: "power2.out"
 });
 
-// 3. General Section Titles & Elements Parallax Animation
+// 3. General Section Elements Animasi Masuk
 gsap.utils.toArray(".section-head, .calc-grid, .job-card, .process, .info-container").forEach((el) => {
     gsap.from(el, {
-        y: 50,
+        y: 40,
         opacity: 0,
-        duration: 1,
-        ease: "power3.out",
+        duration: 0.9,
+        ease: "power2.out",
         scrollTrigger: {
             trigger: el,
-            start: "top 85%",
+            start: "top 88%",
             toggleActions: "play none none reverse"
         }
     });
@@ -1799,13 +1809,14 @@ gsap.utils.toArray(".section-head, .calc-grid, .job-card, .process, .info-contai
 
 // 4. Feature Section Image Parallax
 gsap.to(".feature-image", {
-    yPercent: 15,
+    yPercent: 12,
     ease: "none",
     scrollTrigger: {
         trigger: ".feature",
         start: "top bottom",
         end: "bottom top",
-        scrub: 1
+        scrub: 0.8,
+        invalidateOnRefresh: true
     }
 });
 
