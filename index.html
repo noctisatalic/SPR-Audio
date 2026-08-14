@@ -140,7 +140,7 @@ body:before{
     transition: width 0.3s, height 0.3s;
 }
 
-/* ================= IOS IGLASSMORPHISM DESIGN SYSTEM ================= *
+/* ================= IOS IGLASSMORPHISM DESIGN SYSTEM ================= */
 .ios-glass {
     background: var(--panel);
     backdrop-filter: blur(30px);
@@ -225,11 +225,15 @@ body:before{
     display:flex;
     align-items:center;
     text-decoration:none;
+    color: white;
+    font-family: 'Space Grotesk';
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: -0.5px;
 }
 
 .brand-logo img{
-    width:130px;
-    height:auto;
+    height:30px;
     display:block;
     object-fit:contain;
     transition:.3s ease;
@@ -1422,7 +1426,8 @@ footer{
 <!-- ================= IOS LIQUID FLOATING NAV ================= -->
 <nav class="navbar">
     <a href="#" class="brand-logo">
-        <img src="spr-audio-logo.png" alt="SPR Audio">
+        <!-- Logo gambar diganti dengan text atau dummy logo untuk tes -->
+        SPR AUDIO
     </a>
 
     <div class="nav-links" id="navLinksContainer">
@@ -1459,7 +1464,7 @@ footer{
         <button class="play" id="playBtn" aria-label="Putar Audio Demo">▶</button>
         <div class="track-info">
             <small>Sedang Diputar</small>
-            <strong title="Goth (Slowed + Reverb)">Goth (Slowed + Reverb)</strong>
+            <strong title="Audio Demo">Audio Demo Berjalan</strong>
         </div>
         <div class="wave">
             <span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span>
@@ -2111,7 +2116,8 @@ function showToast(message, icon = "✓") {
 }
 
 /* ================= 4. AUDIO PLAYER ================= */
-const audio = new Audio("goth-slowed.mp3");
+// AUDIO KITA UBAH JADI LINK ONLINE AGAR LANGSUNG AKTIF BUAT DEMO
+const audio = new Audio("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3");
 audio.loop = true;
 
 let isPlaying = false;
@@ -2127,7 +2133,7 @@ if (playBtn) {
                 animateVisualizer();
                 showToast("Memutar audio demo", "🎵");
             }).catch(() => {
-                showToast("Gagal memutar audio, file goth-slowed.mp3 tidak ditemukan", "⚠️");
+                showToast("Sistem gagal memutar audio (diblokir browser/CORS)", "⚠️");
             });
         } else {
             audio.pause();
