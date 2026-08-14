@@ -1425,7 +1425,8 @@ footer .op-hours{
                 </div>
 
                 <div class="custom-options">
-                    <div class="option-card" onclick="selectOption(event, 'groupPaket', 'valPaket', 1500000, 'Paket Akustik / Indoor')">
+                    <div class="option-card" onclick="selectOption(event, 'groupPaket', 'valPaket', 800000, 'Paket 1.000 Watt')"><div class="option-text"><strong>Paket 1.000 Watt</strong><span>Kapasitas Hingga 1.000 W</span></div><div class="radio-indicator"></div></div>
+                    <div class="option-card" onclick="selectOption(event, 'groupPaket', 'valPaket', 1300000, 'Paket Akustik / Indoor')">
                         <div class="option-text">
                             <strong>Paket Akustik / Indoor</strong>
                             <span>Kapasitas Hingga 3.000 W</span>
@@ -1433,7 +1434,7 @@ footer .op-hours{
                         <div class="radio-indicator"></div>
                     </div>
 
-                    <div class="option-card active" onclick="selectOption(event, 'groupPaket', 'valPaket', 3000000, 'Paket Medium / Pernikahan')">
+                    <div class="option-card active" onclick="selectOption(event, 'groupPaket', 'valPaket', 2500000, 'Paket Medium / Pernikahan')">
                         <div class="option-text">
                             <strong>Paket Medium / Pernikahan</strong>
                             <span>Kapasitas Hingga 5.000 W</span>
@@ -1546,7 +1547,12 @@ footer .op-hours{
                 </div>
             </div>
 
-            <button class="btn-book" onclick="pesanKalkulator()">Pesan & Deal Harga Ini via WhatsApp</button>
+            
+<div class="date-box">
+<label for="tanggalAcara"><strong>Tanggal Acara</strong></label>
+<input type="date" id="tanggalAcara" style="width:100%;padding:14px;border-radius:14px;font-size:16px;">
+</div>
+<button class="btn-book" onclick="pesanKalkulator()">Pesan & Deal Harga Ini via WhatsApp</button>
         </div>
     </div>
 </section>
@@ -1846,7 +1852,7 @@ const BASECAMP_LAT = -6.927900;
 const BASECAMP_LNG = 106.930000;
 
 /* ================= 1. KALKULATOR PRICELIST & GPS MAPS ================= */
-let selectedPaket = 3000000;
+let selectedPaket = 2500000;
 let selectedPaketText = "Paket Medium / Pernikahan";
 let selectedAkses = 0;
 let selectedAksesText = "Akses Rata / Mudah";
@@ -2002,8 +2008,9 @@ function pesanKalkulator() {
     const total = totalElem ? totalElem.innerText : '';
     const breakdown = breakdownElem ? breakdownElem.innerText : '';
     const jarak = jarakInput ? jarakInput.value : 0;
+const tgl=(document.getElementById('tanggalAcara')||{}).value||'';
 
-    const message = `Halo SPR Audio, saya ingin booking sewa Sound System dengan rincian berikut:\n\n*Jarak Lokasi (GPS):* ${jarak} KM dari Basecamp Cisaat\n${breakdown}\n\n*TOTAL ESTIMASI:* ${total}`;
+    const message = `Halo SPR Audio, saya ingin booking sewa Sound System dengan rincian berikut:\n\n*Tanggal Acara:* ${tgl}\n*Jarak Lokasi (GPS):* ${jarak} KM dari Basecamp Cisaat\n${breakdown}\n\n*TOTAL ESTIMASI:* ${total}`;
     window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
 }
 
