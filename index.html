@@ -13,6 +13,10 @@
 <!-- hCaptcha Script -->
 <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
 
+<!-- GSAP & ScrollTrigger CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
 <style>
 :root{
     --bg:#08090b;
@@ -216,9 +220,9 @@ body:before{
 .hero-image{
     position:absolute;
     right:0;
-    top:0;
+    top:-10%;
     width:58%;
-    height:100%;
+    height:120%;
     background:
         linear-gradient(
             90deg,
@@ -893,10 +897,14 @@ section{
     min-height:620px;
     padding:0;
     background:#0b0d10;
+    overflow: hidden;
 }
 
 .feature-image{
+    position: relative;
     min-height:620px;
+    height: 120%;
+    top: -10%;
     background:
         linear-gradient(
             90deg,
@@ -1229,20 +1237,6 @@ footer{
     cursor: pointer;
 }
 
-/* ================= SCROLL ANIMATION ================= */
-.reveal{
-    opacity:0;
-    transform:translateY(45px);
-    transition:
-        opacity .9s ease,
-        transform .9s cubic-bezier(.16,1,.3,1);
-}
-
-.reveal.active{
-    opacity:1;
-    transform:translateY(0);
-}
-
 /* ================= RESPONSIVE ================= */
 @media(max-width:900px){
     .nav-links{ display:none; }
@@ -1307,7 +1301,7 @@ footer{
 <!-- ================= HERO ================= -->
 <header class="hero">
     <div class="hero-image"></div>
-    <div class="hero-content reveal">
+    <div class="hero-content">
         <div class="eyebrow">
             <span class="live-dot"></span>
             SAAT INI SEDANG MEMBUKA LOWONGAN UNTUK TENAGA AHLI AUDIO.
@@ -1339,7 +1333,7 @@ footer{
 
 <!-- ================= KALKULATOR PRICELIST ================= -->
 <section class="calculator-section" id="kalkulator">
-    <div class="section-head reveal" style="margin-bottom: 20px;">
+    <div class="section-head" style="margin-bottom: 20px;">
         <div>
             <div class="section-label">Simulasi Biaya Cepat</div>
             <h2>Kalkulator Sewa<br>Sound System.</h2>
@@ -1347,7 +1341,7 @@ footer{
         <p>Klik opsi di bawah ini untuk memilih konfigurasi acara kamu dan dapatkan rincian harganya secara transparan.</p>
     </div>
 
-    <div class="calc-grid reveal">
+    <div class="calc-grid">
         <div class="calc-box">
             <!-- 1. PAKET SOUND -->
             <div class="calc-group" id="groupPaket">
@@ -1483,7 +1477,7 @@ footer{
 
 <!-- ================= FAQ ACCORDION ================= -->
 <div class="info-section">
-    <div class="info-container reveal">
+    <div class="info-container">
         <h3 class="info-tabs-title">Aturan Transaksi & FAQ</h3>
         <div class="accordion">
             <div class="accordion-item active">
@@ -1560,7 +1554,7 @@ footer{
 
 <!-- ================= JOBS ================= -->
 <section class="jobs" id="jobs">
-    <div class="section-head reveal">
+    <div class="section-head">
         <div>
             <div class="section-label">Posisi Terbuka</div>
             <h2>Proyek<br>Saat Ini.</h2>
@@ -1569,7 +1563,7 @@ footer{
     </div>
 
     <div class="job-grid">
-        <article class="job-card reveal" onclick="openApplyModal('Mixing Engineer')">
+        <article class="job-card" onclick="openApplyModal('Mixing Engineer')">
             <div class="job-top">
                 <span class="status">Terbuka</span>
                 <span class="job-type">Remote</span>
@@ -1582,7 +1576,7 @@ footer{
             </div>
         </article>
 
-        <article class="job-card reveal" onclick="openApplyModal('Vocal Producer')">
+        <article class="job-card" onclick="openApplyModal('Vocal Producer')">
             <div class="job-top">
                 <span class="status">Terbuka</span>
                 <span class="job-type">Remote</span>
@@ -1595,7 +1589,7 @@ footer{
             </div>
         </article>
 
-        <article class="job-card reveal" onclick="openApplyModal('Mastering Engineer')">
+        <article class="job-card" onclick="openApplyModal('Mastering Engineer')">
             <div class="job-top">
                 <span class="status">Terbuka</span>
                 <span class="job-type">Proyek</span>
@@ -1612,8 +1606,8 @@ footer{
 
 <!-- ================= FEATURE ================= -->
 <section class="feature" id="about">
-    <div class="feature-image reveal"></div>
-    <div class="feature-content reveal">
+    <div class="feature-image"></div>
+    <div class="feature-content">
         <div class="section-label">Filosofi Kami</div>
         <h2>Suara hebat dimulai dari orang-orang hebat.</h2>
         <p>SPR Audio percaya bahwa produksi terbaik diciptakan ketika individu kreatif memiliki kebebasan, alat, dan lingkungan yang tepat untuk fokus pada keahlian mereka.</p>
@@ -1629,19 +1623,19 @@ footer{
 
 <!-- ================= STATS ================= -->
 <section class="stats">
-    <div class="stat reveal">
+    <div class="stat">
         <strong class="counter" data-target="12" data-suffix="+">0</strong>
         <span>Proyek Aktif</span>
     </div>
-    <div class="stat reveal">
+    <div class="stat">
         <strong class="counter" data-target="28">0</strong>
         <span>Profesional Audio</span>
     </div>
-    <div class="stat reveal">
+    <div class="stat">
         <strong class="counter" data-target="6" data-prefix="0">0</strong>
         <span>Kategori Musik</span>
     </div>
-    <div class="stat reveal">
+    <div class="stat">
         <strong>24/7</strong>
         <span>Kolaborasi Kreatif</span>
     </div>
@@ -1649,7 +1643,7 @@ footer{
 
 <!-- ================= PROCESS ================= -->
 <section id="process">
-    <div class="section-head reveal">
+    <div class="section-head">
         <div>
             <div class="section-label">Cara Kerja</div>
             <h2>Sederhana.<br>Fokus.</h2>
@@ -1658,17 +1652,17 @@ footer{
     </div>
 
     <div class="process-grid">
-        <div class="process reveal">
+        <div class="process">
             <div class="number">01 — TEMUKAN</div>
             <h3>Cari Proyek</h3>
             <p>Jelajahi proyek audio aktif dan temukan yang sesuai dengan keahlianmu.</p>
         </div>
-        <div class="process reveal">
+        <div class="process">
             <div class="number">02 — LAMAR</div>
             <h3>Kirim Karya</h3>
             <p>Kirimkan portofolio, pengalaman, serta penawaran hargamu.</p>
         </div>
-        <div class="process reveal">
+        <div class="process">
             <div class="number">03 — KARYA</div>
             <h3>Mulai Berkarya</h3>
             <p>Kandidat terpilih akan dihubungi langsung untuk mendiskusikan rincian proyek.</p>
@@ -1678,7 +1672,7 @@ footer{
 
 <!-- ================= CTA ================= -->
 <section class="cta">
-    <div class="reveal">
+    <div>
         <div class="section-label">Bekerja Bersama SPR Audio</div>
         <h2>Buat karya yang layak didengar.</h2>
         <p>Proyek baru terus bermunculan. Jelajahi peluang saat ini dan jadilah bagian dari produksi selanjutnya.</p>
@@ -1765,6 +1759,57 @@ footer{
 </footer>
 
 <script>
+/* ================= GSAP PARALLAX & ANIMATIONS SETUP ================= */
+gsap.registerPlugin(ScrollTrigger);
+
+// 1. Hero Background Parallax
+gsap.to(".hero-image", {
+    yPercent: 25,
+    ease: "none",
+    scrollTrigger: {
+        trigger: ".hero",
+        start: "top top",
+        end: "bottom top",
+        scrub: 1
+    }
+});
+
+// 2. Hero Content Smooth Fade & Slide
+gsap.from(".hero-content", {
+    y: 60,
+    opacity: 0,
+    duration: 1.2,
+    ease: "power3.out"
+});
+
+// 3. General Section Titles & Elements Parallax Animation
+gsap.utils.toArray(".section-head, .calc-grid, .job-card, .process, .info-container").forEach((el) => {
+    gsap.from(el, {
+        y: 50,
+        opacity: 0,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+            trigger: el,
+            start: "top 85%",
+            toggleActions: "play none none reverse"
+        }
+    });
+});
+
+// 4. Feature Section Image Parallax
+gsap.to(".feature-image", {
+    yPercent: 15,
+    ease: "none",
+    scrollTrigger: {
+        trigger: ".feature",
+        start: "top bottom",
+        end: "bottom top",
+        scrub: 1
+    }
+});
+
+
 /* ================= 1. KALKULATOR PRICELIST ================= */
 let selectedPaket = 3000000;
 let selectedPaketText = "Paket Medium / Pernikahan";
@@ -1958,11 +2003,10 @@ if (ambientLight) {
     });
 }
 
-/* ================= 6. SCROLL REVEAL & COUNTER ================= */
+/* ================= 6. COUNTER ANIMATION ================= */
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if(entry.isIntersecting){
-            entry.target.classList.add("active");
             const counters = entry.target.querySelectorAll('.counter');
             counters.forEach(counter => {
                 if(!counter.classList.contains('counted')) {
@@ -1974,7 +2018,7 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, { threshold: 0.15 });
 
-document.querySelectorAll(".reveal, .stats").forEach(el => observer.observe(el));
+document.querySelectorAll(".stats").forEach(el => observer.observe(el));
 
 function startCounter(el) {
     const target = +el.getAttribute('data-target');
