@@ -13,9 +13,10 @@
 <!-- hCaptcha Script -->
 <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
 
-<!-- GSAP & ScrollTrigger CDN -->
+<!-- GSAP, ScrollTrigger & Lenis (Smooth Scroll) CDN -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 
 <style>
 :root{
@@ -38,8 +39,9 @@
     box-sizing:border-box;
 }
 
+/* Dihapus scroll-behavior:smooth karena sudah digantikan Lenis agar tidak bentrok */
 html{
-    scroll-behavior:smooth;
+    background: var(--bg);
 }
 
 body{
@@ -60,6 +62,7 @@ body{
     background: #030406;
 }
 
+/* HARDWARE ACCELERATION: Gunakan translate3d & will-change */
 .blob {
     position: absolute;
     border-radius: 50%;
@@ -95,22 +98,23 @@ body{
     animation: moveBlob3 25s ease-in-out infinite alternate;
 }
 
+/* Menggunakan translate3d agar diproses langsung oleh GPU */
 @keyframes moveBlob1 {
-    0% { transform: translate(0, 0) scale(1); }
-    50% { transform: translate(250px, 180px) scale(1.15); }
-    100% { transform: translate(100px, 400px) scale(0.9); }
+    0% { transform: translate3d(0, 0, 0) scale(1); }
+    50% { transform: translate3d(250px, 180px, 0) scale(1.15); }
+    100% { transform: translate3d(100px, 400px, 0) scale(0.9); }
 }
 
 @keyframes moveBlob2 {
-    0% { transform: translate(0, 0) scale(1); }
-    50% { transform: translate(-300px, -220px) scale(1.25); }
-    100% { transform: translate(-150px, -450px) scale(0.85); }
+    0% { transform: translate3d(0, 0, 0) scale(1); }
+    50% { transform: translate3d(-300px, -220px, 0) scale(1.25); }
+    100% { transform: translate3d(-150px, -450px, 0) scale(0.85); }
 }
 
 @keyframes moveBlob3 {
-    0% { transform: translate(0, 0) scale(0.9); }
-    50% { transform: translate(200px, -250px) scale(1.2); }
-    100% { transform: translate(-250px, 200px) scale(1); }
+    0% { transform: translate3d(0, 0, 0) scale(0.9); }
+    50% { transform: translate3d(200px, -250px, 0) scale(1.2); }
+    100% { transform: translate3d(-250px, 200px, 0) scale(1); }
 }
 
 /* Noise texture overlay for high-end cinematic grain */
@@ -125,19 +129,21 @@ body:before{
     url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
 }
 
-/* Ambient Cursor Light Effect */
+/* Ambient Cursor Light Effect - CPU Optimized */
 .ambient-light {
     position: fixed;
     top: 0;
     left: 0;
     width: 450px;
     height: 450px;
+    margin-top: -225px; /* Offset to center */
+    margin-left: -225px;
     background: radial-gradient(circle, rgba(125, 182, 214, 0.08) 0%, rgba(0,0,0,0) 70%);
     border-radius: 50%;
     pointer-events: none;
     z-index: -1;
-    transform: translate(-50%, -50%);
-    transition: width 0.3s, height 0.3s;
+    will-change: transform;
+    /* Dihapus transition agar animasi lerp dari JS 120fps murni */
 }
 
 /* ================= IOS GLASSMORPHISM DESIGN SYSTEM ================= */
@@ -183,14 +189,15 @@ body:before{
     gap: 12px;
     font-size: 14px;
     min-width: 300px;
-    transform: translateY(100px);
+    transform: translate3d(0, 100px, 0); /* Hardware Acceleration */
     opacity: 0;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     pointer-events: all;
+    will-change: transform, opacity;
 }
 
 .toast.show {
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0);
     opacity: 1;
 }
 
@@ -207,12 +214,12 @@ body:before{
     flex-shrink: 0;
 }
 
-/* ================= IOS FLOATING NAVBAR ================= */
+/* ================= IOS FLOATING NAVBAR & AIR LENTUR ================= */
 .navbar{
     position:fixed;
     top:20px;
     left:50%;
-    transform:translateX(-50%);
+    transform:translate3d(-50%, 0, 0);
     width:90%;
     max-width:1200px;
     height:74px;
@@ -227,7 +234,8 @@ body:before{
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 37px;
     box-shadow: 0 20px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.15);
-    transition:.35s ease;
+    transition: transform .35s ease;
+    will-change: transform;
 }
 
 .brand-logo{
@@ -241,29 +249,57 @@ body:before{
     height:auto;
     display:block;
     object-fit:contain;
-    transition:.3s ease;
+    transition: transform .3s ease;
+    will-change: transform;
 }
 
 .brand-logo:hover img{
-    transform:scale(1.03);
+    transform:scale(1.03) translateZ(0);
 }
 
 .nav-links{
+    position: relative;
     display:flex;
-    gap:28px;
+    align-items: center;
+    gap:8px;
+    padding: 4px;
 }
 
 .nav-links a{
+    position: relative;
+    z-index: 2;
+    padding: 8px 16px;
     color:#b8bec5;
     text-decoration:none;
     font-size:14px;
     font-weight: 500;
-    transition:.25s;
+    transition: color .25s;
 }
 
-.nav-links a:hover{
+.nav-links a:hover, .nav-links a.active{
     color:white;
     text-shadow: 0 0 10px rgba(125,182,214,0.6);
+}
+
+/* NAV INDIKATOR AIR LENTUR */
+.nav-indicator {
+    position: absolute;
+    top: 4px;
+    left: 0;
+    height: calc(100% - 8px);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0;
+    /* Animasi Bouncy Cubic Bezier 120fps */
+    transition: transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                width 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                opacity 0.3s ease;
+    will-change: transform, width;
 }
 
 .nav-actions{
@@ -289,12 +325,13 @@ body:before{
     text-decoration:none;
     font-size:13px;
     font-weight:700;
-    transition:.3s;
+    transition: transform .3s, box-shadow .3s, background .3s;
     box-shadow: 0 4px 15px rgba(125,182,214,0.3);
+    will-change: transform;
 }
 
 .btn-small:hover{
-    transform:translateY(-2px);
+    transform:translate3d(0, -2px, 0);
     background:#ffffff;
     box-shadow:0 8px 25px rgba(125,182,214,0.5);
 }
@@ -316,7 +353,7 @@ body:before{
     width:58%;
     height:120%;
     will-change: transform;
-    transform: translateZ(0);
+    transform: translate3d(0,0,0);
     background:
         linear-gradient(
             90deg,
@@ -325,7 +362,6 @@ body:before{
             rgba(3,4,6,.15) 55%,
             rgba(3,4,6,.25)
         ),
-        /* Background disesuaikan menjadi nuansa kaca/studio akustik modern bertema glassmorphism */
         url("https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=2200&q=85");
     background-size:cover;
     background-position:center;
@@ -342,6 +378,7 @@ body:before{
     position:relative;
     z-index:2;
     max-width:700px;
+    will-change: transform, opacity;
 }
 
 .eyebrow{
@@ -416,8 +453,9 @@ body:before{
     text-decoration:none;
     font-size:14px;
     font-weight:700;
-    transition:.3s;
+    transition: transform .3s, box-shadow .3s, background .3s;
     cursor: pointer;
+    will-change: transform;
 }
 
 .btn-primary{
@@ -429,7 +467,7 @@ body:before{
 }
 
 .btn-primary:hover{
-    transform:translateY(-3px);
+    transform:translate3d(0, -3px, 0);
     background:#ffffff;
     box-shadow:0 15px 40px rgba(125,182,214,0.4);
 }
@@ -444,7 +482,7 @@ body:before{
 .btn-secondary:hover{
     border-color:rgba(159,212,237,.5);
     background:rgba(159,212,237,.08);
-    transform:translateY(-3px);
+    transform:translate3d(0, -3px, 0);
 }
 
 /* ================= AUDIO VISUALIZER (IOS GLASS) ================= */
@@ -465,10 +503,11 @@ body:before{
     z-index:5;
     box-shadow:0 20px 50px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,0.15);
     transition: transform 0.3s ease;
+    will-change: transform;
 }
 
 .audio-player:hover {
-    transform: translateY(-3px);
+    transform: translate3d(0, -3px, 0);
 }
 
 .play{
@@ -482,13 +521,14 @@ body:before{
     color:#030406;
     cursor:pointer;
     font-size:13px;
-    transition: 0.2s;
+    transition: transform 0.2s, background 0.2s;
     flex-shrink: 0;
     box-shadow: 0 4px 15px rgba(125,182,214,0.3);
+    will-change: transform;
 }
 
 .play:hover {
-    scale: 1.08;
+    transform: scale(1.08) translateZ(0);
     background: #ffffff;
 }
 
@@ -527,6 +567,7 @@ body:before{
     border-radius:4px;
     background:#8bc5df;
     transition: height 0.1s ease;
+    will-change: height;
 }
 
 /* ================= KALKULATOR PRICELIST (IOS GLASS) ================= */
@@ -598,7 +639,7 @@ body:before{
 }
 
 .calc-group.open .calc-arrow {
-    transform: rotate(180deg);
+    transform: rotate(180deg) translateZ(0);
     color: var(--accent);
 }
 
@@ -734,14 +775,15 @@ body:before{
     border-radius: 20px;
     font-weight: 700;
     cursor: pointer;
-    transition: 0.3s;
+    transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
     font-size: 14.5px;
     box-shadow: 0 10px 30px rgba(125,182,214,0.3);
+    will-change: transform;
 }
 
 .btn-book:hover {
     background: #fff;
-    transform: translateY(-2px);
+    transform: translate3d(0, -2px, 0);
     box-shadow: 0 15px 40px rgba(125,182,214,0.5);
 }
 
@@ -823,7 +865,7 @@ body:before{
 }
 
 .accordion-item.active .accordion-arrow {
-    transform: rotate(180deg);
+    transform: rotate(180deg) translateZ(0);
     color: var(--accent);
 }
 
@@ -924,9 +966,10 @@ section{
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: var(--radius);
     overflow:hidden;
-    transition:.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: transform .4s cubic-bezier(0.165, 0.84, 0.44, 1), border-color .4s, background .4s, box-shadow .4s;
     cursor: pointer;
     box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    will-change: transform;
 }
 
 .job-card:before{
@@ -940,7 +983,7 @@ section{
     opacity:.06;
     border-radius:50%;
     filter:blur(50px);
-    transition: 0.4s ease;
+    transition: all 0.4s ease;
 }
 
 .job-card:hover:before {
@@ -950,7 +993,7 @@ section{
 }
 
 .job-card:hover{
-    transform:translateY(-8px);
+    transform:translate3d(0, -8px, 0);
     border-color:rgba(150,210,235,.4);
     background: rgba(22, 28, 40, 0.65);
     box-shadow: 0 30px 60px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,0.2);
@@ -1014,12 +1057,13 @@ section{
     font-size:12.5px;
     font-weight:700;
     text-decoration:none;
-    transition:.25s;
+    transition: transform .25s, color .25s;
+    will-change: transform;
 }
 
 .job-card:hover .view-job{
     color:white;
-    transform: translateX(4px);
+    transform: translate3d(4px, 0, 0);
 }
 
 /* ================= FEATURE ================= */
@@ -1038,7 +1082,7 @@ section{
     height: 120%;
     top: -10%;
     will-change: transform;
-    transform: translateZ(0);
+    transform: translate3d(0,0,0);
     background:
         linear-gradient(
             90deg,
@@ -1066,7 +1110,6 @@ section{
 }
 
 .feature-content p{
-    color:#959c5;
     color: #9399a2;
     line-height:1.8;
     max-width:500px;
@@ -1148,14 +1191,15 @@ section{
     background: rgba(15, 19, 28, 0.45);
     backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(25px);
-    transition: 0.35s ease;
+    transition: transform 0.35s ease, border-color 0.35s ease, background 0.35s ease, box-shadow 0.35s ease;
     box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    will-change: transform;
 }
 
 .process:hover {
     border-color: rgba(125,182,214,.4);
     background: rgba(22, 28, 40, 0.65);
-    transform: translateY(-5px);
+    transform: translate3d(0, -5px, 0);
     box-shadow: 0 25px 50px rgba(0,0,0,0.4);
 }
 
@@ -1194,7 +1238,7 @@ section{
     height:500px;
     left:50%;
     top:50%;
-    transform:translate(-50%,-50%);
+    transform:translate3d(-50%,-50%,0);
     background:#70b6d6;
     opacity:.08;
     filter:blur(120px);
@@ -1232,6 +1276,7 @@ section{
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.35s ease;
+    will-change: opacity;
 }
 
 .modal-overlay.active {
@@ -1249,15 +1294,16 @@ section{
     max-width: 480px;
     padding: 38px;
     position: relative;
-    transform: scale(0.92);
+    transform: scale(0.92) translateZ(0);
     transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     max-height: 90vh;
     overflow-y: auto;
     box-shadow: 0 30px 80px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.2);
+    will-change: transform;
 }
 
 .modal-overlay.active .modal-box {
-    transform: scale(1);
+    transform: scale(1) translateZ(0);
 }
 
 .close-modal {
@@ -1347,15 +1393,16 @@ section{
     border-radius: 18px;
     font-weight: 700;
     cursor: pointer;
-    transition: 0.25s;
+    transition: transform 0.25s, box-shadow 0.25s, background 0.25s;
     margin-top: 10px;
     box-shadow: 0 10px 30px rgba(125,182,214,0.3);
+    will-change: transform;
 }
 
 .submit-btn:hover {
     background: #ffffff;
     box-shadow: 0 15px 40px rgba(125,182,214,0.5);
-    transform: translateY(-2px);
+    transform: translate3d(0, -2px, 0);
 }
 
 .submit-btn:disabled {
@@ -1402,7 +1449,7 @@ footer{
     color:#8b939e;
     text-decoration:none;
     cursor: pointer;
-    transition: 0.2s;
+    transition: color 0.2s;
 }
 
 .footer-links a:hover {
@@ -1457,6 +1504,7 @@ footer{
 <!-- TOAST CONTAINER -->
 <div class="toast-container" id="toastContainer"></div>
 
+<!-- AMBIENT LIGHT LAYER -->
 <div class="ambient-light" id="ambientLight"></div>
 
 <!-- ================= IOS FLOATING NAV ================= -->
@@ -1466,9 +1514,10 @@ footer{
     </a>
 
     <div class="nav-links">
-        <a href="#kalkulator">Hitung Sewa</a>
-        <a href="#jobs">Lowongan Kerja</a>
-        <a href="#process">Proses</a>
+        <div class="nav-indicator"></div>
+        <a href="#kalkulator" class="nav-item">Hitung Sewa</a>
+        <a href="#jobs" class="nav-item">Lowongan Kerja</a>
+        <a href="#process" class="nav-item">Proses</a>
     </div>
 
     <div class="nav-actions">
@@ -1478,7 +1527,7 @@ footer{
 </nav>
 
 <!-- ================= HERO ================= -->
-<header class="hero">
+<header class="hero" id="home">
     <div class="hero-image"></div>
     <div class="hero-content">
         <div class="eyebrow">
@@ -1937,14 +1986,46 @@ footer{
 </footer>
 
 <script>
-/* ================= GSAP PARALLAX & SMOOTH ANIMATIONS SETUP ================= */
+/* ================= 1. SMOOTH SCROLL LENIS (120fps) ================= */
+const lenis = new Lenis({
+    duration: 1.2,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    direction: 'vertical',
+    gestureDirection: 'vertical',
+    smooth: true,
+    mouseMultiplier: 1,
+    smoothTouch: false,
+    touchMultiplier: 2,
+    infinite: false,
+});
+
+lenis.on('scroll', ScrollTrigger.update);
+
+gsap.ticker.add((time) => {
+    lenis.raf(time * 1000);
+});
+gsap.ticker.lagSmoothing(0);
+
+// Lenis Anchor Clicks (supaya href="#id" scrollingnya halus)
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            lenis.scrollTo(target, { offset: -80 }); // Offset header
+        }
+    });
+});
+
+
+/* ================= 2. GSAP PARALLAX SETUP ================= */
 gsap.registerPlugin(ScrollTrigger);
 
 ScrollTrigger.config({
     syncInterval: 3
 });
 
-// 1. Hero Background Parallax super halus & buttery smooth
+// Hero Background Parallax super halus & buttery smooth
 gsap.to(".hero-image", {
     yPercent: 20,
     ease: "power1.out",
@@ -1957,7 +2038,7 @@ gsap.to(".hero-image", {
     }
 });
 
-// 2. Hero Content Smooth Fade & Slide
+// Hero Content Smooth Fade & Slide
 gsap.from(".hero-content", {
     y: 40,
     opacity: 0,
@@ -1965,7 +2046,7 @@ gsap.from(".hero-content", {
     ease: "power3.out"
 });
 
-// 3. General Section Elements Animasi Masuk Super Mulus
+// General Section Elements Animasi Masuk Super Mulus
 gsap.utils.toArray(".section-head, .calc-grid, .job-card, .process, .info-container").forEach((el) => {
     gsap.from(el, {
         y: 35,
@@ -1980,7 +2061,7 @@ gsap.utils.toArray(".section-head, .calc-grid, .job-card, .process, .info-contai
     });
 });
 
-// 4. Feature Section Image Parallax
+// Feature Section Image Parallax
 gsap.to(".feature-image", {
     yPercent: 12,
     ease: "power1.out",
@@ -1994,7 +2075,59 @@ gsap.to(".feature-image", {
 });
 
 
-/* ================= 1. KALKULATOR PRICELIST ================= */
+/* ================= 3. NAVBAR AIR LENTUR (LIQUID INDICATOR) ================= */
+const navLinks = document.querySelectorAll('.nav-links .nav-item');
+const indicator = document.querySelector('.nav-indicator');
+const navContainer = document.querySelector('.nav-links');
+
+function moveIndicator(el) {
+    if(!el) return;
+    const navRect = navContainer.getBoundingClientRect();
+    const linkRect = el.getBoundingClientRect();
+    
+    indicator.style.opacity = '1';
+    indicator.style.width = `${linkRect.width}px`;
+    // Hardware acceleration transform
+    indicator.style.transform = `translate3d(${linkRect.left - navRect.left}px, 0, 0)`;
+
+    // Set active class untuk efek glow teks
+    navLinks.forEach(link => link.classList.remove('active'));
+    el.classList.add('active');
+}
+
+navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+        moveIndicator(e.currentTarget);
+    });
+});
+
+
+/* ================= 4. AMBIENT LIGHT (120FPS LERP MOUSE TRACKER) ================= */
+const ambientLight = document.getElementById('ambientLight');
+let mouseX = window.innerWidth / 2;
+let mouseY = window.innerHeight / 2;
+let lightX = mouseX;
+let lightY = mouseY;
+
+window.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+});
+
+// Gunakan requestAnimationFrame untuk interpolasi (lerp) pergerakan yang sangat mulus
+function animateLight() {
+    lightX += (mouseX - lightX) * 0.12;
+    lightY += (mouseY - lightY) * 0.12;
+    
+    if (ambientLight) {
+        ambientLight.style.transform = `translate3d(${lightX}px, ${lightY}px, 0)`;
+    }
+    requestAnimationFrame(animateLight);
+}
+animateLight();
+
+
+/* ================= 5. KALKULATOR PRICELIST ================= */
 let selectedPaket = 3000000;
 let selectedPaketText = "Paket Medium / Pernikahan";
 let selectedAkses = 0;
@@ -2104,7 +2237,7 @@ function pesanKalkulator() {
 
 hitungSewa();
 
-/* ================= 2. ACCORDION FAQ ================= */
+/* ================= 6. ACCORDION FAQ ================= */
 function toggleAccordion(header) {
     if (!header) return;
     const item = header.parentElement;
@@ -2117,7 +2250,7 @@ function toggleAccordion(header) {
     }
 }
 
-/* ================= 3. TOAST SYSTEM ================= */
+/* ================= 7. TOAST SYSTEM ================= */
 function showToast(message, icon = "✓") {
     const container = document.getElementById('toastContainer');
     if (!container) return;
@@ -2131,7 +2264,13 @@ function showToast(message, icon = "✓") {
     `;
     
     container.appendChild(toast);
-    setTimeout(() => toast.classList.add('show'), 10);
+    
+    // Hardware accelerated display
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            toast.classList.add('show');
+        });
+    });
     
     setTimeout(() => {
         toast.classList.remove('show');
@@ -2139,7 +2278,7 @@ function showToast(message, icon = "✓") {
     }, 4500);
 }
 
-/* ================= 4. AUDIO PLAYER ================= */
+/* ================= 8. AUDIO PLAYER ================= */
 const audio = new Audio("goth-slowed.mp3");
 audio.loop = true;
 
@@ -2178,16 +2317,7 @@ function animateVisualizer() {
     setTimeout(animateVisualizer, 100);
 }
 
-/* ================= 5. AMBIENT LIGHT ================= */
-const ambientLight = document.getElementById('ambientLight');
-if (ambientLight) {
-    window.addEventListener('mousemove', (e) => {
-        ambientLight.style.left = e.clientX + 'px';
-        ambientLight.style.top = e.clientY + 'px';
-    });
-}
-
-/* ================= 6. COUNTER ANIMATION ================= */
+/* ================= 9. COUNTER ANIMATION ================= */
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if(entry.isIntersecting){
@@ -2223,7 +2353,7 @@ function startCounter(el) {
     update();
 }
 
-/* ================= 7. MODAL & SECURITY HANDLERS ================= */
+/* ================= 10. MODAL & SECURITY HANDLERS ================= */
 const modal = document.getElementById('modalOverlay');
 const modalBox = document.getElementById('modalBox');
 const modalTitle = document.getElementById('modalTitle');
