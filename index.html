@@ -10,6 +10,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
 
+<!-- hCaptcha Script -->
+<script src="https://js.hcaptcha.com/1/api.js" async defer></script>
+
 <style>
 :root{
     --bg:#08090b;
@@ -200,7 +203,7 @@ body:before{
     box-shadow:0 10px 30px rgba(125,182,214,.2);
 }
 
-/* ================= HERO & PARALLAX ================= */
+/* ================= HERO ================= */
 .hero{
     min-height:100vh;
     position:relative;
@@ -228,7 +231,6 @@ body:before{
     background-size:cover;
     background-position:center;
     opacity:.78;
-    will-change: transform;
     mask-image:linear-gradient(
         to right,
         transparent 0%,
@@ -241,7 +243,6 @@ body:before{
     position:relative;
     z-index:2;
     max-width:700px;
-    will-change: transform;
 }
 
 .eyebrow{
@@ -336,7 +337,7 @@ body:before{
     transform:translateY(-3px);
 }
 
-/* ================= AUDIO PLAYER & VISUALIZER ================= */
+/* ================= AUDIO VISUALIZER ================= */
 .audio-player{
     position:absolute;
     bottom:45px;
@@ -375,7 +376,7 @@ body:before{
 }
 
 .play:hover {
-    transform: scale(1.08);
+    scale: 1.08;
     background: #ffffff;
 }
 
@@ -410,7 +411,7 @@ body:before{
 
 .bar{
     width:3px;
-    height:6px;
+    height:10px;
     border-radius:4px;
     background:#8bc5df;
     transition: height 0.1s ease;
@@ -1094,6 +1095,8 @@ section{
     position: relative;
     transform: scale(0.9);
     transition: transform 0.3s ease;
+    max-height: 90vh;
+    overflow-y: auto;
 }
 
 .modal-overlay.active .modal-box {
@@ -1176,6 +1179,7 @@ section{
     font-weight: 700;
     cursor: pointer;
     transition: 0.2s;
+    margin-top: 10px;
 }
 
 .submit-btn:hover {
@@ -1302,8 +1306,8 @@ footer{
 
 <!-- ================= HERO ================= -->
 <header class="hero">
-    <div class="hero-image" id="heroImage"></div>
-    <div class="hero-content reveal" id="heroContent">
+    <div class="hero-image"></div>
+    <div class="hero-content reveal">
         <div class="eyebrow">
             <span class="live-dot"></span>
             SAAT INI SEDANG MEMBUKA LOWONGAN UNTUK TENAGA AHLI AUDIO.
@@ -1388,6 +1392,7 @@ footer{
                     <div class="calc-trigger-info">
                         <label>2. Jarak Lokasi Acara (KM dari Basecamp)</label>
                     </div>
+                    <!-- BATAS MIN & MAX (0 - 1500) -->
                     <input type="number" id="jarakKM" value="5" min="0" max="1500" placeholder="Masukkan jarak (0 - 1500 KM)" oninput="hitungSewa()" style="margin-top: 8px;">
                 </div>
             </div>
@@ -1693,8 +1698,7 @@ footer{
             <input type="hidden" name="subject" id="emailSubject" value="General Inquiry - SPR Audio">
             <input type="hidden" name="from_name" value="SPR Audio Website">
 
-            <input type="checkbox" name="botcheck" class="hidden-honeypot">
-            
+            <!-- ANTI-SPAM: Custom Honeypot Field -->
             <div class="hidden-honeypot">
                 <input type="text" name="website_url_check" id="honeyInput" autocomplete="off" tabindex="-1">
             </div>
@@ -1725,6 +1729,11 @@ footer{
             <div class="form-group">
                 <label id="messageLabel">Pesan / Detail Proyek</label>
                 <textarea name="message" id="messageInput" rows="3" placeholder="Tuliskan pesan atau detail pertanyaanmu..." maxlength="1000" required></textarea>
+            </div>
+
+            <!-- hCaptcha Widget Integration -->
+            <div class="form-group" style="display: flex; justify-content: center; margin: 15px 0;">
+                <div class="h-captcha" data-sitekey="50b2fe65-b00b-4b9e-ad62-3ba471098be2"></div>
             </div>
 
             <button type="submit" class="submit-btn" id="submitBtn">Kirim Pesan</button>
@@ -1901,7 +1910,7 @@ function showToast(message, icon = "✓") {
     }, 4500);
 }
 
-/* ================= 4. AUDIO PLAYER & VISUALIZER ================= */
+/* ================= 4. AUDIO PLAYER ================= */
 const audio = new Audio("goth-slowed.mp3");
 audio.loop = true;
 
@@ -1924,57 +1933,30 @@ if (playBtn) {
             audio.pause();
             isPlaying = false;
             playBtn.innerHTML = "▶";
-            resetVisualizer();
         }
     });
 }
 
-// Berhenti otomatis jika lagu habis / selesai
-audio.addEventListener('ended', () => {
-    isPlaying = false;
-    if(playBtn) playBtn.innerHTML = "▶";
-    resetVisualizer();
-});
-
 function animateVisualizer() {
-    if (!isPlaying) return;
+    if (!isPlaying) {
+        bars.forEach(bar => bar.style.height = "5px");
+        return;
+    }
     bars.forEach(bar => {
-        const height = Math.floor(Math.random() * 26) + 4;
+        const height = Math.floor(Math.random() * 22) + 5;
         bar.style.height = height + "px";
     });
-    setTimeout(animateVisualizer, 120);
+    setTimeout(animateVisualizer, 100);
 }
 
-function resetVisualizer() {
-    bars.forEach(bar => bar.style.height = "6px");
-}
-
-/* ================= 5. AMBIENT LIGHT & PARALLAX EFFECT ================= */
+/* ================= 5. AMBIENT LIGHT ================= */
 const ambientLight = document.getElementById('ambientLight');
-const heroImage = document.getElementById('heroImage');
-const heroContent = document.getElementById('heroContent');
-
-window.addEventListener('mousemove', (e) => {
-    if (ambientLight) {
+if (ambientLight) {
+    window.addEventListener('mousemove', (e) => {
         ambientLight.style.left = e.clientX + 'px';
         ambientLight.style.top = e.clientY + 'px';
-    }
-});
-
-// Efek Paralex Halus berdasarkan Scroll Posisi Layar
-window.addEventListener('scroll', () => {
-    let scrollY = window.pageYOffset;
-    
-    if (heroImage && scrollY <= window.innerHeight) {
-        // Gambar background hero bergerak sedikit lebih lambat ke bawah saat scroll
-        heroImage.style.transform = `translateY(${scrollY * 0.25}px) scale(${1 + scrollY * 0.0003})`;
-    }
-    if (heroContent && scrollY <= window.innerHeight) {
-        // Konten hero bergeser ke atas perlahan
-        heroContent.style.transform = `translateY(${scrollY * 0.15}px)`;
-        heroContent.style.opacity = 1 - (scrollY / 700);
-    }
-});
+    });
+}
 
 /* ================= 6. SCROLL REVEAL & COUNTER ================= */
 const observer = new IntersectionObserver((entries) => {
@@ -2123,7 +2105,7 @@ async function handleFormSubmit(e) {
 
     const honeyField = document.getElementById('honeyInput');
     if (honeyField && honeyField.value !== '') {
-        showToast("Pesan terkirim!", "✉️"); 
+        showToast("Pesan terkirim!", "✉️");
         form.reset();
         closeModal();
         return;
@@ -2140,6 +2122,13 @@ async function handleFormSubmit(e) {
 
     if (phoneVal.length < 9) {
         showToast("Nomor WhatsApp/HP terlalu pendek. Masukkan nomor yang valid.", "⚠️");
+        return;
+    }
+
+    // Validasi hCaptcha Response
+    const hCaptchaResponse = form.querySelector('textarea[name="h-captcha-response"]');
+    if (hCaptchaResponse && !hCaptchaResponse.value) {
+        showToast("Mohon selesaikan verifikasi hCaptcha terlebih dahulu.", "⚠️");
         return;
     }
 
@@ -2163,6 +2152,9 @@ async function handleFormSubmit(e) {
             lastSubmitTime = Date.now();
             showToast("Terima kasih! Pesanmu berhasil terkirim ke SPR Audio.", "✉️");
             form.reset();
+            if (typeof hcaptcha !== 'undefined') {
+                hcaptcha.reset();
+            }
             closeModal();
         } else {
             showToast("Terjadi kesalahan sistem. Silakan coba lagi.", "❌");
