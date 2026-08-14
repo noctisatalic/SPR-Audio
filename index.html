@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
 
-<!-- hCaptcha via proxy resmi Web3Forms (WAJIB agar token diverifikasi dengan benar) -->
+<!-- hCaptcha via proxy resmi Web3Forms (dipakai khusus untuk form Lamaran Kerja) -->
 <script src="https://web3forms.com/client/script.js" async defer></script>
 
 <style>
@@ -47,7 +47,6 @@ body{
     overflow-x:hidden;
 }
 
-/* Ambient Cursor Light Effect */
 .ambient-light {
     position: fixed;
     top: 0;
@@ -73,7 +72,6 @@ body:before{
     url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
 }
 
-/* ================= TOAST NOTIFICATION ================= */
 .toast-container {
     position: fixed;
     bottom: 30px;
@@ -122,7 +120,6 @@ body:before{
     flex-shrink: 0;
 }
 
-/* ================= NAV ================= */
 .navbar{
     position:fixed;
     top:0;
@@ -203,7 +200,6 @@ body:before{
     box-shadow:0 10px 30px rgba(125,182,214,.2);
 }
 
-/* ================= HERO ================= */
 .hero{
     min-height:100vh;
     position:relative;
@@ -337,7 +333,6 @@ body:before{
     transform:translateY(-3px);
 }
 
-/* ================= AUDIO VISUALIZER ================= */
 .audio-player{
     position:absolute;
     bottom:45px;
@@ -417,7 +412,6 @@ body:before{
     transition: height 0.1s ease;
 }
 
-/* ================= KALKULATOR PRICELIST ================= */
 .calculator-section {
     padding: 100px 6vw;
     background: var(--bg2);
@@ -620,7 +614,6 @@ body:before{
     box-shadow: 0 10px 30px rgba(125,182,214,0.2);
 }
 
-/* ================= FAQ & ACCORDION ================= */
 .info-section {
     padding: 60px 6vw 100px;
     background: var(--bg2);
@@ -734,7 +727,6 @@ body:before{
     margin-bottom: 5px;
 }
 
-/* ================= SECTIONS ================= */
 section{
     padding:130px 6vw;
 }
@@ -768,7 +760,6 @@ section{
     line-height:1.7;
 }
 
-/* ================= JOBS ================= */
 .jobs{
     background:#0b0d10;
 }
@@ -839,6 +830,12 @@ section{
     letter-spacing:1px;
 }
 
+.status.status-soon{
+    color:#f0c987;
+    background:rgba(240,201,135,.09);
+    border:1px solid rgba(240,201,135,.18);
+}
+
 .job-type{
     color:#686f77;
     font-size:11px;
@@ -886,7 +883,6 @@ section{
     transform: translateX(4px);
 }
 
-/* ================= FEATURE ================= */
 .feature{
     display:grid;
     grid-template-columns:1.1fr .9fr;
@@ -955,7 +951,6 @@ section{
     font-size:11px;
 }
 
-/* ================= STATS ================= */
 .stats{
     display:grid;
     grid-template-columns:repeat(4,1fr);
@@ -987,7 +982,6 @@ section{
     font-size:12px;
 }
 
-/* ================= PROCESS ================= */
 .process-grid{
     display:grid;
     grid-template-columns:repeat(3,1fr);
@@ -1026,7 +1020,6 @@ section{
     line-height:1.7;
 }
 
-/* ================= CTA ================= */
 .cta{
     position:relative;
     text-align:center;
@@ -1065,7 +1058,6 @@ section{
     line-height:1.7;
 }
 
-/* ================= MODAL / POPUP ================= */
 .modal-overlay {
     position: fixed;
     inset: 0;
@@ -1161,7 +1153,15 @@ section{
     border-color: var(--accent);
 }
 
-/* ANTI-SPAM: Hidden Honeypot Field */
+.form-hint{
+    display:block;
+    font-size:11px;
+    color:var(--muted);
+    margin-top:6px;
+    text-transform:none;
+    letter-spacing:0;
+}
+
 .hidden-honeypot {
     display: none !important;
     visibility: hidden !important;
@@ -1208,7 +1208,34 @@ section{
     margin-bottom: 5px;
 }
 
-/* ================= FOOTER ================= */
+/* ================= WHATSAPP FLOATING BUTTON ================= */
+.wa-float{
+    position:fixed;
+    left:24px;
+    bottom:24px;
+    width:58px;
+    height:58px;
+    border-radius:50%;
+    background:#25D366;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 10px 30px rgba(0,0,0,.4);
+    z-index:998;
+    text-decoration:none;
+    transition:.3s ease;
+}
+
+.wa-float:hover{
+    transform:translateY(-4px) scale(1.06);
+    box-shadow:0 14px 40px rgba(37,211,102,.35);
+}
+
+.wa-float svg{
+    width:28px;
+    height:28px;
+}
+
 footer{
     padding:35px 6vw;
     border-top:1px solid var(--line);
@@ -1216,6 +1243,13 @@ footer{
     justify-content:space-between;
     color:#646b73;
     font-size:12px;
+}
+
+footer .op-hours{
+    display:block;
+    margin-top:4px;
+    opacity:.75;
+    font-size:11px;
 }
 
 .footer-links{
@@ -1229,7 +1263,6 @@ footer{
     cursor: pointer;
 }
 
-/* ================= SCROLL ANIMATION ================= */
 .reveal{
     opacity:0;
     transform:translateY(45px);
@@ -1243,7 +1276,6 @@ footer{
     transform:translateY(0);
 }
 
-/* ================= RESPONSIVE ================= */
 @media(max-width:900px){
     .nav-links{ display:none; }
     .hero{ min-height:900px; }
@@ -1254,6 +1286,7 @@ footer{
     }
     .hero h1{ letter-spacing:-3px; }
     .audio-player{ left:6vw; right:6vw; width:auto; }
+    .wa-float{ bottom:130px; left:16px; width:52px; height:52px; }
     .job-grid, .process-grid, .calc-grid, .rules-list { grid-template-columns:1fr; }
     .feature{ grid-template-columns:1fr; }
     .feature-image{ min-height:400px; }
@@ -1286,6 +1319,13 @@ footer{
 
 <div class="ambient-light" id="ambientLight"></div>
 
+<!-- TOMBOL WHATSAPP MENGAMBANG -->
+<a class="wa-float" href="https://wa.me/6281318048885?text=Halo%20SPR%20Audio%2C%20saya%20ingin%20bertanya%20tentang%20sewa%20sound%20system." target="_blank" rel="noopener noreferrer" aria-label="Chat WhatsApp SPR Audio" title="Chat kami di WhatsApp (09.00–21.00 WIB)">
+    <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.36 5.07L2 22l5.1-1.33A9.94 9.94 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.6 0-3.09-.46-4.35-1.26l-.31-.19-3.03.79.81-2.95-.2-.31A7.94 7.94 0 0 1 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8zm4.29-5.6c-.24-.12-1.42-.7-1.64-.78-.22-.08-.38-.12-.54.12-.16.24-.62.78-.76.94-.14.16-.28.18-.52.06-.24-.12-1-.37-1.9-1.17-.7-.62-1.18-1.39-1.32-1.63-.14-.24-.02-.37.1-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.2-.47-.4-.4-.54-.41h-.46c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.7 2.6 4.12 3.64.58.25 1.03.4 1.38.51.58.18 1.1.16 1.52.1.46-.07 1.42-.58 1.62-1.14.2-.56.2-1.04.14-1.14-.06-.1-.22-.16-.46-.28z"/>
+    </svg>
+</a>
+
 <!-- ================= NAV ================= -->
 <nav class="navbar">
     <a href="#" class="brand-logo">
@@ -1299,7 +1339,7 @@ footer{
     </div>
 
     <div class="nav-actions">
-        <a class="signin" onclick="openContactModal()">Kontak</a>
+        <a class="signin" href="https://wa.me/6281318048885?text=Halo%20SPR%20Audio%2C%20saya%20ingin%20bertanya." target="_blank" rel="noopener noreferrer">Kontak</a>
         <a href="#kalkulator" class="btn-small">Cek Harga Sewa</a>
     </div>
 </nav>
@@ -1310,14 +1350,15 @@ footer{
     <div class="hero-content reveal">
         <div class="eyebrow">
             <span class="live-dot"></span>
-            SAAT INI SEDANG MEMBUKA LOWONGAN UNTUK TENAGA AHLI AUDIO.
+            SEWA SOUND SYSTEM PROFESIONAL UNTUK ACARA ANDA.
         </div>
         <h1>Suara membutuhkan <span>ketelitian.</span></h1>
         <p class="hero-description">
-            SPR Audio menyediakan persewaan sound system profesional serta mencari profesional audio, produser, teknisi, dan musisi luar biasa untuk proyek mendatang.
+            SPR Audio menyediakan persewaan sound system profesional lengkap dengan kru dan Sound Engineer berpengalaman untuk berbagai jenis acara.
         </p>
         <div class="hero-buttons">
             <a href="#kalkulator" class="btn-primary">Simulasi Biaya Sewa</a>
+            <a href="https://www.instagram.com/spraudiosystem?igsh=MWVoc3o5YjJnbXFteA==" target="_blank" rel="noopener noreferrer" class="btn-secondary">Lihat Portofolio di Instagram</a>
         </div>
     </div>
 
@@ -1326,7 +1367,7 @@ footer{
         <button class="play" id="playBtn" aria-label="Putar Audio Demo">▶</button>
         <div class="track-info">
             <small>Sedang Diputar</small>
-            <strong title="Goth (Slowed + Reverb)">Goth (Slowed + Reverb)</strong>
+            <strong title="Demo Reel SPR Audio">Demo Reel SPR Audio</strong>
         </div>
         <div class="wave">
             <span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span>
@@ -1392,7 +1433,6 @@ footer{
                     <div class="calc-trigger-info">
                         <label>2. Jarak Lokasi Acara (KM dari Basecamp)</label>
                     </div>
-                    <!-- BATAS MIN & MAX (0 - 1500) -->
                     <input type="number" id="jarakKM" value="5" min="0" max="1500" placeholder="Masukkan jarak (0 - 1500 KM)" oninput="hitungSewa()" style="margin-top: 8px;">
                 </div>
             </div>
@@ -1562,49 +1602,49 @@ footer{
 <section class="jobs" id="jobs">
     <div class="section-head reveal">
         <div>
-            <div class="section-label">Posisi Terbuka</div>
-            <h2>Proyek<br>Saat Ini.</h2>
+            <div class="section-label">Posisi yang Biasa Kami Butuhkan</div>
+            <h2>Jadi Mitra<br>SPR Audio.</h2>
         </div>
-        <p>SPR Audio saat ini mencari talenta terbaik untuk berkolaborasi pada produksi audio mendatang.</p>
+        <p>Saat ini belum ada lowongan aktif. Lihat posisi yang biasa kami butuhkan di bawah, dan hubungi kami via WhatsApp jika tertarik menjadi mitra untuk proyek mendatang.</p>
     </div>
 
     <div class="job-grid">
         <article class="job-card reveal" onclick="openApplyModal('Mixing Engineer')">
             <div class="job-top">
-                <span class="status">Terbuka</span>
+                <span class="status status-soon">Segera Dibuka</span>
                 <span class="job-type">Remote</span>
             </div>
             <h3>Mixing Engineer</h3>
-            <p>Mencari mixing engineer berpengalaman untuk proyek musik kontemporer.</p>
+            <p>Mitra mixing engineer berpengalaman untuk proyek musik kontemporer.</p>
             <div class="job-bottom">
-                <span class="budget">Rp 1.500.000+</span>
-                <span class="view-job">Lihat Posisi →</span>
+                <span class="budget">Referensi: Rp 1.500.000+</span>
+                <span class="view-job">Info Lebih Lanjut →</span>
             </div>
         </article>
 
         <article class="job-card reveal" onclick="openApplyModal('Vocal Producer')">
             <div class="job-top">
-                <span class="status">Terbuka</span>
+                <span class="status status-soon">Segera Dibuka</span>
                 <span class="job-type">Remote</span>
             </div>
             <h3>Vocal Producer</h3>
-            <p>Mencari produser vokal yang memahami musik pop modern, R&B, dan alternatif.</p>
+            <p>Mitra produser vokal yang memahami musik pop modern, R&B, dan alternatif.</p>
             <div class="job-bottom">
-                <span class="budget">Rp 1.000.000+</span>
-                <span class="view-job">Lihat Posisi →</span>
+                <span class="budget">Referensi: Rp 1.000.000+</span>
+                <span class="view-job">Info Lebih Lanjut →</span>
             </div>
         </article>
 
         <article class="job-card reveal" onclick="openApplyModal('Mastering Engineer')">
             <div class="job-top">
-                <span class="status">Terbuka</span>
+                <span class="status status-soon">Segera Dibuka</span>
                 <span class="job-type">Proyek</span>
             </div>
             <h3>Mastering Engineer</h3>
-            <p>Dibutuhkan mastering engineer untuk perilisan digital multi-track.</p>
+            <p>Mitra mastering engineer untuk perilisan digital multi-track.</p>
             <div class="job-bottom">
-                <span class="budget">Rp 750.000+</span>
-                <span class="view-job">Lihat Posisi →</span>
+                <span class="budget">Referensi: Rp 750.000+</span>
+                <span class="view-job">Info Lebih Lanjut →</span>
             </div>
         </article>
     </div>
@@ -1623,7 +1663,7 @@ footer{
             <div class="feature-item"><span class="check">✓</span> Ekspektasi Proyek yang Jelas</div>
             <div class="feature-item"><span class="check">✓</span> Kerja Sama Jangka Panjang</div>
         </div>
-        <a href="#jobs" class="btn-secondary" style="width:max-content;">Lihat Lowongan Terbuka</a>
+        <a href="#jobs" class="btn-secondary" style="width:max-content;">Lihat Posisi Mitra</a>
     </div>
 </section>
 
@@ -1682,20 +1722,20 @@ footer{
         <div class="section-label">Bekerja Bersama SPR Audio</div>
         <h2>Buat karya yang layak didengar.</h2>
         <p>Proyek baru terus bermunculan. Jelajahi peluang saat ini dan jadilah bagian dari produksi selanjutnya.</p>
-        <a href="#jobs" class="btn-primary" style="width:max-content;margin:auto;">Jelajahi Lowongan Pekerjaan</a>
+        <a href="#jobs" class="btn-primary" style="width:max-content;margin:auto;">Lihat Peluang Kolaborasi</a>
     </div>
 </section>
 
-<!-- ================= MODAL POPUP ================= -->
+<!-- ================= MODAL: LAMARAN KERJA ================= -->
 <div class="modal-overlay" id="modalOverlay">
     <div class="modal-box" id="modalBox">
         <button class="close-modal" onclick="closeModal()">✕</button>
-        <h3 class="modal-title" id="modalTitle">Hubungi SPR Audio</h3>
-        <p class="modal-desc" id="modalDesc">Isi informasi di bawah ini untuk mengirimkan pesan.</p>
+        <h3 class="modal-title" id="modalTitle">Lamar Posisi</h3>
+        <p class="modal-desc" id="modalDesc">Kirimkan link portofolio dan CV kamu.</p>
 
         <form id="applyForm" onsubmit="handleFormSubmit(event)">
             <input type="hidden" name="access_key" value="4c3cc0e1-b452-43e7-a8cb-cc54bdec18a2">
-            <input type="hidden" name="subject" id="emailSubject" value="General Inquiry - SPR Audio">
+            <input type="hidden" name="subject" id="emailSubject" value="Lamaran Baru - SPR Audio">
             <input type="hidden" name="from_name" value="SPR Audio Website">
 
             <!-- ANTI-SPAM: Custom Honeypot Field -->
@@ -1721,22 +1761,28 @@ footer{
                     required />
             </div>
 
-            <div class="form-group" id="portfolioGroup" style="display: none;">
+            <div class="form-group">
                 <label>Link Portofolio (Soundcloud / Drive / Spotify)</label>
-                <input type="url" name="portfolio" id="portfolioInput" placeholder="https://..." maxlength="200" />
+                <input type="url" name="portfolio" id="portfolioInput" placeholder="https://..." maxlength="200" required />
             </div>
 
             <div class="form-group">
-                <label id="messageLabel">Pesan / Detail Proyek</label>
-                <textarea name="message" id="messageInput" rows="3" placeholder="Tuliskan pesan atau detail pertanyaanmu..." maxlength="1000" required></textarea>
+                <label>Upload CV / Lamaran (PDF, DOC, DOCX)</label>
+                <input type="file" name="attachment" id="cvInput" accept=".pdf,.doc,.docx" />
+                <span class="form-hint">Maks 5MB. Catatan: fitur upload file hanya aktif jika akun Web3Forms sudah paket berbayar (Pro).</span>
             </div>
 
-            <!-- hCaptcha via proxy Web3Forms: cukup div ini, jangan render manual -->
+            <div class="form-group">
+                <label id="messageLabel">Catatan Singkat / Perkenalan</label>
+                <textarea name="message" id="messageInput" rows="3" placeholder="Ceritakan singkat pengalamanmu..." maxlength="1000" required></textarea>
+            </div>
+
+            <!-- hCaptcha via proxy Web3Forms -->
             <div class="form-group" style="display: flex; justify-content: center; margin: 15px 0;">
                 <div class="h-captcha" data-captcha="true"></div>
             </div>
 
-            <button type="submit" class="submit-btn" id="submitBtn">Kirim Pesan</button>
+            <button type="submit" class="submit-btn" id="submitBtn">Kirim Lamaran</button>
         </form>
 
         <div id="termsContainer" style="display: none;">
@@ -1756,15 +1802,23 @@ footer{
 
 <!-- ================= FOOTER ================= -->
 <footer>
-    <div>© 2026 SPR Audio. Hak cipta dilindungi undang-undang.</div>
+    <div>
+        © 2026 SPR Audio. Hak cipta dilindungi undang-undang.
+        <span class="op-hours">Jam Operasional: Setiap Hari, 09.00 – 21.00 WIB</span>
+    </div>
     <div class="footer-links">
         <a href="https://www.instagram.com/spraudiosystem?igsh=MWVoc3o5YjJnbXFteA==" target="_blank" rel="noopener noreferrer">Instagram</a>
-        <a onclick="openContactModal()">Kontak</a>
+        <a href="https://wa.me/6281318048885" target="_blank" rel="noopener noreferrer">Kontak</a>
         <a onclick="openTermsModal()">Ketentuan</a>
     </div>
 </footer>
 
 <script>
+/* ================= 0. NOMOR WHATSAPP & LOWONGAN ================= */
+const WA_NUMBER = "6281318048885";
+// Ubah ke true saat lowongan resmi dibuka. Ingat ubah juga badge "Segera Dibuka" -> "Terbuka" di HTML job card.
+const LOWONGAN_AKTIF = false;
+
 /* ================= 1. KALKULATOR PRICELIST ================= */
 let selectedPaket = 3000000;
 let selectedPaketText = "Paket Medium / Pernikahan";
@@ -1859,18 +1913,12 @@ function hitungSewa() {
 function pesanKalkulator() {
     const totalElem = document.getElementById('totalDisplay');
     const breakdownElem = document.getElementById('breakdownDisplay');
-    
+
     const total = totalElem ? totalElem.innerText : '';
-    const breakdown = breakdownElem ? breakdownElem.innerText.replace(/<br>/g, '\n') : '';
-    
-    openContactModal();
-    
-    const messageInput = document.getElementById('messageInput');
-    if (messageInput) {
-        messageInput.value = `Halo SPR Audio, saya ingin booking sewa Sound System dengan rincian berikut:\n\n${breakdown}\n\nTOTAL ESTIMASI: ${total}`;
-    }
-    
-    showToast(`Rincian sewa dimasukkan ke form kontak!`, '🔊');
+    const breakdown = breakdownElem ? breakdownElem.innerText : '';
+
+    const message = `Halo SPR Audio, saya ingin booking sewa Sound System dengan rincian berikut:\n\n${breakdown}\n\nTOTAL ESTIMASI: ${total}`;
+    window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
 }
 
 hitungSewa();
@@ -1911,7 +1959,9 @@ function showToast(message, icon = "✓") {
 }
 
 /* ================= 4. AUDIO PLAYER ================= */
-const audio = new Audio("goth-slowed.mp3");
+/* Ganti "demo-reel.mp3" dengan file audio royalty-free/non-komersial pilihanmu,
+   simpan di folder yang sama dengan file HTML ini. */
+const audio = new Audio("demo-reel.mp3");
 audio.loop = true;
 
 let isPlaying = false;
@@ -1927,7 +1977,7 @@ if (playBtn) {
                 animateVisualizer();
                 showToast("Memutar audio demo", "🎵");
             }).catch(() => {
-                showToast("Gagal memutar audio, file goth-slowed.mp3 tidak ditemukan", "⚠️");
+                showToast("Gagal memutar audio, file demo-reel.mp3 tidak ditemukan", "⚠️");
             });
         } else {
             audio.pause();
@@ -1995,7 +2045,7 @@ function startCounter(el) {
     update();
 }
 
-/* ================= 7. MODAL & SECURITY HANDLERS ================= */
+/* ================= 7. MODAL LAMARAN & SECURITY HANDLERS ================= */
 const modal = document.getElementById('modalOverlay');
 const modalBox = document.getElementById('modalBox');
 const modalTitle = document.getElementById('modalTitle');
@@ -2005,55 +2055,23 @@ const applyForm = document.getElementById('applyForm');
 const termsContainer = document.getElementById('termsContainer');
 
 function openApplyModal(jobTitle) {
+    // Selama lowongan belum resmi dibuka, arahkan ke WhatsApp saja (bukan form lamaran)
+    if (!LOWONGAN_AKTIF) {
+        const text = `Halo SPR Audio, saya tertarik menjadi mitra untuk posisi ${jobTitle}. Boleh minta info lebih lanjut?`;
+        window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`, '_blank');
+        return;
+    }
+
     if (!modal) return;
-    
+
     if (termsContainer) termsContainer.style.display = 'none';
     if (applyForm) applyForm.style.display = 'block';
 
     if (modalTitle) modalTitle.innerText = `Lamar Posisi: ${jobTitle}`;
-    if (modalDesc) modalDesc.innerText = `Kirimkan link portofoliomu untuk posisi ${jobTitle}.`;
-    
-    const portfolioGroup = document.getElementById('portfolioGroup');
-    const portfolioInput = document.getElementById('portfolioInput');
-    const messageLabel = document.getElementById('messageLabel');
-    const submitBtn = document.getElementById('submitBtn');
-    
-    if (portfolioGroup && portfolioInput) {
-        portfolioGroup.style.display = 'block';
-        portfolioInput.required = true;
-    }
-    if (messageLabel) messageLabel.innerText = 'Catatan Singkat / Perkenalan';
-    if (submitBtn) submitBtn.innerText = 'Kirim Lamaran';
+    if (modalDesc) modalDesc.innerText = `Kirimkan link portofolio dan CV kamu untuk posisi ${jobTitle}.`;
 
     const subjectInput = document.getElementById('emailSubject');
     if (subjectInput) subjectInput.value = `Lamaran Baru: ${jobTitle} - SPR Audio`;
-    modal.classList.add('active');
-}
-
-function openContactModal() {
-    if (!modal) return;
-
-    if (termsContainer) termsContainer.style.display = 'none';
-    if (applyForm) applyForm.style.display = 'block';
-
-    if (modalTitle) modalTitle.innerText = `Hubungi SPR Audio`;
-    if (modalDesc) modalDesc.innerText = `Ada pertanyaan atau penawaran proyek? Tuliskan pesanmu di bawah.`;
-    
-    const portfolioGroup = document.getElementById('portfolioGroup');
-    const portfolioInput = document.getElementById('portfolioInput');
-    const messageLabel = document.getElementById('messageLabel');
-    const submitBtn = document.getElementById('submitBtn');
-
-    if (portfolioGroup && portfolioInput) {
-        portfolioGroup.style.display = 'none';
-        portfolioInput.required = false;
-        portfolioInput.value = ''; 
-    }
-    if (messageLabel) messageLabel.innerText = 'Pesan / Detail Proyek';
-    if (submitBtn) submitBtn.innerText = 'Kirim Pesan';
-
-    const subjectInput = document.getElementById('emailSubject');
-    if (subjectInput) subjectInput.value = `General Inquiry - SPR Audio`;
     modal.classList.add('active');
 }
 
@@ -2125,25 +2143,22 @@ async function handleFormSubmit(e) {
         return;
     }
 
-    // Cek token hCaptcha langsung dari field yang disisipkan proxy Web3Forms
     const hCaptchaField = form.querySelector('textarea[name="h-captcha-response"]');
     if (!hCaptchaField || !hCaptchaField.value) {
         showToast("Mohon selesaikan verifikasi hCaptcha terlebih dahulu.", "⚠️");
         return;
     }
 
-    const originalBtnText = submitBtn ? submitBtn.innerText : "Kirim Pesan";
+    const originalBtnText = submitBtn ? submitBtn.innerText : "Kirim Lamaran";
     if (submitBtn) {
         submitBtn.innerText = "Mengirim...";
         submitBtn.disabled = true;
     }
 
-    // Batas waktu 10 detik agar tombol tidak menggantung lama jika koneksi lambat
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 10000);
+    const timeoutId = setTimeout(() => controller.abort(), 15000);
 
     try {
-        // Kirim sebagai FormData (BUKAN JSON) — wajib untuk proxy hCaptcha Web3Forms
         const response = await fetch("https://api.web3forms.com/submit", {
             method: "POST",
             body: new FormData(form),
@@ -2158,7 +2173,7 @@ async function handleFormSubmit(e) {
 
         if (response.status === 200 && data.success) {
             lastSubmitTime = Date.now();
-            showToast("Terima kasih! Pesanmu berhasil terkirim ke SPR Audio.", "✉️");
+            showToast("Terima kasih! Lamaranmu berhasil terkirim ke SPR Audio.", "✉️");
             form.reset();
             
             if (typeof hcaptcha !== 'undefined') {
