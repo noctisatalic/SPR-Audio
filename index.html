@@ -1379,7 +1379,7 @@ footer .op-hours{
         </div>
         <h1>Suara membutuhkan <span>ketelitian.</span></h1>
         <p class="hero-description">
-            SPR Audio menyediakan persewaan sound system profesional lengkap dengan Kru Profesional dan Sound Engineer berpengalaman untuk berbagai jenis acara.
+            SPR Audio menyediakan persewaan sound system profesional lengkap dengan kru dan Sound Engineer berpengalaman untuk berbagai jenis acara.
         </p>
         <div class="hero-buttons">
             <a href="#kalkulator" class="btn-primary">Simulasi Biaya Sewa</a>
@@ -1480,7 +1480,7 @@ footer .op-hours{
                         <div class="option-text"><strong>Videotron</strong><span>Layar visual besar</span></div>
                         <div class="radio-indicator"></div>
                     </div>
-                    <div class="option-card" onclick="selectOption(event, 'groupLayanan', 'valLayanan', 0, 'Rigging')">
+                    <div class="option-card" onclick="selectOption(event, 'groupLayanan', 'valLayanan', 0, 'Rigging')</div>
                         <div class="option-text"><strong>Rigging</strong><span>Konstruksi struktur panggung</span></div>
                         <div class="radio-indicator"></div>
                     </div>
@@ -1658,7 +1658,7 @@ footer .op-hours{
                     <span class="accordion-arrow">▼</span>
                 </div>
                 <div class="accordion-content">
-                    <p>Pembatalan yang diinfokan <strong>paling lambat H-3 sebelum acara</strong>, uang DP dapat dikembalikan sebesar 50% atau dialihkan ke jadwal baru. Namun jika batal pada H-1 atau hari H, DP hangus untuk menutupi biaya operasional persiapan Kru Profesional.</p>
+                    <p>Pembatalan yang diinfokan <strong>paling lambat H-3 sebelum acara</strong>, uang DP dapat dikembalikan sebesar 50% atau dialihkan ke jadwal baru. Namun jika batal pada H-1 atau hari H, DP hangus untuk menutupi biaya operasional persiapan kru.</p>
                 </div>
             </div>
 
@@ -1731,8 +1731,8 @@ footer .op-hours{
                 <span class="status status-soon">Segera Dibuka</span>
                 <span class="job-type">Proyek</span>
             </div>
-            <h3>Kru Profesional Lapangan</h3>
-            <p>Mitra kru lapangan untuk penataan dan instalasi sound system.</p>
+            <h3>Crew Lapangan</h3>
+            <p>Mitra crew lapangan untuk penataan dan instalasi sound system.</p>
             <div class="job-bottom">
                 <span class="view-job">Info Lebih Lanjut →</span>
             </div>
@@ -2314,7 +2314,7 @@ async function handleFormSubmit(e) {
     try {
         const response = await fetch("https://api.web3forms.com/submit", {
             method: "POST",
-            body: new FormData(form),
+            body: new FormData(fileForm = form),
             headers: {
                 "Accept": "application/json"
             },
