@@ -553,6 +553,31 @@ body:before{
     border-radius: 50%;
 }
 
+/* Checkbox indicator untuk block opsi layanan jamak */
+.option-card .checkbox-indicator {
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--muted);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s ease;
+    flex-shrink: 0;
+}
+
+.option-card.active .checkbox-indicator {
+    border-color: var(--accent);
+    background: var(--accent);
+}
+
+.option-card.active .checkbox-indicator::after {
+    content: "✓";
+    font-size: 10px;
+    color: #08090b;
+    font-weight: bold;
+}
+
 .calc-group input[type="number"] {
     width: 100%;
     background: var(--panel);
@@ -1535,7 +1560,7 @@ footer .op-hours{
                 </div>
             </div>
             
-            <!-- 5. LAYANAN PENDUKUNG ACARA -->
+            <!-- 5. LAYANAN PENDUKUNG ACARA (MULTIPLE SELECTION) -->
             <div class="calc-group" id="groupLayanan">
                 <div class="calc-trigger" onclick="toggleCalcGroup('groupLayanan')">
                     <div class="calc-trigger-info">
@@ -1546,46 +1571,15 @@ footer .op-hours{
                 </div>
 
                 <div class="custom-options">
-                    <div class="option-card active" onclick="selectOption(event, 'groupLayanan', 'valLayanan', 0, 'Tidak Ada / Standar Sound')">
-                        <div class="option-text"><strong>Tidak Ada</strong><span>Hanya Sound System</span></div>
-                        <div class="radio-indicator"></div>
-                    </div>
-                    <div class="option-card" onclick="selectOption(event, 'groupLayanan', 'valLayanan', 0, 'Lighting')">
-                        <div class="option-text"><strong>Lighting</strong><span>Pencahayaan panggung & venue</span></div>
-                        <div class="radio-indicator"></div>
-                    </div>
-                    <div class="option-card" onclick="selectOption(event, 'groupLayanan', 'valLayanan', 0, 'Live Band')">
-                        <div class="option-text"><strong>Live Band</strong><span>Peralatan & kebutuhan band</span></div>
-                        <div class="radio-indicator"></div>
-                    </div>
-                    <div class="option-card" onclick="selectOption(event, 'groupLayanan', 'valLayanan', 0, 'Videotron')">
-                        <div class="option-text"><strong>Videotron</strong><span>Layar visual besar</span></div>
-                        <div class="radio-indicator"></div>
-                    </div>
-                    <div class="option-card" onclick="selectOption(event, 'groupLayanan', 'valLayanan', 0, 'Rigging')">
-                        <div class="option-text"><strong>Rigging</strong><span>Konstruksi struktur panggung</span></div>
-                        <div class="radio-indicator"></div>
-                    </div>
-                    <div class="option-card" onclick="selectOption(event, 'groupLayanan', 'valLayanan', 0, 'Stage')">
-                        <div class="option-text"><strong>Stage</strong><span>Panggung acara</span></div>
-                        <div class="radio-indicator"></div>
-                    </div>
-                    <div class="option-card" onclick="selectOption(event, 'groupLayanan', 'valLayanan', 0, 'Broadcasting')">
-                        <div class="option-text"><strong>Broadcasting</strong><span>Sistem siaran acara</span></div>
-                        <div class="radio-indicator"></div>
-                    </div>
-                    <div class="option-card" onclick="selectOption(event, 'groupLayanan', 'valLayanan', 0, 'Live Streaming')">
-                        <div class="option-text"><strong>Live Streaming</strong><span>Siaran langsung online</span></div>
-                        <div class="radio-indicator"></div>
-                    </div>
-                    <div class="option-card" onclick="selectOption(event, 'groupLayanan', 'valLayanan', 0, 'Dokumentasi Foto')">
-                        <div class="option-text"><strong>Dokumentasi Foto</strong><span>Fotografer acara</span></div>
-                        <div class="radio-indicator"></div>
-                    </div>
-                    <div class="option-card" onclick="selectOption(event, 'groupLayanan', 'valLayanan', 0, 'Dokumentasi Video')">
-                        <div class="option-text"><strong>Dokumentasi Video</strong><span>Videografer acara</span></div>
-                        <div class="radio-indicator"></div>
-                    </div>
+                    <div class="option-card active" onclick="selectMultipleOption(event, 'groupLayanan', 'valLayanan', 0, 'Tidak Ada / Standar Sound', true)"><div class="option-text"><strong>Tidak Ada</strong><span>Hanya Sound System</span></div><div class="checkbox-indicator"></div></div>
+                    <div class="option-card" onclick="selectMultipleOption(event, 'groupLayanan', 'valLayanan', 0, 'Lighting')"><div class="option-text"><strong>Lighting</strong><span>Pencahayaan panggung & venue</span></div><div class="checkbox-indicator"></div></div>
+                    <div class="option-card" onclick="selectMultipleOption(event, 'groupLayanan', 'valLayanan', 0, 'Live Band')"><div class="option-text"><strong>Live Band</strong><span>Peralatan & kebutuhan band</span></div><div class="checkbox-indicator"></div></div>
+                    <div class="option-card" onclick="selectMultipleOption(event, 'groupLayanan', 'valLayanan', 0, 'Videotron')"><div class="option-text"><strong>Videotron</strong><span>Layar visual besar</span></div><div class="checkbox-indicator"></div></div>
+                    <div class="option-card" onclick="selectMultipleOption(event, 'groupLayanan', 'valLayanan', 0, 'Rigging')"><div class="option-text"><strong>Rigging</strong><span>Konstruksi struktur panggung</span></div><div class="checkbox-indicator"></div></div>
+                    <div class="option-card" onclick="selectMultipleOption(event, 'groupLayanan', 'valLayanan', 0, 'Stage')"><div class="option-text"><strong>Stage</strong><span>Panggung acara</span></div><div class="checkbox-indicator"></div></div>
+                    <div class="option-card" onclick="selectMultipleOption(event, 'groupLayanan', 'valLayanan', 0, 'Broadcasting')"><div class="option-text"><strong>Broadcasting</strong><span>Sistem siaran acara</span></div><div class="checkbox-indicator"></div></div>
+                    <div class="option-card" onclick="selectMultipleOption(event, 'groupLayanan', 'valLayanan', 0, 'Live Streaming')"><div class="option-text"><strong>Live Streaming</strong><span>Siaran langsung online</span></div><div class="checkbox-indicator"></div></div>
+                    <div class="option-card" onclick="selectMultipleOption(event, 'groupLayanan', 'valLayanan', 0, 'Dokumentasi')"><div class="option-text"><strong>Dokumentasi</strong><span>Foto & Video acara</span></div><div class="checkbox-indicator"></div></div>
                 </div>
             </div>
         </div>
@@ -1726,13 +1720,13 @@ footer .op-hours{
             </div>
         </article>
 
-        <article class="job-card reveal" onclick="openApplyModal('Crew Lapangan')">
+        <article class="job-card reveal" onclick="openApplyModal('Kru Profesional')">
             <div class="job-top">
                 <span class="status status-soon">Segera Dibuka</span>
                 <span class="job-type">Proyek</span>
             </div>
-            <h3>Crew Lapangan</h3>
-            <p>Mitra crew lapangan untuk penataan dan instalasi sound system.</p>
+            <h3>Kru Profesional</h3>
+            <p>Mitra kru profesional untuk penataan dan instalasi sound system.</p>
             <div class="job-bottom">
                 <span class="view-job">Info Lebih Lanjut →</span>
             </div>
@@ -1911,8 +1905,7 @@ const BASECAMP_LNG = 106.930000;
 /* ================= 1. KALKULATOR PRICELIST & GPS MAPS ================= */
 let selectedPaket = 2500000;
 let selectedPaketText = "Paket Medium / Pernikahan";
-let selectedLayanan = 0;
-let selectedLayananText = "Tidak Ada / Standar Sound";
+let selectedLayananArray = [{ name: "Tidak Ada / Standar Sound", price: 0, isNone: true }];
 let selectedAkses = 0;
 let selectedAksesText = "Akses Rata / Mudah";
 let selectedDurasi = 0;
@@ -1955,9 +1948,6 @@ function selectOption(e, groupId, displayValId, value, nameText) {
     if (groupId === 'groupPaket') {
         selectedPaket = Number(value) || 0;
         selectedPaketText = nameText;
-    } else if (groupId === 'groupLayanan') {
-        selectedLayanan = Number(value) || 0;
-        selectedLayananText = nameText;
     } else if (groupId === 'groupAkses') {
         selectedAkses = Number(value) || 0;
         selectedAksesText = nameText;
@@ -1967,6 +1957,43 @@ function selectOption(e, groupId, displayValId, value, nameText) {
     }
 
     group.classList.remove('open');
+    hitungSewa();
+}
+
+function selectMultipleOption(e, groupId, displayValId, value, nameText, isNone = false) {
+    const group = document.getElementById(groupId);
+    if (!group) return;
+    const currentCard = e.currentTarget;
+
+    if (isNone) {
+        group.querySelectorAll('.option-card').forEach(card => card.classList.remove('active'));
+        currentCard.classList.add('active');
+        selectedLayananArray = [{ name: nameText, price: Number(value) || 0, isNone: true }];
+    } else {
+        const noneCard = group.querySelector('.option-card:first-child');
+        if (noneCard) noneCard.classList.remove('active');
+
+        // Hapus "Tidak Ada" dari array jika sedang memilih opsi lain
+        selectedLayananArray = selectedLayananArray.filter(item => !item.isNone);
+
+        if (currentCard.classList.contains('active')) {
+            currentCard.classList.remove('active');
+            selectedLayananArray = selectedLayananArray.filter(item => item.name !== nameText);
+            if (selectedLayananArray.length === 0) {
+                if (noneCard) noneCard.classList.add('active');
+                selectedLayananArray = [{ name: "Tidak Ada / Standar Sound", price: 0, isNone: true }];
+            }
+        } else {
+            currentCard.classList.add('active');
+            selectedLayananArray.push({ name: nameText, price: Number(value) || 0, isNone: false });
+        }
+    }
+
+    const valDisplay = document.getElementById(displayValId);
+    if (valDisplay) {
+        valDisplay.innerText = selectedLayananArray.map(i => i.name).join(', ');
+    }
+
     hitungSewa();
 }
 
@@ -2045,7 +2072,8 @@ function hitungSewa() {
         biayaOngkir = Math.round((jarak - 10) * 10000);
     }
 
-    const total = selectedPaket + biayaOngkir + selectedAkses + selectedDurasi;
+    let totalLayananPrice = selectedLayananArray.reduce((acc, curr) => acc + curr.price, 0);
+    const total = selectedPaket + totalLayananPrice + biayaOngkir + selectedAkses + selectedDurasi;
     const formatRupiah = (num) => "Rp " + num.toLocaleString('id-ID');
 
     const totalDisp = document.getElementById('totalDisplay');
@@ -2055,7 +2083,7 @@ function hitungSewa() {
     if (breakDisp) {
         breakDisp.innerHTML = `
             • Paket: ${sanitizeText(selectedPaketText)} (${formatRupiah(selectedPaket)})<br>
-            • Layanan Tambahan: ${sanitizeText(selectedLayananText)}<br>
+            • Layanan Tambahan: ${sanitizeText(selectedLayananArray.map(i => i.name).join(', '))}<br>
             • Transportasi (${jarak} KM dari Basecamp): ${biayaOngkir === 0 ? 'Gratis' : formatRupiah(biayaOngkir)}<br>
             • Medan Akses: ${sanitizeText(selectedAksesText)} (${selectedAkses === 0 ? 'Gratis' : formatRupiah(selectedAkses)})<br>
             • Extra Durasi: ${sanitizeText(selectedDurasiText)} (${selectedDurasi === 0 ? 'Gratis' : formatRupiah(selectedDurasi)})
@@ -2361,5 +2389,4 @@ async function handleFormSubmit(e) {
 
 </body>
 </html>
-
 
