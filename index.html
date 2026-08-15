@@ -1379,7 +1379,7 @@ footer .op-hours{
         </div>
         <h1>Suara membutuhkan <span>ketelitian.</span></h1>
         <p class="hero-description">
-            SPR Audio menyediakan persewaan sound system profesional lengkap dengan Kru Profesional dan Sound Engineer berpengalaman untuk berbagai jenis acara.
+            SPR Audio menyediakan persewaan sound system profesional lengkap dengan kru dan Sound Engineer berpengalaman untuk berbagai jenis acara.
         </p>
         <div class="hero-buttons">
             <a href="#kalkulator" class="btn-primary">Simulasi Biaya Sewa</a>
@@ -1453,11 +1453,93 @@ footer .op-hours{
                 </div>
             </div>
 
-            <!-- 2. LAYANAN PENDUKUNG ACARA (DIPINDAHKAN KE OPSI KALKULATOR) -->
+            <!-- 2. JARAK LOKASI & GPS MAPS KALKULATOR -->
+            <div class="calc-group open">
+                <div style="padding: 18px 20px;">
+                    <div class="calc-trigger-info">
+                        <label>2. Jarak Lokasi Acara (KM dari Basecamp Resmi)</label>
+                    </div>
+                    <div class="gps-row">
+                        <input type="number" id="jarakKM" value="5" min="0" max="1500" placeholder="Masukkan jarak KM" oninput="hitungSewa()">
+                        <button type="button" class="btn-gps" onclick="deteksiGpsLokasi()" title="Gunakan GPS Perangkat">
+                            📍 Deteksi GPS Maps
+                        </button>
+                    </div>
+                    <span class="form-hint" id="gpsStatusInfo" style="margin-top: 6px;">Basecamp: Jl. Cagak - Cibaraja No.7, Cimahi, Cisaat, Sukabumi. Klik tombol untuk ukur jarak otomatis!</span>
+                </div>
+            </div>
+
+            <!-- 3. AKSESIBILITAS MEDAN -->
+            <div class="calc-group" id="groupAkses">
+                <div class="calc-trigger" onclick="toggleCalcGroup('groupAkses')">
+                    <div class="calc-trigger-info">
+                        <label>3. Aksesibilitas Medan Lokasi</label>
+                        <div class="calc-selected-val" id="valAkses">Akses Rata / Mudah</div>
+                    </div>
+                    <span class="calc-arrow">▼</span>
+                </div>
+
+                <div class="custom-options">
+                    <div class="option-card active" onclick="selectOption(event, 'groupAkses', 'valAkses', 0, 'Akses Rata / Mudah')">
+                        <div class="option-text">
+                            <strong>Akses Rata / Mudah</strong>
+                            <span>Parkir samping lokasi & jalan rata</span>
+                        </div>
+                        <div class="radio-indicator"></div>
+                    </div>
+
+                    <div class="option-card" onclick="selectOption(event, 'groupAkses', 'valAkses', 150000, 'Sedang (Naik Tangga/Jalan Kaki)')">
+                        <div class="option-text">
+                            <strong>Sedang</strong>
+                            <span>Angkut manual / Naik tangga lantai 2</span>
+                        </div>
+                        <div class="radio-indicator"></div>
+                    </div>
+
+                    <div class="option-card" onclick="selectOption(event, 'groupAkses', 'valAkses', 350000, 'Ekstrem (Gang Sempit/Becek)')">
+                        <div class="option-text">
+                            <strong>Ekstrem</strong>
+                            <span>Gang sempit / Tangga curam / Becek</span>
+                        </div>
+                        <div class="radio-indicator"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. DURASI ACARA -->
+            <div class="calc-group" id="groupDurasi">
+                <div class="calc-trigger" onclick="toggleCalcGroup('groupDurasi')">
+                    <div class="calc-trigger-info">
+                        <label>4. Durasi Pemakaian</label>
+                        <div class="calc-selected-val" id="valDurasi">Standar Acara (s.d 8 Jam)</div>
+                    </div>
+                    <span class="calc-arrow">▼</span>
+                </div>
+
+                <div class="custom-options">
+                    <div class="option-card active" onclick="selectOption(event, 'groupDurasi', 'valDurasi', 0, 'Standar Acara (s.d 8 Jam)')">
+                        <div class="option-text">
+                            <strong>Standar Acara</strong>
+                            <span>Pemakaian standar hingga 8 jam</span>
+                        </div>
+                        <div class="radio-indicator"></div>
+                    </div>
+
+                    <div class="option-card" onclick="selectOption(event, 'groupDurasi', 'valDurasi', 250000, 'Full Day / Lembur')">
+                        <div class="option-text">
+                            <strong>Full Day / Lembur</strong>
+                            <span>Penggunaan seharian penuh</span>
+                        </div>
+                        <div class="radio-indicator"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 5. LAYANAN PENDUKUNG ACARA -->
             <div class="calc-group" id="groupLayanan">
                 <div class="calc-trigger" onclick="toggleCalcGroup('groupLayanan')">
                     <div class="calc-trigger-info">
-                        <label>2. Layanan Pendukung Acara (Opsional)</label>
+                        <label>5. Layanan Pendukung Acara (Opsional)</label>
                         <div class="calc-selected-val" id="valLayanan">Tidak Ada / Standar Sound</div>
                     </div>
                     <span class="calc-arrow">▼</span>
@@ -1502,88 +1584,6 @@ footer .op-hours{
                     </div>
                     <div class="option-card" onclick="selectOption(event, 'groupLayanan', 'valLayanan', 0, 'Dokumentasi Video')">
                         <div class="option-text"><strong>Dokumentasi Video</strong><span>Videografer acara</span></div>
-                        <div class="radio-indicator"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 3. JARAK LOKASI & GPS MAPS KALKULATOR -->
-            <div class="calc-group open">
-                <div style="padding: 18px 20px;">
-                    <div class="calc-trigger-info">
-                        <label>3. Jarak Lokasi Acara (KM dari Basecamp Resmi)</label>
-                    </div>
-                    <div class="gps-row">
-                        <input type="number" id="jarakKM" value="5" min="0" max="1500" placeholder="Masukkan jarak KM" oninput="hitungSewa()">
-                        <button type="button" class="btn-gps" onclick="deteksiGpsLokasi()" title="Gunakan GPS Perangkat">
-                            📍 Deteksi GPS Maps
-                        </button>
-                    </div>
-                    <span class="form-hint" id="gpsStatusInfo" style="margin-top: 6px;">Basecamp: Jl. Cagak - Cibaraja No.7, Cimahi, Cisaat, Sukabumi. Klik tombol untuk ukur jarak otomatis!</span>
-                </div>
-            </div>
-
-            <!-- 4. AKSESIBILITAS MEDAN -->
-            <div class="calc-group" id="groupAkses">
-                <div class="calc-trigger" onclick="toggleCalcGroup('groupAkses')">
-                    <div class="calc-trigger-info">
-                        <label>4. Aksesibilitas Medan Lokasi</label>
-                        <div class="calc-selected-val" id="valAkses">Akses Rata / Mudah</div>
-                    </div>
-                    <span class="calc-arrow">▼</span>
-                </div>
-
-                <div class="custom-options">
-                    <div class="option-card active" onclick="selectOption(event, 'groupAkses', 'valAkses', 0, 'Akses Rata / Mudah')">
-                        <div class="option-text">
-                            <strong>Akses Rata / Mudah</strong>
-                            <span>Parkir samping lokasi & jalan rata</span>
-                        </div>
-                        <div class="radio-indicator"></div>
-                    </div>
-
-                    <div class="option-card" onclick="selectOption(event, 'groupAkses', 'valAkses', 150000, 'Sedang (Naik Tangga/Jalan Kaki)')">
-                        <div class="option-text">
-                            <strong>Sedang</strong>
-                            <span>Angkut manual / Naik tangga lantai 2</span>
-                        </div>
-                        <div class="radio-indicator"></div>
-                    </div>
-
-                    <div class="option-card" onclick="selectOption(event, 'groupAkses', 'valAkses', 350000, 'Ekstrem (Gang Sempit/Becek)')">
-                        <div class="option-text">
-                            <strong>Ekstrem</strong>
-                            <span>Gang sempit / Tangga curam / Becek</span>
-                        </div>
-                        <div class="radio-indicator"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 5. DURASI ACARA -->
-            <div class="calc-group" id="groupDurasi">
-                <div class="calc-trigger" onclick="toggleCalcGroup('groupDurasi')">
-                    <div class="calc-trigger-info">
-                        <label>5. Durasi Pemakaian</label>
-                        <div class="calc-selected-val" id="valDurasi">Standar Acara (s.d 8 Jam)</div>
-                    </div>
-                    <span class="calc-arrow">▼</span>
-                </div>
-
-                <div class="custom-options">
-                    <div class="option-card active" onclick="selectOption(event, 'groupDurasi', 'valDurasi', 0, 'Standar Acara (s.d 8 Jam)')">
-                        <div class="option-text">
-                            <strong>Standar Acara</strong>
-                            <span>Pemakaian standar hingga 8 jam</span>
-                        </div>
-                        <div class="radio-indicator"></div>
-                    </div>
-
-                    <div class="option-card" onclick="selectOption(event, 'groupDurasi', 'valDurasi', 250000, 'Full Day / Lembur')">
-                        <div class="option-text">
-                            <strong>Full Day / Lembur</strong>
-                            <span>Penggunaan seharian penuh</span>
-                        </div>
                         <div class="radio-indicator"></div>
                     </div>
                 </div>
@@ -1658,7 +1658,7 @@ footer .op-hours{
                     <span class="accordion-arrow">▼</span>
                 </div>
                 <div class="accordion-content">
-                    <p>Pembatalan yang diinfokan <strong>paling lambat H-3 sebelum acara</strong>, uang DP dapat dikembalikan sebesar 50% atau dialihkan ke jadwal baru. Namun jika batal pada H-1 atau hari H, DP hangus untuk menutupi biaya operasional persiapan Kru Profesional.</p>
+                    <p>Pembatalan yang diinfokan <strong>paling lambat H-3 sebelum acara</strong>, uang DP dapat dikembalikan sebesar 50% atau dialihkan ke jadwal baru. Namun jika batal pada H-1 atau hari H, DP hangus untuk menutupi biaya operasional persiapan kru.</p>
                 </div>
             </div>
 
@@ -1731,8 +1731,8 @@ footer .op-hours{
                 <span class="status status-soon">Segera Dibuka</span>
                 <span class="job-type">Proyek</span>
             </div>
-            <h3>Kru Profesional Lapangan</h3>
-            <p>Mitra kru lapangan untuk penataan dan instalasi sound system.</p>
+            <h3>Crew Lapangan</h3>
+            <p>Mitra crew lapangan untuk penataan dan instalasi sound system.</p>
             <div class="job-bottom">
                 <span class="view-job">Info Lebih Lanjut →</span>
             </div>
@@ -2314,7 +2314,7 @@ async function handleFormSubmit(e) {
     try {
         const response = await fetch("https://api.web3forms.com/submit", {
             method: "POST",
-            body: new FormData(form),
+            body: new FormData(fileForm = form),
             headers: {
                 "Accept": "application/json"
             },
@@ -2361,4 +2361,5 @@ async function handleFormSubmit(e) {
 
 </body>
 </html>
+
 
