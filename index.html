@@ -1453,65 +1453,11 @@ footer .op-hours{
                 </div>
             </div>
 
-            <!-- 2. LAYANAN PENDUKUNG ACARA (DIPINDAHKAN KE OPSI KALKULATOR) -->
-            <div class="calc-group" id="groupLayanan">
-                <div class="calc-trigger" onclick="toggleCalcGroup('groupLayanan')">
-                    <div class="calc-trigger-info">
-                        <label>2. Layanan Pendukung Acara (Opsional)</label>
-                        <div class="calc-selected-val" id="valLayanan">Tidak Ada / Standar Sound</div>
-                    </div>
-                    <span class="calc-arrow">▼</span>
-                </div>
-
-                <div class="custom-options">
-                    <div class="option-card active" onclick="selectOption(event, 'groupLayanan', 'valLayanan', 0, 'Tidak Ada / Standar Sound')">
-                        <div class="option-text"><strong>Tidak Ada</strong><span>Hanya Sound System</span></div>
-                        <div class="radio-indicator"></div>
-                    </div>
-                    <div class="option-card" onclick="selectOption(event, 'groupLayanan', 'valLayanan', 0, 'Lighting')">
-                        <div class="option-text"><strong>Lighting</strong><span>Pencahayaan panggung & venue</span></div>
-                        <div class="radio-indicator"></div>
-                    </div>
-                    <div class="option-card" onclick="selectOption(event, 'groupLayanan', 'valLayanan', 0, 'Live Band')">
-                        <div class="option-text"><strong>Live Band</strong><span>Peralatan & kebutuhan band</span></div>
-                        <div class="radio-indicator"></div>
-                    </div>
-                    <div class="option-card" onclick="selectOption(event, 'groupLayanan', 'valLayanan', 0, 'Videotron')">
-                        <div class="option-text"><strong>Videotron</strong><span>Layar visual besar</span></div>
-                        <div class="radio-indicator"></div>
-                    </div>
-                    <div class="option-card" onclick="selectOption(event, 'groupLayanan', 'valLayanan', 0, 'Rigging')</div>
-                        <div class="option-text"><strong>Rigging</strong><span>Konstruksi struktur panggung</span></div>
-                        <div class="radio-indicator"></div>
-                    </div>
-                    <div class="option-card" onclick="selectOption(event, 'groupLayanan', 'valLayanan', 0, 'Stage')">
-                        <div class="option-text"><strong>Stage</strong><span>Panggung acara</span></div>
-                        <div class="radio-indicator"></div>
-                    </div>
-                    <div class="option-card" onclick="selectOption(event, 'groupLayanan', 'valLayanan', 0, 'Broadcasting')">
-                        <div class="option-text"><strong>Broadcasting</strong><span>Sistem siaran acara</span></div>
-                        <div class="radio-indicator"></div>
-                    </div>
-                    <div class="option-card" onclick="selectOption(event, 'groupLayanan', 'valLayanan', 0, 'Live Streaming')">
-                        <div class="option-text"><strong>Live Streaming</strong><span>Siaran langsung online</span></div>
-                        <div class="radio-indicator"></div>
-                    </div>
-                    <div class="option-card" onclick="selectOption(event, 'groupLayanan', 'valLayanan', 0, 'Dokumentasi Foto')">
-                        <div class="option-text"><strong>Dokumentasi Foto</strong><span>Fotografer acara</span></div>
-                        <div class="radio-indicator"></div>
-                    </div>
-                    <div class="option-card" onclick="selectOption(event, 'groupLayanan', 'valLayanan', 0, 'Dokumentasi Video')">
-                        <div class="option-text"><strong>Dokumentasi Video</strong><span>Videografer acara</span></div>
-                        <div class="radio-indicator"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 3. JARAK LOKASI & GPS MAPS KALKULATOR -->
+            <!-- 2. JARAK LOKASI & GPS MAPS KALKULATOR -->
             <div class="calc-group open">
                 <div style="padding: 18px 20px;">
                     <div class="calc-trigger-info">
-                        <label>3. Jarak Lokasi Acara (KM dari Basecamp Resmi)</label>
+                        <label>2. Jarak Lokasi Acara (KM dari Basecamp Resmi)</label>
                     </div>
                     <div class="gps-row">
                         <input type="number" id="jarakKM" value="5" min="0" max="1500" placeholder="Masukkan jarak KM" oninput="hitungSewa()">
@@ -1523,11 +1469,11 @@ footer .op-hours{
                 </div>
             </div>
 
-            <!-- 4. AKSESIBILITAS MEDAN -->
+            <!-- 3. AKSESIBILITAS MEDAN -->
             <div class="calc-group" id="groupAkses">
                 <div class="calc-trigger" onclick="toggleCalcGroup('groupAkses')">
                     <div class="calc-trigger-info">
-                        <label>4. Aksesibilitas Medan Lokasi</label>
+                        <label>3. Aksesibilitas Medan Lokasi</label>
                         <div class="calc-selected-val" id="valAkses">Akses Rata / Mudah</div>
                     </div>
                     <span class="calc-arrow">▼</span>
@@ -1560,11 +1506,11 @@ footer .op-hours{
                 </div>
             </div>
 
-            <!-- 5. DURASI ACARA -->
+            <!-- 4. DURASI ACARA -->
             <div class="calc-group" id="groupDurasi">
                 <div class="calc-trigger" onclick="toggleCalcGroup('groupDurasi')">
                     <div class="calc-trigger-info">
-                        <label>5. Durasi Pemakaian</label>
+                        <label>4. Durasi Pemakaian</label>
                         <div class="calc-selected-val" id="valDurasi">Standar Acara (s.d 8 Jam)</div>
                     </div>
                     <span class="calc-arrow">▼</span>
@@ -1584,6 +1530,60 @@ footer .op-hours{
                             <strong>Full Day / Lembur</strong>
                             <span>Penggunaan seharian penuh</span>
                         </div>
+                        <div class="radio-indicator"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 5. LAYANAN PENDUKUNG ACARA -->
+            <div class="calc-group" id="groupLayanan">
+                <div class="calc-trigger" onclick="toggleCalcGroup('groupLayanan')">
+                    <div class="calc-trigger-info">
+                        <label>5. Layanan Pendukung Acara (Opsional)</label>
+                        <div class="calc-selected-val" id="valLayanan">Tidak Ada / Standar Sound</div>
+                    </div>
+                    <span class="calc-arrow">▼</span>
+                </div>
+
+                <div class="custom-options">
+                    <div class="option-card active" onclick="selectOption(event, 'groupLayanan', 'valLayanan', 0, 'Tidak Ada / Standar Sound')">
+                        <div class="option-text"><strong>Tidak Ada</strong><span>Hanya Sound System</span></div>
+                        <div class="radio-indicator"></div>
+                    </div>
+                    <div class="option-card" onclick="selectOption(event, 'groupLayanan', 'valLayanan', 0, 'Lighting')">
+                        <div class="option-text"><strong>Lighting</strong><span>Pencahayaan panggung & venue</span></div>
+                        <div class="radio-indicator"></div>
+                    </div>
+                    <div class="option-card" onclick="selectOption(event, 'groupLayanan', 'valLayanan', 0, 'Live Band')">
+                        <div class="option-text"><strong>Live Band</strong><span>Peralatan & kebutuhan band</span></div>
+                        <div class="radio-indicator"></div>
+                    </div>
+                    <div class="option-card" onclick="selectOption(event, 'groupLayanan', 'valLayanan', 0, 'Videotron')">
+                        <div class="option-text"><strong>Videotron</strong><span>Layar visual besar</span></div>
+                        <div class="radio-indicator"></div>
+                    </div>
+                    <div class="option-card" onclick="selectOption(event, 'groupLayanan', 'valLayanan', 0, 'Rigging')">
+                        <div class="option-text"><strong>Rigging</strong><span>Konstruksi struktur panggung</span></div>
+                        <div class="radio-indicator"></div>
+                    </div>
+                    <div class="option-card" onclick="selectOption(event, 'groupLayanan', 'valLayanan', 0, 'Stage')">
+                        <div class="option-text"><strong>Stage</strong><span>Panggung acara</span></div>
+                        <div class="radio-indicator"></div>
+                    </div>
+                    <div class="option-card" onclick="selectOption(event, 'groupLayanan', 'valLayanan', 0, 'Broadcasting')">
+                        <div class="option-text"><strong>Broadcasting</strong><span>Sistem siaran acara</span></div>
+                        <div class="radio-indicator"></div>
+                    </div>
+                    <div class="option-card" onclick="selectOption(event, 'groupLayanan', 'valLayanan', 0, 'Live Streaming')">
+                        <div class="option-text"><strong>Live Streaming</strong><span>Siaran langsung online</span></div>
+                        <div class="radio-indicator"></div>
+                    </div>
+                    <div class="option-card" onclick="selectOption(event, 'groupLayanan', 'valLayanan', 0, 'Dokumentasi Foto')">
+                        <div class="option-text"><strong>Dokumentasi Foto</strong><span>Fotografer acara</span></div>
+                        <div class="radio-indicator"></div>
+                    </div>
+                    <div class="option-card" onclick="selectOption(event, 'groupLayanan', 'valLayanan', 0, 'Dokumentasi Video')">
+                        <div class="option-text"><strong>Dokumentasi Video</strong><span>Videografer acara</span></div>
                         <div class="radio-indicator"></div>
                     </div>
                 </div>
