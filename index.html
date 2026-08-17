@@ -2029,9 +2029,10 @@ footer .op-hours{ display:block; margin-top:4px; opacity:.75; font-size:11px; }
         let km = parseFloat(document.getElementById('jarakKM').value) || 0;
         let transportCost = 0;
         
-        // Asumsi biaya transport: 50.000 + (15.000 per KM)
-        if(km > 0) {
-            transportCost = 50000 + (km * 15000);
+        // Biaya transport: 1-10 KM gratis.
+        // Di atas 10 KM, hanya kelebihan jaraknya yang dikenakan Rp10.000/KM.
+        if(km > 10) {
+            transportCost = (km - 10) * 10000;
         }
 
         currentTotal = currentPriceSewa + transportCost + aksesPrice + durasiPrice;
@@ -2116,7 +2117,9 @@ footer .op-hours{ display:block; margin-top:4px; opacity:.75; font-size:11px; }
     function openBookingForm() {
         // Prepare Form Summary
         let km = parseFloat(document.getElementById('jarakKM').value) || 0;
-        let transportCost = 50000 + (km * 15000);
+        // Samakan logika biaya transport dengan kalkulator:
+        // 1-10 KM gratis, di atas 10 KM Rp10.000/KM untuk kelebihannya.
+        let transportCost = km > 10 ? (km - 10) * 10000 : 0;
         let dpValue = currentTotal * 0.5;
 
         document.getElementById('sumPaket').innerText = selectedPaketName;
