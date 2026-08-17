@@ -887,6 +887,43 @@ section{
     box-shadow: 0 10px 30px rgba(125,182,214,0.2);
 }
 
+/* ================= SOCIAL PROOF / MEDIA SECTION ================= */
+.social-section {
+    padding: 80px 6vw;
+    background: var(--bg);
+    border-top: 1px solid var(--line);
+}
+
+.social-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 35px;
+}
+
+.social-icon-btn {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background: rgba(125, 182, 214, 0.08);
+    border: 1px solid var(--line);
+    display: grid;
+    place-items: center;
+    color: var(--accent);
+    transition: 0.3s ease;
+}
+
+.social-icon-btn svg { width: 24px; height: 24px; fill: currentColor; }
+
+.social-icon-btn:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #08090b;
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(125,182,214,.25);
+}
+
+
 /* ================= FAQ & INFO ================= */
 .info-section {
     padding: 60px 6vw 100px;
@@ -1001,8 +1038,31 @@ section{
     margin-bottom: 5px;
 }
 
-/* ================= MITRA / JOBS ================= */
+/* ================= MITRA / JOBS (COMPACT ACCORDION) ================= */
 .jobs{ background:#0b0d10; }
+
+.mitra-head-compact {
+    align-items: center;
+}
+
+.mitra-head-compact h2 {
+    max-width: 600px;
+    margin-bottom: 0;
+}
+
+.mitra-expanded-content {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.7s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.5s ease;
+}
+
+.mitra-expanded-content.open {
+    max-height: 2500px; 
+    opacity: 1;
+    margin-top: 40px;
+}
+
 .job-grid{
     display:grid;
     grid-template-columns:repeat(3,1fr);
@@ -1035,7 +1095,7 @@ section{
 .view-job{ color:#9bcfe6; font-size:12px; font-weight:700; text-decoration:none; transition:.25s; }
 .job-card:hover .view-job{ color:white; transform: translateX(4px); }
 
-/* ================= CARA KERJA ================= */
+/* CARA KERJA (Inside Mitra Expand) */
 .process-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
 .process{ padding:35px 30px; border:1px solid var(--line); border-radius:20px; background:#0d0f12; transition: 0.3s ease; }
 .process:hover { border-color: rgba(125,182,214,.3); transform: translateY(-5px); }
@@ -1074,6 +1134,13 @@ section{
     max-height: 90vh;
     overflow-y: auto;
 }
+
+/* Modifikasi Scrollbar Modal untuk estetik */
+.modal-box::-webkit-scrollbar { width: 6px; }
+.modal-box::-webkit-scrollbar-track { background: transparent; }
+.modal-box::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
+.modal-box::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+
 .modal-overlay.active .modal-box {
     transform: scale(1);
 }
@@ -1096,25 +1163,67 @@ section{
 .form-group label { display: block; font-size: 12px; color: var(--accent2); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 1px; }
 .form-group input, .form-group textarea, .form-group select {
     width: 100%; background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 12px 15px;
-    color: var(--text); font-family: inherit; font-size: 14px; outline: none;
+    color: var(--text); font-family: inherit; font-size: 14px; outline: none; transition: 0.2s;
 }
 .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--accent); }
 .form-hint{ display:block; font-size:11px; color:var(--muted); margin-top:6px; text-transform:none; letter-spacing:0; }
 .submit-btn { width: 100%; height: 48px; background: #e9f6fc; color: #081015; border: none; border-radius: 10px; font-weight: 700; cursor: pointer; transition: 0.2s; margin-top: 10px; }
 .submit-btn:hover { background: #ffffff; }
-.hidden-honeypot { display: none !important; visibility: hidden !important; position: absolute !important; left: -9999px !important; }
+
+/* Custom Dropdown Jenis Acara (Premium UI) */
+.custom-select-wrapper { position: relative; width: 100%; text-align: left; }
+.custom-select-trigger {
+    background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 12px 15px;
+    color: var(--text); font-family: inherit; font-size: 14px; outline: none; transition: all 0.2s;
+    display: flex; justify-content: space-between; align-items: center; cursor: pointer;
+    user-select: none;
+}
+.custom-select-trigger:focus, .custom-select-trigger.active {
+    border-color: var(--accent);
+}
+.custom-select-options {
+    position: absolute; top: calc(100% + 6px); left: 0; right: 0; z-index: 9999;
+    background: rgba(21, 24, 29, 0.95); backdrop-filter: blur(16px);
+    border: 1px solid rgba(125, 182, 214, 0.2); border-radius: 12px;
+    padding: 8px; display: flex; flex-direction: column; gap: 4px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+    opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    max-height: 260px; overflow-y: auto;
+}
+.custom-select-options.open {
+    opacity: 1; visibility: visible; transform: translateY(0);
+}
+.custom-select-options::-webkit-scrollbar { width: 4px; }
+.custom-select-options::-webkit-scrollbar-track { background: transparent; }
+.custom-select-options::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 10px; }
+.custom-select-options::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.3); }
+
+.custom-option {
+    padding: 12px 15px; border-radius: 8px; font-size: 14px; color: var(--text); cursor: pointer;
+    transition: all 0.2s ease; display: flex; align-items: center; justify-content: space-between;
+}
+.custom-option:hover {
+    background: rgba(125, 182, 214, 0.1); color: var(--accent);
+}
+.custom-option.selected {
+    background: rgba(125, 182, 214, 0.15); color: var(--accent); font-weight: 700;
+}
+.custom-option .check-mark {
+    font-size: 14px; color: var(--accent); font-weight: bold;
+}
+
 
 /* Booking Modal specifics */
 .booking-summary-box {
-    background: var(--bg);
+    background: rgba(255,255,255,0.02);
     border: 1px solid var(--line);
     border-radius: 12px;
     padding: 20px;
     margin-bottom: 25px;
 }
-.bs-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 13px; }
+.bs-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 13px; color: var(--muted); }
 .bs-row.total-row { border-top: 1px dashed var(--line); margin-top: 12px; padding-top: 12px; font-weight: bold; color: #fff; font-size: 15px;}
-.bs-row.dp-row { color: var(--accent); font-weight: bold; }
+.bs-row.dp-row { color: var(--accent); font-weight: bold; margin-bottom: 0;}
 
 /* Package Details Modal Specifics */
 .pkg-equip-list { list-style: none; padding: 0; margin-bottom: 20px; }
@@ -1129,7 +1238,8 @@ section{
 footer{ padding:35px 6vw; border-top:1px solid var(--line); display:flex; justify-content:space-between; color:#646b73; font-size:12px; }
 footer .op-hours{ display:block; margin-top:4px; opacity:.75; font-size:11px; }
 .footer-links{ display:flex; gap:25px; }
-.footer-links a{ color:#777e86; text-decoration:none; cursor: pointer; }
+.footer-links a{ color:#777e86; text-decoration:none; cursor: pointer; transition: 0.2s;}
+.footer-links a:hover { color: white; }
 
 .reveal{ opacity:0; transform:translateY(45px); transition: opacity .9s ease, transform .9s cubic-bezier(.16,1,.3,1); }
 .reveal.active{ opacity:1; transform:translateY(0); }
@@ -1141,6 +1251,7 @@ footer .op-hours{ display:block; margin-top:4px; opacity:.75; font-size:11px; }
     .audio-player{ left:6vw; right:6vw; width:auto; }
     .wa-float{ bottom:20px; right:16px; width:48px; height:48px; }
     .job-grid, .process-grid, .calc-grid, .rules-list, .portfolio-grid, .why-grid { grid-template-columns:1fr; }
+    .mitra-head-compact { flex-direction: column; align-items: flex-start; gap: 20px; }
 }
 
 @media(max-width:600px){
@@ -1434,6 +1545,32 @@ footer .op-hours{ display:block; margin-top:4px; opacity:.75; font-size:11px; }
     </div>
 </section>
 
+<!-- ================= SOCIAL PROOF / MEDIA SECTION ================= -->
+<section class="social-section" id="social-proof">
+    <div class="section-head reveal">
+        <div>
+            <div class="section-label">FOLLOW SPR AUDIO</div>
+            <h2>Lihat dokumentasi event, setup sound system, dan aktivitas terbaru SPR Audio.</h2>
+        </div>
+    </div>
+    <div class="social-grid reveal">
+        <!-- Instagram -->
+        <a href="https://www.instagram.com/spraudiosystem?igsh=MWVoc3o5YjJnbXFteA==" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="Instagram SPR Audio" title="Instagram">
+            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm3.98-10.181a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z"/></svg>
+        </a>
+
+        <!-- TikTok -->
+        <a href="https://www.tiktok.com/@spraudio?_r=1&amp;_t=ZS-98xJDLTtv41" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="TikTok SPR Audio" title="TikTok">
+            <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 15.68a6.34 6.34 0 0012.67-1.11V8.69a8.14 8.14 0 004.77 1.52V6.76a5.04 5.04 0 01-2.85-.07z"/></svg>
+        </a>
+
+        <!-- Facebook -->
+        <a href="https://www.facebook.com/share/1LTNzYi5U9/" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="Facebook SPR Audio" title="Facebook">
+            <svg viewBox="0 0 24 24"><path d="M22.675 0H1.325C.593 0 0 .593 0 1.325v21.351C0 23.407.593 24 1.325 24H12.82v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116c.73 0 1.323-.593 1.323-1.325V1.325C24 .593 23.407 0 22.675 0z"/></svg>
+        </a>
+    </div>
+</section>
+
 <!-- ================= FAQ ACCORDION ================= -->
 <div class="info-section">
     <div class="info-container reveal">
@@ -1504,87 +1641,86 @@ footer .op-hours{ display:block; margin-top:4px; opacity:.75; font-size:11px; }
                     <span class="accordion-arrow">▼</span>
                 </div>
                 <div class="accordion-content">
-                    <p>Peralatan kami dilengkapi *stabilizer* dan pengaman internal untuk mencegah lonjakan arus. Jika pemadaman berasal dari PLN pusat, disarankan lokasi acara menyediakan Genset cadangan agar audio tetap beroperasi lancar tanpa terputus.</p>
+                    <p>Peralatan kami dilengkapi stabilizer dan pengaman internal untuk mencegah lonjakan arus. Jika pemadaman berasal dari PLN pusat, disarankan lokasi acara menyediakan Genset cadangan agar audio tetap beroperasi lancar tanpa terputus.</p>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- ================= MITRA / JOBS ================= -->
+<!-- ================= MITRA / JOBS (COMPACT ACCORDION) ================= -->
 <section class="jobs" id="mitra">
-    <div class="section-head reveal">
-        <div>
-            <div class="section-label">Jadi Mitra SPR Audio</div>
-            <h2>Proyek Bersama.</h2>
+    <div class="section-head reveal mitra-head-compact">
+        <div class="mitra-text">
+            <div class="section-label">JADI MITRA SPR AUDIO</div>
+            <h2>Gabung bersama SPR Audio sebagai sound engineer, mixing engineer, atau kru profesional.</h2>
         </div>
-        <p>Lihat posisi yang biasa kami butuhkan, dan hubungi kami jika tertarik menjadi mitra lepas (freelance) untuk proyek SPR Audio mendatang.</p>
+        <button class="btn-secondary" onclick="toggleMitraDetails()" id="btnMitraToggle" style="white-space: nowrap;">LIHAT PELUANG MITRA →</button>
     </div>
 
-    <div class="job-grid">
-        <article class="job-card reveal" onclick="openApplyModal('Mixing Engineer')">
-            <div class="job-top">
-                <span class="status status-soon">Segera Dibuka</span>
-                <span class="job-type">Remote</span>
-            </div>
-            <h3>Mixing Engineer</h3>
-            <p>Mitra mixing engineer berpengalaman untuk proyek audio pascaproduksi profesional.</p>
-            <div class="job-bottom">
-                <span class="view-job">Info Lebih Lanjut →</span>
-            </div>
-        </article>
+    <div id="mitraExpandedContent" class="mitra-expanded-content">
+        <div class="job-grid">
+            <article class="job-card" onclick="openApplyModal('Mixing Engineer')">
+                <div class="job-top">
+                    <span class="status status-soon">Segera Dibuka</span>
+                    <span class="job-type">Remote</span>
+                </div>
+                <h3>Mixing Engineer</h3>
+                <p>Mitra mixing engineer berpengalaman untuk proyek audio pascaproduksi profesional.</p>
+                <div class="job-bottom">
+                    <span class="view-job">Info Lebih Lanjut →</span>
+                </div>
+            </article>
 
-        <article class="job-card reveal" onclick="openApplyModal('Sound Engineer')">
-            <div class="job-top">
-                <span class="status status-soon">Segera Dibuka</span>
-                <span class="job-type">Lapangan</span>
-            </div>
-            <h3>Sound Engineer</h3>
-            <p>Mitra sound engineer yang memahami tata suara panggung dan operasional FOH lapangan.</p>
-            <div class="job-bottom">
-                <span class="view-job">Info Lebih Lanjut →</span>
-            </div>
-        </article>
+            <article class="job-card" onclick="openApplyModal('Sound Engineer')">
+                <div class="job-top">
+                    <span class="status status-soon">Segera Dibuka</span>
+                    <span class="job-type">Lapangan</span>
+                </div>
+                <h3>Sound Engineer</h3>
+                <p>Mitra sound engineer yang memahami tata suara panggung dan operasional FOH lapangan.</p>
+                <div class="job-bottom">
+                    <span class="view-job">Info Lebih Lanjut →</span>
+                </div>
+            </article>
 
-        <article class="job-card reveal" onclick="openApplyModal('Kru Profesional')">
-            <div class="job-top">
-                <span class="status status-soon">Segera Dibuka</span>
-                <span class="job-type">Proyek</span>
-            </div>
-            <h3>Kru Profesional</h3>
-            <p>Mitra kru teknis dan instalasi untuk membantu loading dan setup sistem di venue.</p>
-            <div class="job-bottom">
-                <span class="view-job">Info Lebih Lanjut →</span>
-            </div>
-        </article>
-    </div>
-</section>
-
-<!-- ================= CARA KERJA (MITRA) ================= -->
-<section id="process" style="padding-top: 0; background: #0b0d10;">
-    <div class="section-head reveal">
-        <div>
-            <div class="section-label">Cara Kerja Mitra</div>
-            <h2>Sederhana & Fokus.</h2>
+            <article class="job-card" onclick="openApplyModal('Kru Profesional')">
+                <div class="job-top">
+                    <span class="status status-soon">Segera Dibuka</span>
+                    <span class="job-type">Proyek</span>
+                </div>
+                <h3>Kru Profesional</h3>
+                <p>Mitra kru teknis dan instalasi untuk membantu loading dan setup sistem di venue.</p>
+                <div class="job-bottom">
+                    <span class="view-job">Info Lebih Lanjut →</span>
+                </div>
+            </article>
         </div>
-        <p>Tanpa proses rumit. Temukan proyek, kirim portofolio, dan bekerja sama.</p>
-    </div>
 
-    <div class="process-grid">
-        <div class="process reveal">
-            <div class="number">01 — TEMUKAN</div>
-            <h3>Cari Proyek</h3>
-            <p>Jelajahi proyek acara atau audio aktif dan temukan yang sesuai dengan keahlianmu.</p>
+        <div class="section-head" style="margin-top: 80px;">
+            <div>
+                <div class="section-label">Cara Kerja Mitra</div>
+                <h2>Sederhana & Fokus.</h2>
+            </div>
+            <p>Tanpa proses rumit. Temukan proyek, kirim portofolio, dan bekerja sama dengan nyaman.</p>
         </div>
-        <div class="process reveal">
-            <div class="number">02 — LAMAR</div>
-            <h3>Kirim Karya</h3>
-            <p>Kirimkan portofolio, pengalaman, serta penawaran kolaborasimu.</p>
-        </div>
-        <div class="process reveal">
-            <div class="number">03 — KARYA</div>
-            <h3>Mulai Berkarya</h3>
-            <p>Kandidat terpilih akan dihubungi langsung untuk mendiskusikan rincian dan teknis proyek.</p>
+
+        <div class="process-grid">
+            <div class="process">
+                <div class="number">01 — TEMUKAN</div>
+                <h3>Cari Proyek</h3>
+                <p>Jelajahi proyek acara atau audio aktif dan temukan yang sesuai dengan keahlianmu.</p>
+            </div>
+            <div class="process">
+                <div class="number">02 — LAMAR</div>
+                <h3>Kirim Karya</h3>
+                <p>Kirimkan portofolio, pengalaman, serta penawaran kolaborasimu.</p>
+            </div>
+            <div class="process">
+                <div class="number">03 — KARYA</div>
+                <h3>Mulai Berkarya</h3>
+                <p>Kandidat terpilih akan dihubungi langsung untuk mendiskusikan rincian dan teknis proyek.</p>
+            </div>
         </div>
     </div>
 </section>
@@ -1592,681 +1728,562 @@ footer .op-hours{ display:block; margin-top:4px; opacity:.75; font-size:11px; }
 <!-- ================= MODALS ================= -->
 
 <!-- 1. MODAL DETAIL PAKET -->
-<div class="modal-overlay" id="modalPackageDetail">
+<div class="modal-overlay" id="modalPaket">
     <div class="modal-box">
-        <button class="close-modal" onclick="closeModal('modalPackageDetail')">✕</button>
-        <h3 class="modal-title" id="pkgDetailName">Nama Paket</h3>
-        <p class="modal-desc" id="pkgDetailPower" style="color:var(--accent); font-weight:bold;">1.000W Class</p>
-        
-        <div style="font-size:13px; color:var(--text); margin-bottom: 20px;">
-            <strong>Peruntukan:</strong> <span id="pkgDetailUseCase"></span>
-        </div>
-        
-        <h4 style="font-size:13px; margin-bottom:10px; color:var(--accent2); text-transform:uppercase;">Equipment Contoh:</h4>
-        <ul class="pkg-equip-list" id="pkgDetailEquip">
-            <!-- Render via JS -->
-        </ul>
-        
-        <div class="form-hint" style="margin-bottom: 25px;">*Konfigurasi dapat disesuaikan dengan kebutuhan venue.</div>
-
-        <button type="button" class="submit-btn" id="btnSelectPkgDetail">Pilih Paket Ini</button>
+        <button class="close-modal" onclick="closeModal('modalPaket')">×</button>
+        <h3 class="modal-title" id="paketModalTitle">Detail Paket</h3>
+        <p class="modal-desc" id="paketModalDesc">Deskripsi paket.</p>
+        <ul class="pkg-equip-list" id="paketModalList"></ul>
+        <button class="submit-btn" onclick="pilihPaketDariModal()">Pilih Paket Ini</button>
     </div>
 </div>
 
 <!-- 2. MODAL FORM BOOKING -->
 <div class="modal-overlay" id="modalBooking">
-    <div class="modal-box" style="max-width: 600px;">
-        <button class="close-modal" onclick="closeModal('modalBooking')">✕</button>
+    <div class="modal-box">
+        <button class="close-modal" onclick="closeModal('modalBooking')">×</button>
         <h3 class="modal-title">Form Booking</h3>
-        <p class="modal-desc">Lengkapi data acara Anda untuk mengirimkan request booking ke SPR Audio.</p>
+        <p class="modal-desc">Lengkapi data untuk mengirim ringkasan sewa.</p>
 
-        <!-- Ringkasan Booking dari Kalkulator -->
-        <div class="booking-summary-box">
-            <div class="bs-row"><span style="color:var(--accent2);">Paket</span> <span id="bsPaket"></span></div>
-            <div class="bs-row"><span style="color:var(--accent2);">Transportasi</span> <span id="bsTransport"></span></div>
-            <div class="bs-row"><span style="color:var(--accent2);">Akses & Durasi</span> <span id="bsAksesDur"></span></div>
-            <div class="bs-row"><span style="color:var(--accent2);">Add-on</span> <span id="bsAddon"></span></div>
-            <div class="bs-row total-row"><span>ESTIMASI TOTAL</span> <span id="bsTotal"></span></div>
-            <div class="bs-row dp-row"><span>DP BOOKING (50%)</span> <span id="bsDP"></span></div>
-            <div class="bs-row" style="color:var(--muted); font-size:12px;"><span>Sisa Pembayaran (50%)</span> <span id="bsSisa"></span></div>
-        </div>
-
-        <form id="formBookingReal" onsubmit="submitBooking(event)">
+        <form id="bookingForm" onsubmit="submitBooking(event)">
             <div class="form-group">
                 <label>Nama Lengkap</label>
-                <input type="text" id="bookName" placeholder="Nama Anda" required>
+                <input type="text" id="bookName" required placeholder="Contoh: Budi Santoso">
             </div>
             <div class="form-group">
-                <label>Nomor WhatsApp</label>
-                <input type="tel" id="bookWA" placeholder="Contoh: 081234567890" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
-            </div>
-            <div class="form-group" style="display:grid; grid-template-columns:1fr 1fr; gap:15px;">
-                <div>
-                    <label>Tanggal Acara</label>
-                    <input type="date" id="bookDate" required>
-                </div>
-                <div>
-                    <label>Jenis Acara</label>
-                    <select id="bookType" required>
-                        <option value="" disabled selected>Pilih jenis...</option>
-                        <option value="Wedding">Wedding</option>
-                        <option value="Live Music">Live Music</option>
-                        <option value="Gathering/Corporate">Gathering / Corporate</option>
-                        <option value="Pengajian/Keluarga">Pengajian / Keluarga</option>
-                        <option value="Event Outdoor/Festival">Event Outdoor / Festival</option>
-                        <option value="Lainnya">Lainnya</option>
-                    </select>
-                </div>
+                <label>No. WhatsApp</label>
+                <input type="tel" id="bookWA" required placeholder="0812xxxxxx">
             </div>
             <div class="form-group">
-                <label>Lokasi Detail Acara</label>
-                <textarea id="bookLoc" rows="2" placeholder="Alamat lengkap gedung / venue" required></textarea>
+                <label>Tanggal Acara</label>
+                <input type="date" id="bookDate" required>
             </div>
-            <div class="form-group" style="display:grid; grid-template-columns:1fr 1fr; gap:15px;">
-                <div>
-                    <label>Perkiraan Tamu / Audience</label>
-                    <input type="number" id="bookPax" placeholder="Contoh: 500" required>
+            
+            <div class="form-group">
+                <label>Jenis Acara</label>
+                <!-- CUSTOM DROPDOWN -->
+                <div class="custom-select-wrapper" id="typeSelectWrapper">
+                    <div class="custom-select-trigger" tabindex="0" onclick="toggleDropdown(event, 'customSelectOptions')" id="typeSelectTrigger" aria-expanded="false" aria-haspopup="listbox">
+                        <span id="customSelectValue">Pilih jenis acara...</span>
+                        <span class="custom-select-arrow">▼</span>
+                    </div>
+                    <div class="custom-select-options" id="customSelectOptions" role="listbox">
+                        <div class="custom-option" role="option" onclick="selectType(this, '💍 Wedding', 'Wedding')">💍 Wedding</div>
+                        <div class="custom-option" role="option" onclick="selectType(this, '🎵 Live Music', 'Live Music')">🎵 Live Music</div>
+                        <div class="custom-option" role="option" onclick="selectType(this, '🏢 Corporate Event', 'Corporate Event')">🏢 Corporate Event</div>
+                        <div class="custom-option" role="option" onclick="selectType(this, '👥 Gathering', 'Gathering')">👥 Gathering</div>
+                        <div class="custom-option" role="option" onclick="selectType(this, '🎪 Festival / Event', 'Festival / Event')">🎪 Festival / Event</div>
+                        <div class="custom-option" role="option" onclick="selectType(this, '🎓 Seminar', 'Seminar')">🎓 Seminar</div>
+                        <div class="custom-option" role="option" onclick="selectType(this, '🏘 Community Event', 'Community Event')">🏘 Community Event</div>
+                        <div class="custom-option" role="option" onclick="selectType(this, '🏠 Private Event', 'Private Event')">🏠 Private Event</div>
+                        <div class="custom-option" role="option" onclick="selectType(this, '✦ Lainnya', 'Lainnya')">✦ Lainnya</div>
+                    </div>
                 </div>
+                <!-- Hidden input untuk menampung value -->
+                <input type="hidden" id="bookType" value="">
+            </div>
+
+            <div class="form-group">
+                <label>Lokasi Acara</label>
+                <textarea id="bookLokasi" rows="2" required placeholder="Gedung / Alamat lengkap..."></textarea>
             </div>
             <div class="form-group">
-                <label>Catatan Tambahan (Opsional)</label>
-                <textarea id="bookNotes" rows="2" placeholder="Catatan spesifik tentang venue, request lagu, dsb."></textarea>
+                <label>Estimasi Audience</label>
+                <input type="number" id="bookAudience" required placeholder="Jumlah audiens/tamu">
             </div>
-            <button type="submit" class="submit-btn" style="background:#25D366; color:#fff; display:flex; align-items:center; justify-content:center; gap:8px;">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.36 5.07L2 22l5.1-1.33A9.94 9.94 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.6 0-3.09-.46-4.35-1.26l-.31-.19-3.03.79.81-2.95-.2-.31A7.94 7.94 0 0 1 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8zm4.29-5.6c-.24-.12-1.42-.7-1.64-.78-.22-.08-.38-.12-.54.12-.16.24-.62.78-.76.94-.14.16-.28.18-.52.06-.24-.12-1-.37-1.9-1.17-.7-.62-1.18-1.39-1.32-1.63-.14-.24-.02-.37.1-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.2-.47-.4-.4-.54-.41h-.46c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.7 2.6 4.12 3.64.58.25 1.03.4 1.38.51.58.18 1.1.16 1.52.1.46-.07 1.42-.58 1.62-1.14.2-.56.2-1.04.14-1.14-.06-.1-.22-.16-.46-.28z"/>
-                </svg>
-                Kirim Booking via WhatsApp
-            </button>
+            <div class="form-group">
+                <label>Catatan (Opsional)</label>
+                <textarea id="bookNotes" rows="2" placeholder="Detail tambahan..."></textarea>
+            </div>
+
+            <div class="booking-summary-box">
+                <div class="bs-row"><span>Paket Sound:</span><span id="sumPaket">-</span></div>
+                <div class="bs-row"><span>Transport (Jarak):</span><span id="sumTransport">-</span></div>
+                <div class="bs-row"><span>Akses/Durasi/Addon:</span><span id="sumAddon">-</span></div>
+                <div class="bs-row total-row"><span>Total Estimasi:</span><span id="sumTotal">-</span></div>
+                <div class="bs-row dp-row"><span>DP Booking (50%):</span><span id="sumDP">-</span></div>
+            </div>
+
+            <button type="submit" class="submit-btn">Kirim & Pesan via WhatsApp</button>
         </form>
     </div>
 </div>
-
-<!-- 3. MODAL LAMARAN MITRA & KETENTUAN (EXISTING) -->
-<div class="modal-overlay" id="modalGeneral">
-    <div class="modal-box" id="modalBox">
-        <button class="close-modal" onclick="closeModal('modalGeneral')">✕</button>
-        <h3 class="modal-title" id="modalTitle">Judul</h3>
-        <p class="modal-desc" id="modalDesc">Deskripsi</p>
-
-        <!-- Form Job Apply -->
-        <form id="applyForm" onsubmit="handleFormSubmit(event)" style="display:none;">
-            <input type="hidden" name="access_key" value="4c3cc0e1-b452-43e7-a8cb-cc54bdec18a2">
-            <input type="hidden" name="subject" id="emailSubject" value="Lamaran Baru - SPR Audio">
-            <input type="hidden" name="from_name" value="SPR Audio Website">
-            <div class="hidden-honeypot"><input type="text" name="website_url_check" id="honeyInput" autocomplete="off" tabindex="-1"></div>
-
-            <div class="form-group"><label>Nama Lengkap</label><input type="text" name="name" id="nameInput" placeholder="Contoh: Budi Santoso" maxlength="60" required /></div>
-            <div class="form-group"><label>Nomor WhatsApp</label><input type="tel" name="phone" id="phoneInput" placeholder="Contoh: 081234567890" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required /></div>
-            <div class="form-group"><label>Link Portofolio (Gdrive dll)</label><input type="url" name="portfolio" id="portfolioInput" placeholder="https://..." required /></div>
-            <div class="form-group"><label>Upload CV (Pro Only)</label><input type="file" name="attachment" id="cvInput" accept=".pdf,.doc,.docx" /></div>
-            <div class="form-group"><label>Catatan Singkat</label><textarea name="message" id="messageInput" rows="3" placeholder="Ceritakan singkat..." required></textarea></div>
-            <div class="form-group" style="display: flex; justify-content: center; margin: 15px 0;"><div class="h-captcha" data-captcha="true"></div></div>
-            <button type="submit" class="submit-btn" id="submitBtn">Kirim Lamaran</button>
-        </form>
-
-        <!-- Terms Body -->
-        <div id="termsContainer" style="display: none;">
-            <div class="terms-body">
-                <h4>1. Perjanjian Proyek</h4>
-                <p>Seluruh kolaborasi, cakupan kerja, dan biaya disepakati bersama sebelum proyek dimulai.</p>
-                <h4>2. Kerahasiaan (NDA)</h4>
-                <p>Informasi dan file event dari SPR Audio bersifat rahasia.</p>
-                <h4>3. Hak Kekayaan Intelektual</h4>
-                <p>Hasil produksi audio/event sepenuhnya hak klien setelah pelunasan dilakukan.</p>
-                <h4>4. Revisi & Pengiriman (Pascaproduksi)</h4>
-                <p>Batas revisi file dan deadline sesuai kesepakatan.</p>
-            </div>
-        </div>
-    </div>
-</div>
-
 
 <!-- ================= FOOTER ================= -->
-<footer>
+<footer id="footer">
     <div>
-        © 2026 SPR Audio. Hak cipta dilindungi undang-undang.
-        <span class="op-hours">Basecamp: Jl. Cagak - Cibaraja No.7, Cimahi, Cisaat, Sukabumi</span>
+        <strong style="font-family: 'Space Grotesk'; font-size: 16px; color: var(--text);">SPR Audio</strong>
+        <span class="op-hours">Sound System & Audio Production</span>
+        <span class="op-hours" style="margin-top: 10px;">Basecamp: Jl. Cagak - Cibaraja No.7, Cimahi, Cisaat, Sukabumi</span>
     </div>
     <div class="footer-links">
-        <a href="https://www.instagram.com/spraudiosystem?igsh=MWVoc3o5YjJnbXFteA==" target="_blank" rel="noopener noreferrer">Instagram</a>
-        <a href="https://wa.me/6285722718266" target="_blank" rel="noopener noreferrer">Kontak</a>
-        <a onclick="openTermsModal()">Ketentuan</a>
+        <a href="#paket">Paket Sewa</a>
+        <a href="#portfolio">Portofolio</a>
+        <a href="#kalkulator">Kalkulator</a>
+        <a href="#mitra">Mitra Kami</a>
     </div>
 </footer>
 
+<!-- ================= JAVASCRIPT ================= -->
 <script>
-/* ================= GLOBAL CONSTANTS ================= */
-const WA_NUMBER = "6285722718266";
-const LOWONGAN_AKTIF = false;
-const BASECAMP_LAT = -6.927900;
-const BASECAMP_LNG = 106.930000;
-const formatRupiah = (num) => "Rp" + num.toLocaleString('id-ID');
+    // --- Data Paket Existing SPR Audio ---
+    const packagesData = [
+        { id: 1, badge: "Populer", name: "BASIC", price: 800000, spec: "1.000W Class", desc: "Cocok untuk intimate event, private party, dan seminar skala kecil.", equip: ["2x Top Speaker 15\"", "1x Subwoofer 18\"", "Mixer Digital 16 Ch", "2x Mic Wireless", "Kabel Instalasi & Stand", "1x Sound Engineer"] },
+        { id: 2, badge: "Best Value", name: "STANDARD", price: 1300000, spec: "3.000W Class", desc: "Sistem menengah untuk wedding reguler, gathering, dan akustik.", equip: ["4x Top Speaker 15\"", "2x Subwoofer 18\"", "Mixer Digital 16 Ch", "4x Mic Wireless", "Kabel Instalasi & Stand", "1x Sound Engineer", "1x Teknisi Loading"] },
+        { id: 3, badge: "Pro Grade", name: "PRO", price: 2500000, spec: "5.000W Class", desc: "Suara bertenaga untuk outdoor wedding, live band, dan medium event.", equip: ["4x Line Array Top", "4x Subwoofer 18\"", "2x Stage Monitor", "Mixer Digital 32 Ch", "Drum Mic Set", "Kabel Instalasi & Stand", "1x Sound Engineer", "2x Teknisi Loading"] },
+        { id: 4, badge: "Massive", name: "EVENT", price: 5500000, spec: "10.000W Class", desc: "Skala besar untuk festival, konser musik lokal, atau open air event.", equip: ["8x Line Array Top", "8x Subwoofer 18\"", "4x Stage Monitor", "Mixer Digital 32 Ch", "Full Mic Instrument Set", "Kabel Instalasi & Stand", "1x Sound Engineer", "3x Teknisi Loading"] }
+    ];
 
-/* ================= 1. SINGLE DATA SOURCE: PACKAGES ================= */
-const soundPackages = [
-    {
-        id: "basic",
-        name: "BASIC",
-        power: "1.000W Class",
-        price: 750000,
-        badge: "",
-        useCase: "Untuk acara kecil dan kebutuhan audio sederhana.",
-        examples: "Meeting, Pengajian, Ulang tahun, Acara keluarga, Presentasi",
-        equipment: [
-            "2× Top Speaker", "Mixer Audio", "2× Wireless Microphone", 
-            "Speaker Stand", "Kabel Audio & Power", "Setup & Soundcheck", "Operator"
-        ]
-    },
-    {
-        id: "standard",
-        name: "STANDARD",
-        power: "3.000W Class",
-        price: 1500000,
-        badge: "",
-        useCase: "Untuk gathering dan acara dengan kebutuhan audio lebih besar.",
-        examples: "Gathering, Wedding kecil, Acara sekolah, Seminar, Live performance kecil",
-        equipment: [
-            "2× Top Speaker", "1–2× Subwoofer", "Mixer Audio", 
-            "2× Wireless Microphone", "Wired Microphone", "Monitor Speaker", 
-            "Power Amplifier / DSP", "Kabel Lengkap", "Setup & Soundcheck", "Operator"
-        ]
-    },
-    {
-        id: "pro",
-        name: "PRO",
-        power: "5.000W Class",
-        price: 2500000,
-        badge: "PALING POPULER",
-        useCase: "Untuk wedding, live music, dan event dengan kebutuhan audio lebih serius.",
-        examples: "Wedding, Live Music, Gathering perusahaan, Event outdoor, Acara komunitas",
-        equipment: [
-            "2× Top Speaker", "2× Subwoofer", "Digital Mixer", 
-            "2× Wireless Microphone", "Wired Microphone", "2× Monitor Speaker", 
-            "Power Amplifier", "DSP / Processor", "Speaker Stand", 
-            "Kabel Lengkap", "Setup & Soundcheck", "Sound Engineer / Operator"
-        ]
-    },
-    {
-        id: "event",
-        name: "EVENT",
-        power: "10.000W Class",
-        price: 4500000,
-        badge: "",
-        useCase: "Untuk event besar, outdoor, dan kebutuhan sistem audio dengan coverage lebih luas.",
-        examples: "Wedding besar, Event outdoor, Konser kecil, Festival, Corporate Event, Panggung pertunjukan",
-        equipment: [
-            "Top Speaker sesuai kebutuhan venue", "Subwoofer sesuai kebutuhan venue", 
-            "Digital Mixer", "Wireless Microphone", "Wired Microphone", "Monitor Speaker", 
-            "Power Amplifier", "DSP / Processor", "Speaker Stand / Stacking System", 
-            "Kabel Lengkap", "Setup & Soundcheck", "Sound Engineer", "Operator"
-        ]
-    }
-];
-
-/* ================= 2. INIT & RENDER PACKAGES ================= */
-let activePackageId = "pro"; // Default package
-let currentTotalEstimate = 0;
-let currentTransportCost = 0;
-let currentAksesCost = 0;
-let currentDurasiCost = 0;
-let selectedLayananArray = [{ name: "Tidak Ada / Standar Sound", price: 0, isNone: true }];
-
-function initPackages() {
-    const pkgGrid = document.getElementById('packagesContainer');
-    const calcOptions = document.getElementById('paketOptionsContainer');
+    let currentPriceSewa = packagesData[0].price;
+    let selectedPaketName = packagesData[0].name;
+    let currentTotal = 0;
     
-    let gridHtml = '';
-    let calcHtml = '';
+    // Config GPS Basecamp SPR Audio (Cibaraja, Sukabumi)
+    const BASECAMP_LAT = -6.917222;
+    const BASECAMP_LON = 106.906944;
 
-    soundPackages.forEach((pkg) => {
-        // Build cards for Homepage
-        gridHtml += `
-        <div class="package-card">
-            ${pkg.badge ? `<div class="package-badge">${pkg.badge}</div>` : ''}
-            <h3 class="package-name">${pkg.name}</h3>
-            <div class="package-spec">${pkg.power}</div>
-            <p class="package-desc">${pkg.useCase}</p>
-            <div class="package-price-label">Harga Mulai</div>
-            <div class="package-price">${formatRupiah(pkg.price)}</div>
-            <div class="package-buttons">
-                <button class="package-btn-outline" onclick="openPackageDetail('${pkg.id}')">Lihat Detail</button>
-                <button class="package-btn-solid" onclick="pilihPaket('${pkg.id}')">Pilih Paket</button>
-            </div>
-        </div>`;
-
-        // Build Custom Options for Calculator
-        const isActive = pkg.id === activePackageId ? "active" : "";
-        calcHtml += `
-        <div class="option-card pkg-opt-${pkg.id} ${isActive}" onclick="selectCalculatorPaket(event, '${pkg.id}')">
-            <div class="option-text">
-                <strong>${pkg.name}</strong>
-                <span>${pkg.power}</span>
-            </div>
-            <div class="radio-indicator"></div>
-        </div>`;
-    });
-
-    if (pkgGrid) pkgGrid.innerHTML = gridHtml;
-    if (calcOptions) calcOptions.innerHTML = calcHtml;
-
-    // Set default value UI
-    updateCalculatorUI();
-}
-
-function getPackageById(id) {
-    return soundPackages.find(p => p.id === id);
-}
-
-/* ================= 3. LOGIKA PILIH PAKET & MODAL DETAIL ================= */
-function openPackageDetail(id) {
-    const pkg = getPackageById(id);
-    if(!pkg) return;
-
-    document.getElementById('pkgDetailName').innerText = pkg.name;
-    document.getElementById('pkgDetailPower').innerText = pkg.power;
-    document.getElementById('pkgDetailUseCase').innerText = pkg.useCase + " (Contoh: " + pkg.examples + ")";
-    
-    let equipHtml = '';
-    pkg.equipment.forEach(item => equipHtml += `<li>${item}</li>`);
-    document.getElementById('pkgDetailEquip').innerHTML = equipHtml;
-
-    const btnSelect = document.getElementById('btnSelectPkgDetail');
-    btnSelect.onclick = () => {
-        closeModal('modalPackageDetail');
-        pilihPaket(id);
-    };
-
-    document.getElementById('modalPackageDetail').classList.add('active');
-}
-
-function pilihPaket(id) {
-    activePackageId = id;
-    
-    // Update UI pada Dropdown Kalkulator
-    const container = document.getElementById('paketOptionsContainer');
-    container.querySelectorAll('.option-card').forEach(el => el.classList.remove('active'));
-    
-    const targetCard = container.querySelector(`.pkg-opt-${id}`);
-    if (targetCard) targetCard.classList.add('active');
-
-    updateCalculatorUI();
-    hitungSewa();
-
-    // Scroll to Calculator
-    document.getElementById('kalkulator').scrollIntoView({ behavior: 'smooth' });
-    showToast(`Paket ${getPackageById(id).name} dipilih`, "✅");
-}
-
-function selectCalculatorPaket(e, id) {
-    activePackageId = id;
-    
-    const container = document.getElementById('paketOptionsContainer');
-    container.querySelectorAll('.option-card').forEach(el => el.classList.remove('active'));
-    e.currentTarget.classList.add('active');
-
-    updateCalculatorUI();
-    document.getElementById('groupPaket').classList.remove('open');
-    hitungSewa();
-}
-
-function updateCalculatorUI() {
-    const pkg = getPackageById(activePackageId);
-    if(!pkg) return;
-    const valDisp = document.getElementById('valPaket');
-    if(valDisp) valDisp.innerText = `${pkg.name} (${pkg.power})`;
-}
-
-/* ================= 4. KALKULATOR BEHAVIOR ================= */
-let selectedAkses = 0;
-let selectedAksesText = "Akses Rata / Mudah";
-let selectedDurasi = 0;
-let selectedDurasiText = "Standar Acara (s.d 8 Jam)";
-
-function toggleCalcGroup(groupId) {
-    const targetGroup = document.getElementById(groupId);
-    if (!targetGroup) return;
-    const isOpen = targetGroup.classList.contains('open');
-    
-    document.querySelectorAll('.calc-group').forEach(group => {
-        if (group.querySelector('.custom-options')) group.classList.remove('open');
-    });
-
-    if (!isOpen) targetGroup.classList.add('open');
-}
-
-function selectOption(e, groupId, displayValId, value, nameText) {
-    const group = document.getElementById(groupId);
-    if (!group) return;
-
-    group.querySelectorAll('.option-card').forEach(card => card.classList.remove('active'));
-    if (e) e.currentTarget.classList.add('active');
-
-    const valDisplay = document.getElementById(displayValId);
-    if (valDisplay) valDisplay.innerText = nameText;
-
-    if (groupId === 'groupAkses') {
-        selectedAkses = Number(value) || 0;
-        selectedAksesText = nameText;
-    } else if (groupId === 'groupDurasi') {
-        selectedDurasi = Number(value) || 0;
-        selectedDurasiText = nameText;
+    function formatRupiah(num) {
+        return "Rp " + num.toLocaleString('id-ID');
     }
 
-    group.classList.remove('open');
-    hitungSewa();
-}
+    // Render Paket
+    function renderPackages() {
+        const pkgContainer = document.getElementById('packagesContainer');
+        const calcOptsContainer = document.getElementById('paketOptionsContainer');
+        pkgContainer.innerHTML = '';
+        calcOptsContainer.innerHTML = '';
 
-function selectMultipleOption(e, groupId, displayValId, value, nameText, isNone = false) {
-    const group = document.getElementById(groupId);
-    if (!group) return;
-    const currentCard = e.currentTarget;
+        packagesData.forEach((pkg, index) => {
+            // Render Cards in Section #paket
+            pkgContainer.innerHTML += `
+                <div class="package-card reveal">
+                    ${pkg.badge ? `<div class="package-badge">${pkg.badge}</div>` : ''}
+                    <h3 class="package-name">${pkg.name}</h3>
+                    <div class="package-spec">${pkg.spec}</div>
+                    <p class="package-desc">${pkg.desc}</p>
+                    <div class="package-price-label">Estimasi mulai dari</div>
+                    <div class="package-price">${formatRupiah(pkg.price)}</div>
+                    <div class="package-buttons">
+                        <button class="package-btn-outline" onclick="lihatDetailPaket(${pkg.id})">Detail</button>
+                        <button class="package-btn-solid" onclick="pilihPaket(${index})">Pilih Paket</button>
+                    </div>
+                </div>
+            `;
 
-    if (isNone) {
-        group.querySelectorAll('.option-card').forEach(card => card.classList.remove('active'));
-        currentCard.classList.add('active');
-        selectedLayananArray = [{ name: nameText, price: Number(value) || 0, isNone: true }];
-    } else {
-        const noneCard = group.querySelector('.option-card:first-child');
-        if (noneCard) noneCard.classList.remove('active');
+            // Render Options in Calculator
+            calcOptsContainer.innerHTML += `
+                <div class="option-card ${index === 0 ? 'active' : ''}" onclick="selectOption(event, 'groupPaket', 'valPaket', ${pkg.price}, '${pkg.name} (${pkg.spec})', ${index})">
+                    <div class="option-text"><strong>${pkg.name}</strong><span>${pkg.spec}</span></div>
+                    <div class="radio-indicator"></div>
+                </div>
+            `;
+        });
+        document.getElementById('valPaket').innerText = `${packagesData[0].name} (${packagesData[0].spec})`;
+        hitungSewa();
+    }
 
-        selectedLayananArray = selectedLayananArray.filter(item => !item.isNone);
+    // Modal Detail Paket
+    let tempSelectedPaketId = 0;
+    function lihatDetailPaket(id) {
+        const pkg = packagesData.find(p => p.id === id);
+        if(!pkg) return;
+        document.getElementById('paketModalTitle').innerText = pkg.name + ' - ' + pkg.spec;
+        document.getElementById('paketModalDesc').innerText = pkg.desc;
+        const list = document.getElementById('paketModalList');
+        list.innerHTML = pkg.equip.map(eq => `<li>${eq}</li>`).join('');
+        tempSelectedPaketId = packagesData.findIndex(p => p.id === id);
+        
+        document.getElementById('modalPaket').classList.add('active');
+    }
 
-        if (currentCard.classList.contains('active')) {
-            currentCard.classList.remove('active');
-            selectedLayananArray = selectedLayananArray.filter(item => item.name !== nameText);
-            if (selectedLayananArray.length === 0) {
-                if (noneCard) noneCard.classList.add('active');
-                selectedLayananArray = [{ name: "Tidak Ada / Standar Sound", price: 0, isNone: true }];
+    function pilihPaketDariModal() {
+        closeModal('modalPaket');
+        pilihPaket(tempSelectedPaketId);
+    }
+
+    function pilihPaket(index) {
+        const pkg = packagesData[index];
+        const groupOpts = document.querySelectorAll('#groupPaket .option-card');
+        
+        groupOpts.forEach((opt, idx) => {
+            if(idx === index) {
+                opt.classList.add('active');
+                document.getElementById('valPaket').innerText = `${pkg.name} (${pkg.spec})`;
+                currentPriceSewa = pkg.price;
+                selectedPaketName = pkg.name;
+            } else {
+                opt.classList.remove('active');
             }
-        } else {
-            currentCard.classList.add('active');
-            selectedLayananArray.push({ name: nameText, price: Number(value) || 0, isNone: false });
+        });
+        
+        showToast(`Paket ${pkg.name} dipilih!`, "🔈");
+        document.getElementById('kalkulator').scrollIntoView({ behavior: 'smooth' });
+        hitungSewa();
+    }
+
+    // Accordions & Calculator Modifiers
+    let addonPrice = 0;
+    let aksesPrice = 0;
+    let durasiPrice = 0;
+
+    function toggleCalcGroup(groupId) {
+        const group = document.getElementById(groupId);
+        group.classList.toggle('open');
+    }
+
+    function selectOption(e, groupId, valId, price, name, paketIndex = null) {
+        const group = document.getElementById(groupId);
+        const options = group.querySelectorAll('.option-card');
+        options.forEach(opt => opt.classList.remove('active'));
+        e.currentTarget.classList.add('active');
+        document.getElementById(valId).innerText = name;
+
+        if(groupId === 'groupPaket' && paketIndex !== null) {
+            currentPriceSewa = price;
+            selectedPaketName = packagesData[paketIndex].name;
+        } else if(groupId === 'groupAkses') {
+            aksesPrice = price;
+        } else if(groupId === 'groupDurasi') {
+            durasiPrice = price;
         }
+        
+        setTimeout(() => { group.classList.remove('open'); }, 300);
+        hitungSewa();
     }
 
-    const valDisplay = document.getElementById(displayValId);
-    if (valDisplay) valDisplay.innerText = selectedLayananArray.map(i => i.name).join(', ');
-    hitungSewa();
-}
+    function selectMultipleOption(e, groupId, valId, price, name, isNone = false) {
+        const card = e.currentTarget;
+        const group = document.getElementById(groupId);
+        const options = group.querySelectorAll('.option-card');
+        
+        if (isNone) {
+            options.forEach(opt => opt.classList.remove('active'));
+            card.classList.add('active');
+        } else {
+            options[0].classList.remove('active'); 
+            card.classList.toggle('active');
+            let anyActive = false;
+            options.forEach((opt, idx) => {
+                if(idx !== 0 && opt.classList.contains('active')) anyActive = true;
+            });
+            if(!anyActive) options[0].classList.add('active');
+        }
 
-/* Haversine & GPS */
-function hitungJarakHaversine(lat1, lon1, lat2, lon2) {
-    const R = 6371; 
-    const dLat = (lat2 - lat1) * Math.PI / 180;
-    const dLon = (lon2 - lon1) * Math.PI / 180;
-    const a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.sin(dLon/2) * Math.sin(dLon/2);
-    return R * (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)));
-}
+        let selectedNames = [];
+        options.forEach((opt, idx) => {
+            if(opt.classList.contains('active')) {
+                selectedNames.push(opt.querySelector('strong').innerText);
+            }
+        });
 
-function deteksiGpsLokasi() {
-    const infoSpan = document.getElementById('gpsStatusInfo');
-    const jarakInput = document.getElementById('jarakKM');
-
-    if (!navigator.geolocation) {
-        showToast("GPS tidak didukung oleh browser.", "⚠️");
-        return;
+        document.getElementById(valId).innerText = selectedNames.join(', ');
+        // For simplicity, addons don't add specific price in this basic calc demo, 
+        // they just get listed. You can inject custom price logic here.
+        hitungSewa();
     }
 
-    if (infoSpan) infoSpan.innerText = "Mengambil koordinat...";
-    showToast("Mengakses GPS Maps...", "📍");
+    // GPS & Distance
+    function calculateDistance(lat1, lon1, lat2, lon2) {
+        const R = 6371; 
+        const dLat = (lat2 - lat1) * Math.PI / 180;
+        const dLon = (lon2 - lon1) * Math.PI / 180;
+        const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                  Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                  Math.sin(dLon/2) * Math.sin(dLon/2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        return R * c; 
+    }
 
-    navigator.geolocation.getCurrentPosition(
-        (position) => {
-            let jarakKm = hitungJarakHaversine(BASECAMP_LAT, BASECAMP_LNG, position.coords.latitude, position.coords.longitude);
-            jarakKm = Math.round(jarakKm * 10) / 10;
-            if (jarakKm > 1500) jarakKm = 1500;
+    function deteksiGpsLokasi() {
+        const status = document.getElementById('gpsStatusInfo');
+        if (!navigator.geolocation) {
+            status.innerText = "Geolokasi tidak didukung browser ini.";
+            status.style.color = "var(--danger)";
+            return;
+        }
+        status.innerText = "Mencari koordinat...";
+        status.style.color = "var(--accent)";
 
-            if (jarakInput) jarakInput.value = jarakKm;
-            if (infoSpan) infoSpan.innerText = `GPS Aktif! Jarak terukur ± ${jarakKm} KM dari basecamp.`;
-            
-            showToast(`Jarak terdeteksi: ${jarakKm} KM`, "🎯");
-            hitungSewa();
-        },
-        (error) => {
-            let errMsg = "Gagal mengambil lokasi GPS.";
-            if (error.code === 1) errMsg = "Izin GPS ditolak.";
-            if (infoSpan) infoSpan.innerText = errMsg;
-            showToast(errMsg, "❌");
-        },
-        { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
-    );
-}
+        navigator.geolocation.getCurrentPosition(
+            (pos) => {
+                const userLat = pos.coords.latitude;
+                const userLon = pos.coords.longitude;
+                let distance = calculateDistance(BASECAMP_LAT, BASECAMP_LON, userLat, userLon);
+                distance = Math.max(1, Math.ceil(distance)); 
+                document.getElementById('jarakKM').value = distance;
+                status.innerText = `Jarak terdeteksi: ~${distance} KM dari Basecamp Sukabumi.`;
+                status.style.color = "var(--success)";
+                showToast("GPS berhasil mendeteksi jarak!", "📍");
+                hitungSewa();
+            },
+            (err) => {
+                status.innerText = "Akses GPS ditolak/gagal. Silakan ketik jarak manual.";
+                status.style.color = "var(--warning)";
+            },
+            { enableHighAccuracy: true, timeout: 5000 }
+        );
+    }
 
-function hitungSewa() {
-    const pkg = getPackageById(activePackageId);
-    if(!pkg) return;
+    // Calculate Total Pricing & DP
+    function hitungSewa() {
+        let km = parseFloat(document.getElementById('jarakKM').value) || 0;
+        let transportCost = 0;
+        
+        // Asumsi biaya transport: 50.000 + (15.000 per KM)
+        if(km > 0) {
+            transportCost = 50000 + (km * 15000);
+        }
 
-    const jarakInput = document.getElementById('jarakKM');
-    let jarak = parseFloat(jarakInput ? jarakInput.value : 0);
-    if (isNaN(jarak) || jarak < 0) { jarak = 0; if (jarakInput) jarakInput.value = 0; }
-    
-    currentTransportCost = jarak > 10 ? Math.round((jarak - 10) * 10000) : 0;
-    currentAksesCost = selectedAkses;
-    currentDurasiCost = selectedDurasi;
-    
-    let totalLayananPrice = selectedLayananArray.reduce((acc, curr) => acc + curr.price, 0);
-    currentTotalEstimate = pkg.price + totalLayananPrice + currentTransportCost + currentAksesCost + currentDurasiCost;
+        currentTotal = currentPriceSewa + transportCost + aksesPrice + durasiPrice;
 
-    const totalDisp = document.getElementById('totalDisplay');
-    const breakDisp = document.getElementById('breakdownDisplay');
-
-    if (totalDisp) totalDisp.innerText = formatRupiah(currentTotalEstimate);
-    if (breakDisp) {
-        breakDisp.innerHTML = `
-            • Paket: ${pkg.name} - ${pkg.power} (${formatRupiah(pkg.price)})<br>
-            • Transportasi (${jarak} KM): ${currentTransportCost === 0 ? 'Gratis' : formatRupiah(currentTransportCost)}<br>
-            • Akses Lokasi: ${selectedAksesText} (${currentAksesCost === 0 ? 'Gratis' : formatRupiah(currentAksesCost)})<br>
-            • Durasi Tambahan: ${selectedDurasiText} (${currentDurasiCost === 0 ? 'Gratis' : formatRupiah(currentDurasiCost)})<br>
-            • Layanan Tambahan: ${selectedLayananArray.map(i => i.name).join(', ')}
+        document.getElementById('totalDisplay').innerText = formatRupiah(currentTotal);
+        
+        document.getElementById('breakdownDisplay').innerHTML = `
+            <div style="display:flex; justify-content:space-between; margin-bottom:5px;"><span>Paket Sound:</span><span>${formatRupiah(currentPriceSewa)}</span></div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:5px;"><span>Transport (${km} KM):</span><span>${formatRupiah(transportCost)}</span></div>
+            ${aksesPrice > 0 ? `<div style="display:flex; justify-content:space-between; margin-bottom:5px;"><span>Biaya Akses Medan:</span><span>${formatRupiah(aksesPrice)}</span></div>` : ''}
+            ${durasiPrice > 0 ? `<div style="display:flex; justify-content:space-between; margin-bottom:5px;"><span>Tambahan Durasi:</span><span>${formatRupiah(durasiPrice)}</span></div>` : ''}
         `;
     }
-}
 
-/* ================= 5. FORM BOOKING & WHATSAPP ================= */
-function openBookingForm() {
-    const pkg = getPackageById(activePackageId);
-    
-    // Update summary modal
-    document.getElementById('bsPaket').innerText = `${pkg.name} (${pkg.power})`;
-    
-    const jarak = document.getElementById('jarakKM').value || 0;
-    document.getElementById('bsTransport').innerText = `${jarak} KM (${currentTransportCost === 0 ? 'Gratis' : formatRupiah(currentTransportCost)})`;
-    
-    document.getElementById('bsAksesDur').innerText = `${selectedAksesText} | ${selectedDurasiText}`;
-    document.getElementById('bsAddon').innerText = selectedLayananArray.map(i => i.name).join(', ');
-    document.getElementById('bsTotal').innerText = formatRupiah(currentTotalEstimate);
-    
-    // Hitung DP otomatis (50%)
-    const dpPercentage = 0.50;
-    const dpAmount = currentTotalEstimate * dpPercentage;
-    const remainingAmount = currentTotalEstimate - dpAmount;
-    
-    document.getElementById('bsDP').innerText = formatRupiah(dpAmount);
-    document.getElementById('bsSisa').innerText = formatRupiah(remainingAmount);
-
-    document.getElementById('modalBooking').classList.add('active');
-}
-
-function submitBooking(e) {
-    e.preventDefault();
-    
-    const name = document.getElementById('bookName').value.trim();
-    const wa = document.getElementById('bookWA').value.trim();
-    const date = document.getElementById('bookDate').value;
-    const type = document.getElementById('bookType').value;
-    const loc = document.getElementById('bookLoc').value.trim();
-    const pax = document.getElementById('bookPax').value.trim();
-    const notes = document.getElementById('bookNotes').value.trim();
-    
-    const pkg = getPackageById(activePackageId);
-    const jarak = document.getElementById('jarakKM').value || 0;
-    
-    const addonStr = selectedLayananArray.map(i => i.name).join(', ');
-    const dpAmount = currentTotalEstimate * 0.50;
-    const remainingAmount = currentTotalEstimate - dpAmount;
-
-    let msg = `Halo SPR Audio, saya ingin konsultasi dan booking paket ini.\n\n`;
-    msg += `*DATA CUSTOMER*\nNama: ${name}\nNomor WhatsApp: ${wa}\n\n`;
-    msg += `*DATA ACARA*\nTanggal Acara: ${date}\nLokasi Acara: ${loc}\nJenis Acara: ${type}\nJumlah Tamu/Audience: ${pax} Orang\nCatatan Tambahan: ${notes || '-'}\n\n`;
-    msg += `*RINGKASAN PESANAN*\nPaket: ${pkg.name} - ${pkg.power}\nSpesifikasi: ${pkg.useCase}\nAdd-on: ${addonStr}\nDurasi: ${selectedDurasiText}\nTransportasi: ${jarak} KM (${formatRupiah(currentTransportCost)})\nMedan Akses: ${selectedAksesText}\n\n`;
-    msg += `*ESTIMASI BIAYA*\nEstimasi Total: ${formatRupiah(currentTotalEstimate)}\n*DP BOOKING (50%): ${formatRupiah(dpAmount)}*\nSisa Pembayaran (50%): ${formatRupiah(remainingAmount)}`;
-
-    window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
-    closeModal('modalBooking');
-}
-
-/* ================= 6. UTILITIES (Modals, Toast, Audio, Observer) ================= */
-function closeModal(id) {
-    const m = document.getElementById(id);
-    if(m) m.classList.remove('active');
-}
-document.querySelectorAll('.modal-overlay').forEach(overlay => {
-    overlay.addEventListener('click', (e) => {
-        if(e.target === overlay) overlay.classList.remove('active');
-    });
-});
-
-function sanitizeText(str) {
-    if (!str) return '';
-    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#x27;');
-}
-function showToast(message, icon = "✓") {
-    const container = document.getElementById('toastContainer');
-    if (!container) return;
-    const toast = document.createElement('div');
-    toast.className = 'toast';
-    toast.innerHTML = `<div class="toast-icon">${sanitizeText(icon)}</div><div>${sanitizeText(message)}</div>`;
-    container.appendChild(toast);
-    setTimeout(() => toast.classList.add('show'), 10);
-    setTimeout(() => { toast.classList.remove('show'); setTimeout(() => toast.remove(), 400); }, 4500);
-}
-
-// FAQ Accordion
-function toggleAccordion(header) {
-    if (!header) return;
-    const item = header.parentElement;
-    const isActive = item.classList.contains('active');
-    document.querySelectorAll('.accordion-item').forEach(el => el.classList.remove('active'));
-    if (!isActive) item.classList.add('active');
-}
-
-// Audio Player
-const audio = new Audio("demo-reel.mp3");
-audio.loop = true;
-let isPlaying = false;
-const playBtn = document.getElementById("playBtn");
-const bars = document.querySelectorAll(".bar");
-
-if (playBtn) {
-    playBtn.addEventListener("click", () => {
-        if(!isPlaying){
-            audio.play().then(() => {
-                isPlaying = true; playBtn.innerHTML = "Ⅱ"; animateVisualizer(); showToast("Memutar audio demo", "🎵");
-            }).catch(() => {
-                showToast("Gagal memutar audio, file tidak ditemukan", "⚠️");
-            });
-        } else {
-            audio.pause(); isPlaying = false; playBtn.innerHTML = "▶";
-        }
-    });
-}
-function animateVisualizer() {
-    if (!isPlaying) { bars.forEach(b => b.style.height = "5px"); return; }
-    bars.forEach(b => b.style.height = (Math.floor(Math.random() * 22) + 5) + "px");
-    setTimeout(animateVisualizer, 100);
-}
-
-// Scroll Reveal
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if(entry.isIntersecting) entry.target.classList.add("active");
-    });
-}, { threshold: 0.15 });
-document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
-
-// Ambient Light
-const ambientLight = document.getElementById('ambientLight');
-if (ambientLight) {
-    window.addEventListener('mousemove', (e) => {
-        ambientLight.style.left = e.clientX + 'px';
-        ambientLight.style.top = e.clientY + 'px';
-    });
-}
-
-// Job Application Modal (Existing Logic)
-function openApplyModal(jobTitle) {
-    if (!LOWONGAN_AKTIF) {
-        window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(`Halo SPR Audio, saya tertarik menjadi mitra untuk posisi ${jobTitle}. Boleh minta info lebih lanjut?`)}`, '_blank');
-        return;
-    }
-    const applyForm = document.getElementById('applyForm');
-    const termsContainer = document.getElementById('termsContainer');
-    if (termsContainer) termsContainer.style.display = 'none';
-    if (applyForm) applyForm.style.display = 'block';
-
-    document.getElementById('modalTitle').innerText = `Lamar Posisi: ${jobTitle}`;
-    document.getElementById('modalDesc').innerText = `Kirimkan link portofolio dan CV kamu untuk posisi ${jobTitle}.`;
-    document.getElementById('emailSubject').value = `Lamaran Baru: ${jobTitle} - SPR Audio`;
-    document.getElementById('modalGeneral').classList.add('active');
-}
-
-function openTermsModal() {
-    const applyForm = document.getElementById('applyForm');
-    const termsContainer = document.getElementById('termsContainer');
-    if (applyForm) applyForm.style.display = 'none';
-    if (termsContainer) termsContainer.style.display = 'block';
-
-    document.getElementById('modalTitle').innerText = `Ketentuan Layanan`;
-    document.getElementById('modalDesc').innerText = `Syarat & ketentuan umum bekerja sama dengan SPR Audio.`;
-    document.getElementById('modalGeneral').classList.add('active');
-}
-
-let lastSubmitTime = 0;
-async function handleFormSubmit(e) {
-    e.preventDefault();
-    const form = e.target;
-    const submitBtn = document.getElementById('submitBtn');
-    
-    if (Date.now() - lastSubmitTime < 15000) {
-        showToast("Tunggu 15 detik sebelum mengirim pesan lagi.", "⏱️"); return;
-    }
-    if (document.getElementById('honeyInput').value !== '') {
-        showToast("Pesan terkirim!", "✉️"); form.reset(); closeModal('modalGeneral'); return;
-    }
-    
-    const hCaptchaField = form.querySelector('textarea[name="h-captcha-response"]');
-    if (!hCaptchaField || !hCaptchaField.value) { showToast("Selesaikan hCaptcha.", "⚠️"); return; }
-    
-    const originalBtnText = submitBtn.innerText;
-    submitBtn.innerText = "Mengirim..."; submitBtn.disabled = true;
-
-    try {
-        const response = await fetch("https://api.web3forms.com/submit", {
-            method: "POST", body: new FormData(form), headers: { "Accept": "application/json" }
+    // Custom Dropdown Jenis Acara Logic
+    function toggleDropdown(e, id) {
+        e.stopPropagation();
+        const opts = document.getElementById(id);
+        const trigger = e.currentTarget;
+        const isOpen = opts.classList.contains('open');
+        
+        // Tutup semua custom dropdown yang sedang terbuka
+        document.querySelectorAll('.custom-select-options').forEach(el => el.classList.remove('open'));
+        document.querySelectorAll('.custom-select-trigger').forEach(el => {
+            el.classList.remove('active');
+            el.setAttribute('aria-expanded', 'false');
         });
-        const data = await response.json();
-        if (response.status === 200 && data.success) {
-            lastSubmitTime = Date.now();
-            showToast("Lamaranmu berhasil terkirim.", "✉️");
-            form.reset(); if (typeof hcaptcha !== 'undefined') hcaptcha.reset(); closeModal('modalGeneral');
-        } else {
-            showToast(data.message || "Terjadi kesalahan.", "❌"); if (typeof hcaptcha !== 'undefined') hcaptcha.reset();
+        
+        if(!isOpen) {
+            opts.classList.add('open');
+            trigger.classList.add('active');
+            trigger.setAttribute('aria-expanded', 'true');
         }
-    } catch (error) {
-        showToast("Gagal mengirim. Periksa koneksi.", "🌐");
-        if (typeof hcaptcha !== 'undefined') hcaptcha.reset();
-    } finally {
-        submitBtn.innerText = originalBtnText; submitBtn.disabled = false;
     }
-}
 
-// Inisialisasi Paket saat Halaman Dimuat
-document.addEventListener("DOMContentLoaded", () => {
-    initPackages();
-    hitungSewa();
-});
+    function selectType(element, displayHtml, value) {
+        document.getElementById('customSelectValue').innerHTML = "Pilihan: " + displayHtml;
+        document.getElementById('bookType').value = value; // Value disisipkan ke form hidden
+        
+        // Hapus checkmark sebelumnya
+        document.querySelectorAll('#customSelectOptions .custom-option').forEach(opt => {
+            opt.classList.remove('selected');
+            const check = opt.querySelector('.check-mark');
+            if(check) check.remove();
+        });
+        
+        // Tambah checkmark pada opsi yang dipilih
+        element.classList.add('selected');
+        element.innerHTML += `<span class="check-mark">✓</span>`;
+        
+        const trigger = document.getElementById('typeSelectTrigger');
+        document.getElementById('customSelectOptions').classList.remove('open');
+        trigger.classList.remove('active');
+        trigger.setAttribute('aria-expanded', 'false');
+    }
+
+    // Event Keyboard & Outside Click Custom Dropdown
+    document.getElementById('typeSelectTrigger').addEventListener('keydown', function(e) {
+        if(e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggleDropdown(e, 'customSelectOptions');
+        }
+    });
+
+    document.addEventListener('click', (e) => {
+        const wrappers = document.querySelectorAll('.custom-select-wrapper');
+        wrappers.forEach(wrap => {
+            if (!wrap.contains(e.target)) {
+                const opts = wrap.querySelector('.custom-select-options');
+                const trigger = wrap.querySelector('.custom-select-trigger');
+                if(opts) opts.classList.remove('open');
+                if(trigger) {
+                    trigger.classList.remove('active');
+                    trigger.setAttribute('aria-expanded', 'false');
+                }
+            }
+        });
+    });
+
+
+    // Booking Flow
+    function openBookingForm() {
+        // Prepare Form Summary
+        let km = parseFloat(document.getElementById('jarakKM').value) || 0;
+        let transportCost = 50000 + (km * 15000);
+        let dpValue = currentTotal * 0.5;
+
+        document.getElementById('sumPaket').innerText = selectedPaketName;
+        document.getElementById('sumTransport').innerText = formatRupiah(transportCost);
+        document.getElementById('sumAddon').innerText = formatRupiah(aksesPrice + durasiPrice);
+        document.getElementById('sumTotal').innerText = formatRupiah(currentTotal);
+        document.getElementById('sumDP').innerText = formatRupiah(dpValue);
+
+        document.getElementById('modalBooking').classList.add('active');
+    }
+
+    function submitBooking(e) {
+        e.preventDefault();
+        
+        // Validasi Custom Dropdown (karena input hidden tidak kena validasi HTML5 otomatis di browser)
+        const typeVal = document.getElementById('bookType').value;
+        if (!typeVal) {
+            showToast("Silakan pilih Jenis Acara terlebih dahulu.", "⚠️");
+            const trigger = document.getElementById('typeSelectTrigger');
+            trigger.classList.add('active');
+            setTimeout(() => trigger.classList.remove('active'), 1500);
+            return;
+        }
+
+        const name = document.getElementById('bookName').value;
+        const wa = document.getElementById('bookWA').value;
+        const date = document.getElementById('bookDate').value;
+        const lokasi = document.getElementById('bookLokasi').value;
+        const aud = document.getElementById('bookAudience').value;
+        const notes = document.getElementById('bookNotes').value || "-";
+
+        const dp = formatRupiah(currentTotal * 0.5);
+        const sisa = formatRupiah(currentTotal * 0.5);
+        const totRupiah = formatRupiah(currentTotal);
+        let km = document.getElementById('jarakKM').value || 0;
+        const layananVal = document.getElementById('valLayanan').innerText;
+
+        const msg = `Halo *SPR Audio*,\nSaya ingin booking paket rental dengan detail berikut:\n\n` +
+                    `*Data Pemesan*\n` +
+                    `Nama: ${name}\n` +
+                    `WhatsApp: ${wa}\n\n` +
+                    `*Detail Acara*\n` +
+                    `Tanggal: ${date}\n` +
+                    `Jenis Acara: ${typeVal}\n` +
+                    `Lokasi (${km} KM): ${lokasi}\n` +
+                    `Estimasi Audience: ${aud} orang\n\n` +
+                    `*Ringkasan Pesanan*\n` +
+                    `Paket: ${selectedPaketName}\n` +
+                    `Add-on Layanan: ${layananVal}\n` +
+                    `Total Estimasi: ${totRupiah}\n` +
+                    `*DP (50%): ${dp}*\n` +
+                    `Sisa Pelunasan: ${sisa}\n\n` +
+                    `Catatan: ${notes}\n\n` +
+                    `Mohon info ketersediaan tanggalnya. Terima kasih.`;
+
+        const encodedMsg = encodeURIComponent(msg);
+        window.open(`https://wa.me/6285722718266?text=${encodedMsg}`, '_blank');
+        closeModal('modalBooking');
+        showToast("Mengarahkan pesanan ke WhatsApp...", "✅");
+    }
+
+    // Modal Helpers
+    function closeModal(id) {
+        document.getElementById(id).classList.remove('active');
+    }
+    
+    // Close Modals when click outside
+    document.addEventListener('click', (e) => {
+        if (e.target.classList.contains('modal-overlay')) {
+            e.target.classList.remove('active');
+        }
+    });
+
+    // Accordions
+    function toggleAccordion(el) {
+        const item = el.parentElement;
+        item.classList.toggle('active');
+    }
+
+    // Mitra Compact Section logic
+    function toggleMitraDetails() {
+        const content = document.getElementById('mitraExpandedContent');
+        const btn = document.getElementById('btnMitraToggle');
+        const isOpen = content.classList.contains('open');
+        
+        if (isOpen) {
+            content.classList.remove('open');
+            btn.innerText = "LIHAT PELUANG MITRA →";
+        } else {
+            content.classList.add('open');
+            btn.innerText = "TUTUP PELUANG MITRA ↑";
+            // Scroll smooth sedikit ke konten bawah bila terbuka
+            setTimeout(() => {
+                const yOffset = -100; 
+                const y = content.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                window.scrollTo({top: y, behavior: 'smooth'});
+            }, 300);
+        }
+    }
+
+    // Audio Playback Demo
+    const playBtn = document.getElementById('playBtn');
+    let isPlaying = false;
+    let demoAudio = new Audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'); // Dummy Audio
+    
+    playBtn.addEventListener('click', () => {
+        if(isPlaying) {
+            demoAudio.pause();
+            playBtn.innerText = '▶';
+            playBtn.style.background = '#eaf7fc';
+            playBtn.style.color = '#0a1116';
+        } else {
+            demoAudio.play();
+            playBtn.innerText = '⏸';
+            playBtn.style.background = 'var(--accent)';
+            playBtn.style.color = '#000';
+            showToast("Memutar Demo Audio", "🎵");
+        }
+        isPlaying = !isPlaying;
+    });
+
+    demoAudio.addEventListener('ended', () => {
+        isPlaying = false;
+        playBtn.innerText = '▶';
+        playBtn.style.background = '#eaf7fc';
+        playBtn.style.color = '#0a1116';
+    });
+
+    // Toast System
+    function showToast(message, icon = "ℹ️") {
+        const container = document.getElementById('toastContainer');
+        const toast = document.createElement('div');
+        toast.className = 'toast';
+        toast.innerHTML = `<div class="toast-icon">${icon}</div> <div>${message}</div>`;
+        container.appendChild(toast);
+        
+        setTimeout(() => toast.classList.add('show'), 10);
+        setTimeout(() => {
+            toast.classList.remove('show');
+            setTimeout(() => toast.remove(), 400);
+        }, 3500);
+    }
+
+    // Setup & Init
+    document.addEventListener("DOMContentLoaded", () => {
+        renderPackages();
+        
+        // Scroll Reveal
+        const reveals = document.querySelectorAll(".reveal");
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("active");
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        reveals.forEach(el => observer.observe(el));
+        
+        // Ambient Light Tracker
+        const light = document.getElementById('ambientLight');
+        document.addEventListener('mousemove', (e) => {
+            light.style.left = e.clientX + 'px';
+            light.style.top = e.clientY + 'px';
+        });
+    });
+
 </script>
-
 </body>
 </html>
