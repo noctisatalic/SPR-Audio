@@ -2217,33 +2217,37 @@ footer .op-hours{ display:block; margin-top:4px; opacity:.75; font-size:11px; }
         }
     }
 
-    // Audio Playback Demo
+    // Audio Player
     const playBtn = document.getElementById('playBtn');
+    const bars = document.querySelectorAll('.bar');
     let isPlaying = false;
-    let demoAudio = new Audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'); // Dummy Audio
-    
-    playBtn.addEventListener('click', () => {
-        if(isPlaying) {
-            demoAudio.pause();
-            playBtn.innerText = '▶';
-            playBtn.style.background = '#eaf7fc';
-            playBtn.style.color = '#0a1116';
-        } else {
-            demoAudio.play();
-            playBtn.innerText = '⏸';
-            playBtn.style.background = 'var(--accent)';
-            playBtn.style.color = '#000';
-            showToast("Memutar Demo Audio", "🎵");
-        }
-        isPlaying = !isPlaying;
-    });
+    const audio = new Audio('demo-reel.mp3');
+    audio.loop = true;
 
-    demoAudio.addEventListener('ended', () => {
-        isPlaying = false;
-        playBtn.innerText = '▶';
-        playBtn.style.background = '#eaf7fc';
-        playBtn.style.color = '#0a1116';
-    });
+    if (playBtn) {
+        playBtn.addEventListener('click', () => {
+            if (!isPlaying) {
+                audio.play().then(() => {
+                    isPlaying = true;
+                    playBtn.innerHTML = 'Ⅱ';
+                    animateVisualizer();
+                    showToast("Memutar audio demo", "🎵");
+                }).catch(() => {
+                    showToast("Gagal memutar audio, file tidak ditemukan", "⚠️");
+                });
+            } else {
+                audio.pause();
+                isPlaying = false;
+                playBtn.innerHTML = '▶';
+            }
+        });
+    }
+
+    function animateVisualizer() {
+        if (!isPlaying) { bars.forEach(b => b.style.height = '5px'); return; }
+        bars.forEach(b => b.style.height = (Math.floor(Math.random() * 22) + 5) + 'px');
+        setTimeout(animateVisualizer, 100);
+    }
 
     // Toast System
     function showToast(message, icon = "ℹ️") {
