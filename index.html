@@ -1444,7 +1444,7 @@ footer .op-hours{ display:block; margin-top:4px; opacity:.75; font-size:11px; }
                         <div class="option-text"><strong>Sedang</strong><span>Angkut manual / Naik tangga lantai 2</span></div>
                         <div class="radio-indicator"></div>
                     </div>
-                    <div class="option-card" onclick="selectOption(event, 'groupAkses', 'valAkses', 350000, 'Ekstrem (Gang Sempit/Becek)')">
+                    <div class="option-card" onclick="selectOption(event, 'groupAkses', 'valAkses', 200000, 'Ekstrem (Gang Sempit/Becek)')">
                         <div class="option-text"><strong>Ekstrem</strong><span>Gang sempit / Tangga curam / Becek</span></div>
                         <div class="radio-indicator"></div>
                     </div>
@@ -1828,10 +1828,10 @@ footer .op-hours{ display:block; margin-top:4px; opacity:.75; font-size:11px; }
 <script>
     // --- Data Paket Existing SPR Audio ---
     const packagesData = [
-        { id: 1, badge: "Populer", name: "BASIC", price: 800000, spec: "1.000W Class", desc: "Cocok untuk intimate event, private party, dan seminar skala kecil.", equip: ["2x Top Speaker 15\"", "1x Subwoofer 18\"", "Mixer Digital 16 Ch", "2x Mic Wireless", "Kabel Instalasi & Stand", "1x Sound Engineer"] },
-        { id: 2, badge: "Best Value", name: "STANDARD", price: 1300000, spec: "3.000W Class", desc: "Sistem menengah untuk wedding reguler, gathering, dan akustik.", equip: ["4x Top Speaker 15\"", "2x Subwoofer 18\"", "Mixer Digital 16 Ch", "4x Mic Wireless", "Kabel Instalasi & Stand", "1x Sound Engineer", "1x Teknisi Loading"] },
-        { id: 3, badge: "Pro Grade", name: "PRO", price: 2500000, spec: "5.000W Class", desc: "Suara bertenaga untuk outdoor wedding, live band, dan medium event.", equip: ["4x Line Array Top", "4x Subwoofer 18\"", "2x Stage Monitor", "Mixer Digital 32 Ch", "Drum Mic Set", "Kabel Instalasi & Stand", "1x Sound Engineer", "2x Teknisi Loading"] },
-        { id: 4, badge: "Massive", name: "EVENT", price: 5500000, spec: "10.000W Class", desc: "Skala besar untuk festival, konser musik lokal, atau open air event.", equip: ["8x Line Array Top", "8x Subwoofer 18\"", "4x Stage Monitor", "Mixer Digital 32 Ch", "Full Mic Instrument Set", "Kabel Instalasi & Stand", "1x Sound Engineer", "3x Teknisi Loading"] }
+        { id: 1, badge: "Populer", name: "BASIC", price: 800000, spec: "1.000W Class", desc: "Cocok untuk intimate event, private party, dan seminar skala kecil.", equip: ["2x Top Speaker 15\"", "Mixer Digital 16 ch Behringer", "2x mic wireless", "Kabel Instalasi & Stand", "1x Sound Engineer"] },
+        { id: 2, badge: "Best Value", name: "STANDARD", price: 1300000, spec: "3.000W Class", desc: "Sistem menengah untuk wedding reguler, gathering, dan akustik.", equip: ["4x Top Speaker 15\"", "2x Subwoofer 18\"", "Mixer Digital 16 Ch Behringer", "2x Mic Wireless", "Kabel Instalasi & Stand", "1x Sound Engineer", "1x Teknisi Loading"] },
+        { id: 3, badge: "Pro Grade", name: "PRO", price: 2500000, spec: "5.000W Class", desc: "Suara bertenaga untuk outdoor wedding, live band, dan medium event.", equip: ["2x speaker double 15\" full range", "2x Subwoofer 18\"", "2x Speaker Monitor", "Mixer Digital 16 Ch Behringer", "2x Speaker Monitor", "10x Kabel Mic", "1x Sound Engineer", "2x Teknisi Loading"] },
+        { id: 4, badge: "Massive", name: "EVENT", price: 5500000, spec: "10.000W Class", desc: "Skala besar untuk festival, konser musik lokal, atau open air event.", equip: ["8x Line Array Top", "6x Subwoofer 18\"", "4x Speaker Monitor", "Mixer Digital 32 Ch", "Full Mic Instrument Set", "Kabel Instalasi & Stand", "1x Sound Engineer", "3x Teknisi Loading"] }
     ];
 
     let currentPriceSewa = packagesData[0].price;
